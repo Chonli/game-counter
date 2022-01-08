@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:game_counter/ui/home_page.dart';
+import 'package:game_counter/modules/games/view.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: HomePage(),
+      home: const GameView(),
     );
   }
 }
