@@ -1,9 +1,16 @@
-class Game {
-  Game({
-    required this.name,
-    required this.numberPalyer,
-  });
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:hive/hive.dart';
 
-  final String name;
-  final int numberPalyer;
+part 'game.freezed.dart';
+part 'game.g.dart';
+
+@freezed
+class Game with _$Game {
+  @HiveType(typeId: 1, adapterName: 'GameClassAdapter')
+  const factory Game({
+    @HiveField(1) required String name,
+    @HiveField(2) required int numberPalyer,
+  }) = _Game;
+
+  factory Game.fromJson(Map<String, dynamic> json) => _$GameFromJson(json);
 }

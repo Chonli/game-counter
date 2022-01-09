@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:game_counter/model/game.dart';
 import 'package:game_counter/modules/games/notifier.dart';
 import 'package:provider/provider.dart';
 
@@ -8,7 +9,7 @@ class GameView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => GameNotifier(),
+      create: (_) => GameNotifier(context.read),
       child: const _View(),
     );
   }
@@ -21,6 +22,8 @@ class _View extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final games = context.select<GameNotifier, Iterable<Game>>((n) => n.games);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Games'),
