@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:game_counter/model/game.dart';
 import 'package:game_counter/modules/games/notifier.dart';
 import 'package:provider/provider.dart';
 
@@ -20,13 +19,6 @@ class _View extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  Future<void> _addGame(BuildContext context) => showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return const _AddGameView();
-        },
-      );
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,37 +27,10 @@ class _View extends StatelessWidget {
       ),
       body: ListView(),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => _addGame(context),
+        onPressed: () => {},
         tooltip: 'Add Game',
         child: const Icon(Icons.add),
       ),
-    );
-  }
-}
-
-class _AddGameView extends StatefulWidget {
-  const _AddGameView({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  State<_AddGameView> createState() => _AddGameViewState();
-}
-
-class _AddGameViewState extends State<_AddGameView> {
-  @override
-  Widget build(BuildContext context) {
-    return SimpleDialog(
-      title: const Text('Ajouter un jeu'),
-      children: <Widget>[
-        ElevatedButton(
-          onPressed: () => context.read<GameNotifier>().addGame(Game(
-                name: 'test',
-                numberPalyer: 4,
-              )),
-          child: const Text('Creer'),
-        )
-      ],
     );
   }
 }
