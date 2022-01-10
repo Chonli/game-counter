@@ -1,16 +1,21 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
 
-part 'game.freezed.dart';
 part 'game.g.dart';
 
-@freezed
-class Game with _$Game {
-  @HiveType(typeId: 1, adapterName: 'GameClassAdapter')
-  const factory Game({
-    @HiveField(1) required String name,
-    @HiveField(2) required int numberPalyer,
-  }) = _Game;
+@HiveType(typeId: 1)
+class Game {
+  Game({
+    required this.name,
+    required this.numberPalyer,
+    required this.date,
+  });
 
-  factory Game.fromJson(Map<String, dynamic> json) => _$GameFromJson(json);
+  @HiveField(0)
+  String name;
+
+  @HiveField(1)
+  int numberPalyer;
+
+  @HiveField(2)
+  DateTime date;
 }

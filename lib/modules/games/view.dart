@@ -1,22 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:game_counter/core/router.dart';
 import 'package:game_counter/model/game.dart';
 import 'package:game_counter/modules/games/notifier.dart';
+import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class GameView extends StatelessWidget {
-  const GameView({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => GameNotifier(context.read),
-      child: const _View(),
-    );
-  }
-}
-
-class _View extends StatelessWidget {
-  const _View({
+  const GameView({
     Key? key,
   }) : super(key: key);
 
@@ -28,9 +19,33 @@ class _View extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Games'),
       ),
-      body: ListView(),
+      body: Center(
+        child: Expanded(
+          child: ListView.builder(
+            itemCount: games.length,
+            itemBuilder: (BuildContext context, int index) {
+              final game = games.elementAt(index);
+              final dateFormat = DateFormat.yMMMMd();
+              return ListTile(
+                title: Text(game.name),
+                subtitle: Text(dateFormat.format(game.date)),
+                // trailing: Row(
+                //   children: [
+                //     const Icon(
+                //       Icons.person,
+                //       size: 20,
+                //     ),
+                //     Text('${game.numberPalyer}'),
+                //   ],
+                // ),
+                onTap: () {},
+              );
+            },
+          ),
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => {},
+        onPressed: () => context.goNamed(AppRoutes.createGame.name),
         tooltip: 'Add Game',
         child: const Icon(Icons.add),
       ),

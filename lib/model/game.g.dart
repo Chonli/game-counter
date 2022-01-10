@@ -6,30 +6,33 @@ part of 'game.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class GameClassAdapter extends TypeAdapter<_$_Game> {
+class GameAdapter extends TypeAdapter<Game> {
   @override
   final int typeId = 1;
 
   @override
-  _$_Game read(BinaryReader reader) {
+  Game read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return _$_Game(
-      name: fields[1] as String,
-      numberPalyer: fields[2] as int,
+    return Game(
+      name: fields[0] as String,
+      numberPalyer: fields[1] as int,
+      date: fields[2] as DateTime,
     );
   }
 
   @override
-  void write(BinaryWriter writer, _$_Game obj) {
+  void write(BinaryWriter writer, Game obj) {
     writer
-      ..writeByte(2)
-      ..writeByte(1)
+      ..writeByte(3)
+      ..writeByte(0)
       ..write(obj.name)
+      ..writeByte(1)
+      ..write(obj.numberPalyer)
       ..writeByte(2)
-      ..write(obj.numberPalyer);
+      ..write(obj.date);
   }
 
   @override
@@ -38,21 +41,7 @@ class GameClassAdapter extends TypeAdapter<_$_Game> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is GameClassAdapter &&
+      other is GameAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
-
-// **************************************************************************
-// JsonSerializableGenerator
-// **************************************************************************
-
-_$_Game _$$_GameFromJson(Map<String, dynamic> json) => _$_Game(
-      name: json['name'] as String,
-      numberPalyer: json['numberPalyer'] as int,
-    );
-
-Map<String, dynamic> _$$_GameToJson(_$_Game instance) => <String, dynamic>{
-      'name': instance.name,
-      'numberPalyer': instance.numberPalyer,
-    };
