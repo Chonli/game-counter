@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:game_counter/core/router.dart';
+import 'package:game_counter/core/utils/app_spacing.dart';
 import 'package:game_counter/model/game.dart';
 import 'package:game_counter/modules/games/notifier.dart';
 import 'package:go_router/go_router.dart';
@@ -13,14 +14,17 @@ class GameView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final games = context.select<GameNotifier, Iterable<Game>>((n) => n.games);
+    final games = context.select<GameNotifier, Iterable<Game>>(
+      (n) => n.games,
+    );
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Games'),
       ),
-      body: Center(
-        child: Expanded(
+      body: Container(
+        padding: const EdgeInsets.all(AppSpacing.m),
+        child: Center(
           child: ListView.builder(
             itemCount: games.length,
             itemBuilder: (BuildContext context, int index) {
@@ -29,15 +33,17 @@ class GameView extends StatelessWidget {
               return ListTile(
                 title: Text(game.name),
                 subtitle: Text(dateFormat.format(game.date)),
-                // trailing: Row(
-                //   children: [
-                //     const Icon(
-                //       Icons.person,
-                //       size: 20,
-                //     ),
-                //     Text('${game.numberPalyer}'),
-                //   ],
-                // ),
+                trailing: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(
+                      Icons.person,
+                      size: 20,
+                    ),
+                    Text('${game.numberPalyer}'),
+                  ],
+                ),
                 onTap: () {},
               );
             },
@@ -46,7 +52,7 @@ class GameView extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => context.goNamed(AppRoutes.createGame.name),
-        tooltip: 'Add Game',
+        tooltip: 'Ajout jeu',
         child: const Icon(Icons.add),
       ),
     );

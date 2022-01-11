@@ -1,3 +1,4 @@
+import 'package:game_counter/model/player.dart';
 import 'package:hive/hive.dart';
 
 part 'game.g.dart';
@@ -6,7 +7,7 @@ part 'game.g.dart';
 class Game {
   Game({
     required this.name,
-    required this.numberPalyer,
+    required this.players,
     required this.date,
   });
 
@@ -14,8 +15,10 @@ class Game {
   String name;
 
   @HiveField(1)
-  int numberPalyer;
+  List<Player> players;
 
   @HiveField(2)
   DateTime date;
+
+  int get numberPalyer => players.length;
 }

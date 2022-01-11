@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:game_counter/core/ui/app_setting_entry.dart';
+import 'package:game_counter/core/ui/app_text_field.dart';
+import 'package:game_counter/core/utils/app_gap.dart';
+import 'package:game_counter/core/utils/app_spacing.dart';
 import 'package:game_counter/model/game.dart';
+import 'package:game_counter/model/player.dart';
+import 'package:game_counter/model/score.dart';
 import 'package:game_counter/modules/games/notifier.dart';
-import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-final _numeric = RegExp(r'^([0-9]*)$');
+//final _numeric = RegExp(r'^([0-9]*)$');
 
 class AddGameView extends StatefulWidget {
   const AddGameView({
@@ -22,16 +25,35 @@ class AddGameViewState extends State<AddGameView> {
   final _formKey = GlobalKey<FormState>();
 
   final nameFocusNode = FocusNode();
-  final numberFocusNode = FocusNode();
   final nameTextEditingController = TextEditingController();
-  final numberTextEditingController = TextEditingController();
+  final _playerFields = <TextEditingController, AppTextField>{};
+
+  void _addField() {
+    if (_playerFields.length < 10) {
+      final controller = TextEditingController();
+      final field = AppTextField(
+        controller: controller,
+      );
+      setState(() {
+        _playerFields[controller] = field;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _addField();
+    _addField();
+  }
 
   @override
   void dispose() {
     nameFocusNode.dispose();
-    numberFocusNode.dispose();
     nameTextEditingController.dispose();
-    numberTextEditingController.dispose();
+    for (final c in _playerFields.keys) {
+      c.dispose();
+    }
     super.dispose();
   }
 
@@ -42,7 +64,7 @@ class AddGameViewState extends State<AddGameView> {
         title: const Text('Creation jeu'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(12),
+        padding: const EdgeInsets.all(AppSpacing.m),
         child: Form(
           key: _formKey,
           child: Column(
@@ -50,7 +72,7 @@ class AddGameViewState extends State<AddGameView> {
             children: [
               AppSettingEntry(
                 label: 'Nom',
-                child: TextFormField(
+                child: AppTextField(
                   controller: nameTextEditingController,
                   onChanged: (value) => setState(() {}),
                   validator: (value) {
@@ -59,41 +81,36 @@ class AddGameViewState extends State<AddGameView> {
                     }
                     return 'Entrer un nom';
                   },
-                  focusNode: nameFocusNode,
                 ),
               ),
-              const Gap(12),
+              AppGap.m,
               AppSettingEntry(
-                label: 'Nombres de joeurs',
-                child: TextFormField(
-                  controller: numberTextEditingController,
-                  onChanged: (value) => setState(() {}),
-                  validator: (value) {
-                    if (value != null && _numeric.hasMatch(value)) {
-                      final numValue = int.tryParse(value);
-                      if (numValue != null && numValue >= 1 && numValue <= 10) {
-                        return null;
-                      }
-                    }
-                    return 'Entrer un nombre entre 1 et 10';
-                  },
-                  inputFormatters: [
-                    FilteringTextInputFormatter.digitsOnly,
-                  ],
-                  keyboardType: TextInputType.number,
-                  focusNode: numberFocusNode,
+                  label: 'Liste des joueurs',
+                  child: Column(
+                    children: [
+                      ..._playerFields.values,
+                    ],
+                  )),
+              InkWell(
+                onTap: () => _addField(),
+                child: const Text(
+                  'Ajouter un joueur',
                 ),
               ),
-              const Gap(12),
+              AppGap.m,
               ElevatedButton(
                 onPressed: (_formKey.currentState?.validate() ?? false)
                     ? () {
                         context.read<GameNotifier>().addGame(
                               Game(
                                 name: nameTextEditingController.value.text,
-                                numberPalyer: int.parse(
-                                  numberTextEditingController.value.text,
-                                ),
+                                players: _playerFields.entries
+                                    .where((e) => e.key.text.isNotEmpty)
+                                    .map<Player>((e) => Player(
+                                          name: e.key.text,
+                                          score: Score(),
+                                        ))
+                                    .toList(),
                                 date: DateTime.now(),
                               ),
                             );

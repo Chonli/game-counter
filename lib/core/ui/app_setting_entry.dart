@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
+import 'package:game_counter/core/utils/app_gap.dart';
 
 class AppSettingEntry extends StatelessWidget {
   const AppSettingEntry({
@@ -17,7 +17,7 @@ class AppSettingEntry extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(label),
-        const Gap(8),
+        AppGap.s,
         if (child != null) child!,
       ],
     );
