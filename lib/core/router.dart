@@ -34,6 +34,7 @@ class AppRoutes {
   static const home = AppRoutes._('home', '/');
   static const games = AppRoutes._('games', '/games');
   static const createGame = AppRoutes._('create-game', 'create-game');
+  static const gameDetails = AppRoutes._('game-details', 'game-details');
 
   final String name;
   final String path;

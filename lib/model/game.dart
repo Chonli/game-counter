@@ -21,4 +21,6 @@ class Game {
   DateTime date;
 
   int get numberPalyer => players.length;
+
+  int get numberTurn => players.first.score.turns.length;
 }
