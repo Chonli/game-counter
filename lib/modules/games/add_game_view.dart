@@ -9,6 +9,7 @@ import 'package:game_counter/model/score.dart';
 import 'package:game_counter/modules/games/notifier.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
 
 //final _numeric = RegExp(r'^([0-9]*)$');
 
@@ -101,12 +102,15 @@ class AddGameViewState extends State<AddGameView> {
               ElevatedButton(
                 onPressed: (_formKey.currentState?.validate() ?? false)
                     ? () {
+                        const uuid = Uuid();
                         context.read<GameNotifier>().addGame(
                               Game(
+                                id: uuid.v4(),
                                 name: nameTextEditingController.value.text,
                                 players: _playerFields.entries
                                     .where((e) => e.key.text.isNotEmpty)
                                     .map<Player>((e) => Player(
+                                          id: uuid.v4(),
                                           name: e.key.text,
                                           score: Score(),
                                         ))

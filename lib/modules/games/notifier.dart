@@ -22,7 +22,7 @@ class GameNotifier extends ChangeNotifier {
 
   void addGame(Game game) {
     if (!_games.contains(game)) {
-      _repository.createGame(game);
+      _repository.createOrUpdateGame(game);
       games = _repository.getGames();
     }
   }

@@ -44,7 +44,10 @@ class GameView extends StatelessWidget {
                     Text('${game.numberPalyer}'),
                   ],
                 ),
-                onTap: () {},
+                onTap: () => context.goNamed(
+                  AppRoutes.gameDetails.name,
+                  extra: game,
+                ),
               );
             },
           ),

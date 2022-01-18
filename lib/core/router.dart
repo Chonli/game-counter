@@ -1,3 +1,5 @@
+import 'package:game_counter/model/game.dart';
+import 'package:game_counter/modules/game_details/view.dart';
 import 'package:game_counter/modules/games/add_game_view.dart';
 import 'package:game_counter/modules/games/view.dart';
 import 'package:go_router/go_router.dart';
@@ -22,6 +24,13 @@ class AppRouter extends GoRouter {
                   name: AppRoutes.createGame.name,
                   path: AppRoutes.createGame.path,
                   builder: (_, __) => const AddGameView(),
+                ),
+                GoRoute(
+                  name: AppRoutes.gameDetails.name,
+                  path: AppRoutes.gameDetails.path,
+                  builder: (context, state) => GameDetailsView(
+                    game: state.extra! as Game,
+                  ),
                 ),
               ],
             ),

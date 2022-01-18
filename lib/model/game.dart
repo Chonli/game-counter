@@ -6,18 +6,22 @@ part 'game.g.dart';
 @HiveType(typeId: 1)
 class Game {
   Game({
+    required this.id,
     required this.name,
     required this.players,
     required this.date,
   });
 
   @HiveField(0)
-  String name;
+  String id;
 
   @HiveField(1)
-  List<Player> players;
+  String name;
 
   @HiveField(2)
+  List<Player> players;
+
+  @HiveField(3)
   DateTime date;
 
   int get numberPalyer => players.length;

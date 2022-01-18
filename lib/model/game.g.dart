@@ -17,21 +17,24 @@ class GameAdapter extends TypeAdapter<Game> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Game(
-      name: fields[0] as String,
-      players: (fields[1] as List).cast<Player>(),
-      date: fields[2] as DateTime,
+      id: fields[0] as String,
+      name: fields[1] as String,
+      players: (fields[2] as List).cast<Player>(),
+      date: fields[3] as DateTime,
     );
   }
 
   @override
   void write(BinaryWriter writer, Game obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
-      ..write(obj.name)
+      ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.players)
+      ..write(obj.name)
       ..writeByte(2)
+      ..write(obj.players)
+      ..writeByte(3)
       ..write(obj.date);
   }
 

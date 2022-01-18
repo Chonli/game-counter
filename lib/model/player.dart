@@ -6,13 +6,17 @@ part 'player.g.dart';
 @HiveType(typeId: 2)
 class Player {
   Player({
+    required this.id,
     required this.name,
     required this.score,
   });
 
   @HiveField(0)
-  String name;
+  String id;
 
   @HiveField(1)
+  String name;
+
+  @HiveField(2)
   Score score;
 }

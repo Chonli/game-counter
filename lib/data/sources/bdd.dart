@@ -20,13 +20,15 @@ class HiveBdd {
 
   late Box<Game> gamebox;
 
-  void createGame(Game game) {
-    if (!gamebox.values.contains(game)) {
-      gamebox.add(game);
-    }
+  void createOrUpdateGame(Game game) {
+    gamebox.put(game.id, game);
   }
 
   Iterable<Game> getGames() {
     return gamebox.values;
+  }
+
+  Game? getGame(String id) {
+    return gamebox.get(id);
   }
 }
