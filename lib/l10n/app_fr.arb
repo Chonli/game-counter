@@ -1,0 +1,11 @@
+{
+  "add_game": "Ajouter une partie",
+  "add_game_name_field": "Nom de la partie",
+  "add_game_title": "Ajouter une nouvelle partie",
+  "error_loading_games": "Erreur lors du chargement des parties.",
+  "game": "Partie",
+  "home_title": "Compteur de Score",
+  "no_games": "Aucune partie disponible.",
+  "player": "Joueur",
+  "score": "Score"
+}

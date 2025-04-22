@@ -1,4 +1,4 @@
-package com.example.score_counter
+package com.chonli.score_counter
 
 import io.flutter.embedding.android.FlutterActivity
 

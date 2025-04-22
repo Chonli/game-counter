@@ -1,0 +1,11 @@
+{
+  "add_game": "Add Game",
+  "add_game_name_field": "Game Name",
+  "add_game_title": "Add New Game",
+  "error_loading_games": "Error loading games.",
+  "game": "Game",
+  "home_title": "Score Counter",
+  "no_games": "No games available.",
+  "player": "Player",
+  "score": "Score"
+}
