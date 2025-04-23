@@ -78,12 +78,15 @@ class AddGamePage extends HookConsumerWidget {
                       players:
                           players.value
                               .map(
-                                (player) =>
-                                    Player(name: player, color: Colors.blue),
+                                (player) => Player(
+                                  id: 0,
+                                  name: player,
+                                  color: Colors.blue,
+                                ),
                               )
                               .toList(),
                     );
-                    ref.read(gamesProvider.notifier).addGame(newGame);
+                    ref.read(gamesProvider.notifier).createGame(newGame);
 
                     context.pop();
                   }

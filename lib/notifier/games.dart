@@ -10,7 +10,7 @@ class Games extends _$Games {
     return [];
   }
 
-  void addGame(Game game) {
+  void createGame(Game game) {
     final oldValue = state.value ?? [];
 
     state = AsyncData([...oldValue, game]);

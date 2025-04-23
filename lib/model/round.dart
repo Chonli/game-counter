@@ -4,8 +4,9 @@ part 'round.mapper.dart';
 
 @MappableClass() // no need to set caseStyle here
 class Round with RoundMappable {
-  Round(this.index, this.score);
+  Round({required this.id, required this.index, required this.playerByScores});
 
+  int id;
   int index;
-  int score;
+  Map<int, int> playerByScores;
 }

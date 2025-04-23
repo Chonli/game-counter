@@ -6,9 +6,9 @@ part 'game.mapper.dart';
 
 @MappableClass()
 class Game with GameMappable {
+  int id;
   String name;
   DateTime createDate;
-  int id;
   List<Player> players;
   List<Round> rounds;
 

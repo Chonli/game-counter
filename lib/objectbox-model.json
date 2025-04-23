@@ -1,0 +1,108 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "4:2971194582392692577",
+      "lastPropertyId": "4:8063499548271766326",
+      "name": "PlayerEntity",
+      "properties": [
+        {
+          "id": "1:4848997874296738527",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:2864229011932638368",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "3:1643977456355976676",
+          "name": "score",
+          "type": 6
+        },
+        {
+          "id": "4:8063499548271766326",
+          "name": "color",
+          "type": 6
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "5:1858635641791322862",
+      "lastPropertyId": "6:1805177125668867032",
+      "name": "RoundEntity",
+      "properties": [
+        {
+          "id": "1:3814532658651776898",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "6:1805177125668867032",
+          "name": "index",
+          "type": 6
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "6:3150320265497678194",
+      "lastPropertyId": "3:8605340114923631938",
+      "name": "GameEntity",
+      "properties": [
+        {
+          "id": "1:8804196349143853855",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:424138405055645625",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "3:8605340114923631938",
+          "name": "createDate",
+          "type": 10
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "6:3150320265497678194",
+  "lastIndexId": "0:0",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
+  "retiredEntityUids": [
+    8816259552723938980,
+    6881748196356932770,
+    1419381352289660982
+  ],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [
+    2602513995602490272,
+    8198908648596655920,
+    866044339508809125,
+    5307349344244511266,
+    1039161536597161031,
+    7024354633358351193,
+    1897326301637448573,
+    1022947341105917299,
+    4270376878298114339,
+    6782487397448865989,
+    9105575387370467626,
+    9170334553884357958,
+    4817348994218527693
+  ],
+  "retiredRelationUids": [],
+  "version": 1
+}
