@@ -18,6 +18,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get add_game_title => 'Ajouter une nouvelle partie';
 
   @override
+  String get add_players => 'Ajouter des joueurs';
+
+  @override
   String get error_loading_games => 'Erreur lors du chargement des parties.';
 
   @override
@@ -27,11 +30,35 @@ class AppLocalizationsFr extends AppLocalizations {
   String get home_title => 'Compteur de Score';
 
   @override
+  String get lang_english => 'Anglais';
+
+  @override
+  String get lang_french => 'Français';
+
+  @override
   String get no_games => 'Aucune partie disponible.';
 
   @override
   String get player => 'Joueur';
 
   @override
+  String get preferences_language => 'Langue';
+
+  @override
+  String get preferences_theme => 'Thème';
+
+  @override
+  String get preferences_title => 'Préférences';
+
+  @override
   String get score => 'Score';
+
+  @override
+  String get theme_mode_dark => 'Sombre';
+
+  @override
+  String get theme_mode_light => 'Clair';
+
+  @override
+  String get theme_mode_system => 'Système';
 }

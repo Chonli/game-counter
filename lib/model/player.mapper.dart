@@ -24,15 +24,22 @@ class PlayerMapper extends ClassMapperBase<Player> {
   static const Field<Player, String> _f$name = Field('name', _$name);
   static Color _$color(Player v) => v.color;
   static const Field<Player, Color> _f$color = Field('color', _$color);
+  static int _$score(Player v) => v.score;
+  static const Field<Player, int> _f$score =
+      Field('score', _$score, opt: true, def: 0);
 
   @override
   final MappableFields<Player> fields = const {
     #name: _f$name,
     #color: _f$color,
+    #score: _f$score,
   };
 
   static Player _instantiate(DecodingData data) {
-    return Player(data.dec(_f$name), data.dec(_f$color));
+    return Player(
+        name: data.dec(_f$name),
+        color: data.dec(_f$color),
+        score: data.dec(_f$score));
   }
 
   @override
@@ -81,7 +88,7 @@ extension PlayerValueCopy<$R, $Out> on ObjectCopyWith<$R, Player, $Out> {
 
 abstract class PlayerCopyWith<$R, $In extends Player, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
-  $R call({String? name, Color? color});
+  $R call({String? name, Color? color, int? score});
   PlayerCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -92,11 +99,17 @@ class _PlayerCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Player, $Out>
   @override
   late final ClassMapperBase<Player> $mapper = PlayerMapper.ensureInitialized();
   @override
-  $R call({String? name, Color? color}) => $apply(FieldCopyWithData(
-      {if (name != null) #name: name, if (color != null) #color: color}));
+  $R call({String? name, Color? color, int? score}) =>
+      $apply(FieldCopyWithData({
+        if (name != null) #name: name,
+        if (color != null) #color: color,
+        if (score != null) #score: score
+      }));
   @override
   Player $make(CopyWithData data) => Player(
-      data.get(#name, or: $value.name), data.get(#color, or: $value.color));
+      name: data.get(#name, or: $value.name),
+      color: data.get(#color, or: $value.color),
+      score: data.get(#score, or: $value.score));
 
   @override
   PlayerCopyWith<$R2, Player, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>

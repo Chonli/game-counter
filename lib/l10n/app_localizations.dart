@@ -113,6 +113,12 @@ abstract class AppLocalizations {
   /// **'Add New Game'**
   String get add_game_title;
 
+  /// No description provided for @add_players.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Players'**
+  String get add_players;
+
   /// No description provided for @error_loading_games.
   ///
   /// In en, this message translates to:
@@ -131,6 +137,18 @@ abstract class AppLocalizations {
   /// **'Score Counter'**
   String get home_title;
 
+  /// No description provided for @lang_english.
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get lang_english;
+
+  /// No description provided for @lang_french.
+  ///
+  /// In en, this message translates to:
+  /// **'French'**
+  String get lang_french;
+
   /// No description provided for @no_games.
   ///
   /// In en, this message translates to:
@@ -143,11 +161,47 @@ abstract class AppLocalizations {
   /// **'Player'**
   String get player;
 
+  /// No description provided for @preferences_language.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get preferences_language;
+
+  /// No description provided for @preferences_theme.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme'**
+  String get preferences_theme;
+
+  /// No description provided for @preferences_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Preferences'**
+  String get preferences_title;
+
   /// No description provided for @score.
   ///
   /// In en, this message translates to:
   /// **'Score'**
   String get score;
+
+  /// No description provided for @theme_mode_dark.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark'**
+  String get theme_mode_dark;
+
+  /// No description provided for @theme_mode_light.
+  ///
+  /// In en, this message translates to:
+  /// **'Light'**
+  String get theme_mode_light;
+
+  /// No description provided for @theme_mode_system.
+  ///
+  /// In en, this message translates to:
+  /// **'System'**
+  String get theme_mode_system;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

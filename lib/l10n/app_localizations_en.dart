@@ -18,6 +18,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get add_game_title => 'Add New Game';
 
   @override
+  String get add_players => 'Add Players';
+
+  @override
   String get error_loading_games => 'Error loading games.';
 
   @override
@@ -27,11 +30,35 @@ class AppLocalizationsEn extends AppLocalizations {
   String get home_title => 'Score Counter';
 
   @override
+  String get lang_english => 'English';
+
+  @override
+  String get lang_french => 'French';
+
+  @override
   String get no_games => 'No games available.';
 
   @override
   String get player => 'Player';
 
   @override
+  String get preferences_language => 'Language';
+
+  @override
+  String get preferences_theme => 'Theme';
+
+  @override
+  String get preferences_title => 'Preferences';
+
+  @override
   String get score => 'Score';
+
+  @override
+  String get theme_mode_dark => 'Dark';
+
+  @override
+  String get theme_mode_light => 'Light';
+
+  @override
+  String get theme_mode_system => 'System';
 }

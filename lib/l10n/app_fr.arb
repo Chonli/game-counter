@@ -1,11 +1,21 @@
 {
+  "@@locale": "fr",
   "add_game": "Ajouter une partie",
   "add_game_name_field": "Nom de la partie",
   "add_game_title": "Ajouter une nouvelle partie",
+  "add_players": "Ajouter des joueurs",
   "error_loading_games": "Erreur lors du chargement des parties.",
   "game": "Partie",
   "home_title": "Compteur de Score",
+  "lang_english": "Anglais",
+  "lang_french": "Français",
   "no_games": "Aucune partie disponible.",
   "player": "Joueur",
-  "score": "Score"
+  "preferences_language": "Langue",
+  "preferences_theme": "Thème",
+  "preferences_title": "Préférences",
+  "score": "Score",
+  "theme_mode_dark": "Sombre",
+  "theme_mode_light": "Clair",
+  "theme_mode_system": "Système"
 }

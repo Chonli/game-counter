@@ -1,11 +1,21 @@
 {
+  "@@locale": "en",
   "add_game": "Add Game",
   "add_game_name_field": "Game Name",
   "add_game_title": "Add New Game",
+  "add_players": "Add Players",
   "error_loading_games": "Error loading games.",
   "game": "Game",
   "home_title": "Score Counter",
+  "lang_english": "English",
+  "lang_french": "French",
   "no_games": "No games available.",
   "player": "Player",
-  "score": "Score"
+  "preferences_language": "Language",
+  "preferences_theme": "Theme",
+  "preferences_title": "Preferences",
+  "score": "Score",
+  "theme_mode_dark": "Dark",
+  "theme_mode_light": "Light",
+  "theme_mode_system": "System"
 }
