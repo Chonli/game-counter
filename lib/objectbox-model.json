@@ -20,11 +20,6 @@
           "type": 9
         },
         {
-          "id": "3:1643977456355976676",
-          "name": "score",
-          "type": 6
-        },
-        {
           "id": "4:8063499548271766326",
           "name": "color",
           "type": 6
@@ -73,12 +68,23 @@
           "type": 10
         }
       ],
-      "relations": []
+      "relations": [
+        {
+          "id": "1:6128079963374975692",
+          "name": "players",
+          "targetId": "4:2971194582392692577"
+        },
+        {
+          "id": "2:5154039330368770140",
+          "name": "rounds",
+          "targetId": "5:1858635641791322862"
+        }
+      ]
     }
   ],
   "lastEntityId": "6:3150320265497678194",
   "lastIndexId": "0:0",
-  "lastRelationId": "0:0",
+  "lastRelationId": "2:5154039330368770140",
   "lastSequenceId": "0:0",
   "modelVersion": 5,
   "modelVersionParserMinimum": 5,
@@ -101,7 +107,8 @@
     6782487397448865989,
     9105575387370467626,
     9170334553884357958,
-    4817348994218527693
+    4817348994218527693,
+    1643977456355976676
   ],
   "retiredRelationUids": [],
   "version": 1

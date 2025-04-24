@@ -18,20 +18,11 @@ class GamesRepository {
 
   final GamesDao dao;
 
-  List<Game> getGames() {
-    return dao.getGames().map((e) => e.toModel()).toList();
-  }
+  List<Game> getGames() => dao.getGames().map((e) => e.toModel()).toList();
 
-  int addGame(Game game) {
-    return 0;
-    // return dao.addGame(game);
-  }
+  int createGame(Game game) => dao.addGame(game.toEntity());
 
-  void removeGame(int id) {
-    dao.removeGame(id);
-  }
+  void removeGame(int id) => dao.removeGame(id);
 
-  Game getGame(int id) {
-    return dao.getGame(id).toModel();
-  }
+  Game? getGame(int id) => dao.getGame(id)?.toModel();
 }

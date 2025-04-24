@@ -27,7 +27,12 @@ GoRouter appRouter(Ref ref) {
           GoRoute(
             path: AppRoute.activeGame.path,
             name: AppRoute.activeGame.name,
-            builder: (context, state) => const ActiveGamePage(),
+            builder:
+                (context, state) => ActiveGamePage(
+                  gameId:
+                      int.tryParse(state.pathParameters['gameId'] ?? '-1') ??
+                      -1,
+                ),
             routes: [
               GoRoute(
                 path: AppRoute.addRound.path,

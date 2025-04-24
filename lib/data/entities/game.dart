@@ -9,16 +9,10 @@ class GameEntity {
   int id;
   String name;
   DateTime createDate;
-  List<PlayerEntity> players;
-  List<RoundEntity> rounds;
+  final players = ToMany<PlayerEntity>();
+  final rounds = ToMany<RoundEntity>();
 
-  GameEntity({
-    this.id = 0,
-    required this.name,
-    required this.createDate,
-    this.players = const [],
-    this.rounds = const [],
-  });
+  GameEntity({this.id = 0, required this.name, required this.createDate});
 }
 
 extension GameEntityExtension on GameEntity {

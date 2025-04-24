@@ -19,8 +19,8 @@ class GamesDao {
 
   final Box<GameEntity> box;
 
-  GameEntity getGame(int id) {
-    return box.get(id)!;
+  GameEntity? getGame(int id) {
+    return box.get(id);
   }
 
   List<GameEntity> getGames() {
@@ -29,6 +29,10 @@ class GamesDao {
 
   int addGame(GameEntity game) {
     return box.put(game);
+  }
+
+  int updateGame(GameEntity game) {
+    return box.put(game, mode: PutMode.update);
   }
 
   void removeGame(int id) {

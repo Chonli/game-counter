@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:score_counter/core/widgets/app_scaffold.dart';
 import 'package:score_counter/l10n/l10n.dart';
 import 'package:score_counter/notifier/games.dart';
 import 'package:score_counter/router/app_route.dart';
@@ -12,19 +13,16 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
 
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(l10n.home_title),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () {
-              context.pushNamed(AppRoute.preferences.name);
-            },
-          ),
-        ],
-      ),
+    return AppScaffold(
+      title: l10n.home_title,
+      actions: [
+        IconButton(
+          icon: const Icon(Icons.settings),
+          onPressed: () {
+            context.pushNamed(AppRoute.preferences.name);
+          },
+        ),
+      ],
       body: Consumer(
         builder: (context, ref, _) {
           final gamesAsyncValue = ref.watch(gamesProvider);
@@ -42,6 +40,12 @@ class MyHomePage extends StatelessWidget {
                   return ListTile(
                     title: Text(game.name),
                     subtitle: Text(game.createDate.toString()),
+                    onTap: () {
+                      context.pushNamed(
+                        AppRoute.activeGame.name,
+                        pathParameters: {'gameId': game.id.toString()},
+                      );
+                    },
                   );
                 },
               );

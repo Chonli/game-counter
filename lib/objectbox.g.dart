@@ -40,12 +40,6 @@ final _entities = <obx_int.ModelEntity>[
         flags: 0,
       ),
       obx_int.ModelProperty(
-        id: const obx_int.IdUid(3, 1643977456355976676),
-        name: 'score',
-        type: 6,
-        flags: 0,
-      ),
-      obx_int.ModelProperty(
         id: const obx_int.IdUid(4, 8063499548271766326),
         name: 'color',
         type: 6,
@@ -102,7 +96,18 @@ final _entities = <obx_int.ModelEntity>[
         flags: 0,
       ),
     ],
-    relations: <obx_int.ModelRelation>[],
+    relations: <obx_int.ModelRelation>[
+      obx_int.ModelRelation(
+        id: const obx_int.IdUid(1, 6128079963374975692),
+        name: 'players',
+        targetId: const obx_int.IdUid(4, 2971194582392692577),
+      ),
+      obx_int.ModelRelation(
+        id: const obx_int.IdUid(2, 5154039330368770140),
+        name: 'rounds',
+        targetId: const obx_int.IdUid(5, 1858635641791322862),
+      ),
+    ],
     backlinks: <obx_int.ModelBacklink>[],
   ),
 ];
@@ -147,7 +152,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
     entities: _entities,
     lastEntityId: const obx_int.IdUid(6, 3150320265497678194),
     lastIndexId: const obx_int.IdUid(0, 0),
-    lastRelationId: const obx_int.IdUid(0, 0),
+    lastRelationId: const obx_int.IdUid(2, 5154039330368770140),
     lastSequenceId: const obx_int.IdUid(0, 0),
     retiredEntityUids: const [
       8816259552723938980,
@@ -169,6 +174,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
       9105575387370467626,
       9170334553884357958,
       4817348994218527693,
+      1643977456355976676,
     ],
     retiredRelationUids: const [],
     modelVersion: 5,
@@ -190,7 +196,6 @@ obx_int.ModelDefinition getObjectBoxModel() {
         fbb.startTable(5);
         fbb.addInt64(0, object.id);
         fbb.addOffset(1, nameOffset);
-        fbb.addInt64(2, object.score);
         fbb.addInt64(3, object.color);
         fbb.finish(fbb.endTable());
         return object.id;
@@ -213,17 +218,10 @@ obx_int.ModelDefinition getObjectBoxModel() {
           10,
           0,
         );
-        final scoreParam = const fb.Int64Reader().vTableGet(
-          buffer,
-          rootOffset,
-          8,
-          0,
-        );
         final object = PlayerEntity(
           id: idParam,
           name: nameParam,
           color: colorParam,
-          score: scoreParam,
         );
 
         return object;
@@ -267,7 +265,11 @@ obx_int.ModelDefinition getObjectBoxModel() {
     GameEntity: obx_int.EntityDefinition<GameEntity>(
       model: _entities[2],
       toOneRelations: (GameEntity object) => [],
-      toManyRelations: (GameEntity object) => {},
+      toManyRelations:
+          (GameEntity object) => {
+            obx_int.RelInfo<GameEntity>.toMany(1, object.id): object.players,
+            obx_int.RelInfo<GameEntity>.toMany(2, object.id): object.rounds,
+          },
       getId: (GameEntity object) => object.id,
       setId: (GameEntity object, int id) {
         object.id = id;
@@ -301,7 +303,16 @@ obx_int.ModelDefinition getObjectBoxModel() {
           name: nameParam,
           createDate: createDateParam,
         );
-
+        obx_int.InternalToManyAccess.setRelInfo<GameEntity>(
+          object.players,
+          store,
+          obx_int.RelInfo<GameEntity>.toMany(1, object.id),
+        );
+        obx_int.InternalToManyAccess.setRelInfo<GameEntity>(
+          object.rounds,
+          store,
+          obx_int.RelInfo<GameEntity>.toMany(2, object.id),
+        );
         return object;
       },
     ),
@@ -322,14 +333,9 @@ class PlayerEntity_ {
     _entities[0].properties[1],
   );
 
-  /// See [PlayerEntity.score].
-  static final score = obx.QueryIntegerProperty<PlayerEntity>(
-    _entities[0].properties[2],
-  );
-
   /// See [PlayerEntity.color].
   static final color = obx.QueryIntegerProperty<PlayerEntity>(
-    _entities[0].properties[3],
+    _entities[0].properties[2],
   );
 }
 
@@ -361,5 +367,15 @@ class GameEntity_ {
   /// See [GameEntity.createDate].
   static final createDate = obx.QueryDateProperty<GameEntity>(
     _entities[2].properties[2],
+  );
+
+  /// see [GameEntity.players]
+  static final players = obx.QueryRelationToMany<GameEntity, PlayerEntity>(
+    _entities[2].relations[0],
+  );
+
+  /// see [GameEntity.rounds]
+  static final rounds = obx.QueryRelationToMany<GameEntity, RoundEntity>(
+    _entities[2].relations[1],
   );
 }

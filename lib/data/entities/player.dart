@@ -8,19 +8,13 @@ class PlayerEntity {
   @Id()
   int id;
   String name;
-  int score;
   int color;
 
-  PlayerEntity({
-    this.id = 0,
-    required this.name,
-    required this.color,
-    this.score = 0,
-  });
+  PlayerEntity({this.id = 0, required this.name, required this.color});
 }
 
 extension PlayerEntityExtension on PlayerEntity {
   Player toModel() {
-    return Player(id: id, name: name, color: Color(color), score: score);
+    return Player(id: id, name: name, color: Color(color));
   }
 }
