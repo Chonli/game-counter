@@ -16,4 +16,8 @@ extension RoundExtension on Round {
   RoundEntity toEntity() {
     return RoundEntity(id: id, index: index, playerByScores: playerByScores);
   }
+
+  void addScore(int playerId, int score) {
+    playerByScores[playerId] = score + (playerByScores[playerId] ?? 0);
+  }
 }

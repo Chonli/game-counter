@@ -28,9 +28,13 @@ class ActiveGamePage extends HookConsumerWidget {
           _ => const Center(child: CircularProgressIndicator()),
         },
       ),
+
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          context.pushNamed(AppRoute.addRound.name);
+          context.pushNamed(
+            AppRoute.addRound.name,
+            pathParameters: {'gameId': gameId.toString(), 'roundId': '-1'},
+          );
         },
         child: const Icon(Icons.add),
       ),

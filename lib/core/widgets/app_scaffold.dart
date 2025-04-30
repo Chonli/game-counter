@@ -8,11 +8,13 @@ class AppScaffold extends StatelessWidget {
     this.actions,
     required this.body,
     this.floatingActionButton,
+    this.floatingActionButtonLocation,
   });
   final String title;
   final List<Widget>? actions;
   final Widget body;
   final Widget? floatingActionButton;
+  final FloatingActionButtonLocation? floatingActionButtonLocation;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +25,7 @@ class AppScaffold extends StatelessWidget {
         actions: actions,
       ),
       body: body,
+      floatingActionButtonLocation: floatingActionButtonLocation,
       floatingActionButton: floatingActionButton,
     );
   }

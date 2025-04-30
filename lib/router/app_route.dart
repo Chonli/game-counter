@@ -9,5 +9,5 @@ class AppRoute {
   static const preferences = AppRoute._('/preferences', 'preferences');
   static const addGame = AppRoute._('addGame', 'addGame');
   static const activeGame = AppRoute._('activeGame/:gameId', 'activeGame');
-  static const addRound = AppRoute._('addRound', 'addRound');
+  static const addRound = AppRoute._('addRound/:roundId', 'addRound');
 }

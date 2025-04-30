@@ -1,9 +1,10 @@
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:score_counter/extension/go_router.dart';
 import 'package:score_counter/module/add_game/add_game_page.dart';
-import 'package:score_counter/module/add_round/add_round_page.dart';
 import 'package:score_counter/module/game/active_game.dart';
+import 'package:score_counter/module/game/add_round/add_round_page.dart';
 import 'package:score_counter/module/home/home_page.dart';
 import 'package:score_counter/module/preferences/preferences_page.dart';
 import 'package:score_counter/router/app_route.dart';
@@ -27,17 +28,16 @@ GoRouter appRouter(Ref ref) {
           GoRoute(
             path: AppRoute.activeGame.path,
             name: AppRoute.activeGame.name,
-            builder:
-                (context, state) => ActiveGamePage(
-                  gameId:
-                      int.tryParse(state.pathParameters['gameId'] ?? '-1') ??
-                      -1,
-                ),
+            builder: (context, state) => ActiveGamePage(gameId: state.gameId),
             routes: [
               GoRoute(
                 path: AppRoute.addRound.path,
                 name: AppRoute.addRound.name,
-                builder: (context, state) => const AddRoundPage(),
+                builder:
+                    (context, state) => AddRoundPage(
+                      gameId: state.gameId,
+                      roundId: state.roundId,
+                    ),
               ),
             ],
           ),
