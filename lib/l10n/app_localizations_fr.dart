@@ -9,6 +9,9 @@ class AppLocalizationsFr extends AppLocalizations {
   AppLocalizationsFr([String locale = 'fr']) : super(locale);
 
   @override
+  String get active_game_title => 'Jeu actif';
+
+  @override
   String get add_game => 'Ajouter une partie';
 
   @override
@@ -19,6 +22,48 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get add_players => 'Ajouter des joueurs';
+
+  @override
+  String get add_round => 'Ajouter un tour';
+
+  @override
+  String get add_round_add_1 => '+1';
+
+  @override
+  String get add_round_add_10 => '+10';
+
+  @override
+  String get add_round_add_5 => '+5';
+
+  @override
+  String get add_round_add_50 => '+50';
+
+  @override
+  String get add_round_button => 'Ajouter un tour';
+
+  @override
+  String get add_round_error_game_not_found => 'Jeu introuvable';
+
+  @override
+  String get add_round_error_load_game => 'Erreur de chargement du jeu';
+
+  @override
+  String get add_round_score => 'Score :';
+
+  @override
+  String get add_round_subtract_1 => '-1';
+
+  @override
+  String get add_round_subtract_10 => '-10';
+
+  @override
+  String get add_round_subtract_5 => '-5';
+
+  @override
+  String get add_round_subtract_50 => '-50';
+
+  @override
+  String get add_round_title => 'Ajouter un tour';
 
   @override
   String get common_cancel => 'Annuler';
@@ -39,6 +84,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get game => 'Partie';
 
   @override
+  String get game_not_found => 'Jeu introuvable';
+
+  @override
   String get home_title => 'Compteur de Score';
 
   @override
@@ -46,6 +94,9 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get lang_french => 'Français';
+
+  @override
+  String get load_game_error => 'Erreur de chargement du jeu';
 
   @override
   String get no_games => 'Aucune partie disponible.';

@@ -48,7 +48,7 @@ class AddGamePage extends HookConsumerWidget {
                     child: TextFormField(
                       controller: playerNameController,
                       decoration: InputDecoration(
-                        labelText: "joureur ${players.value.length + 1}",
+                        labelText: "${l10n.player} ${players.value.length + 1}",
                       ),
                     ),
                   ),

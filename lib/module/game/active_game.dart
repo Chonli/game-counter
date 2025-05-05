@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:score_counter/core/widgets/app_scaffold.dart';
+import 'package:score_counter/l10n/l10n.dart';
 import 'package:score_counter/model/game.dart';
 import 'package:score_counter/module/game/notifier.dart';
 import 'package:score_counter/router/app_route.dart';
@@ -14,17 +15,19 @@ class ActiveGamePage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currentGame = ref.watch(currentGameProvider(gameId));
+    final l10n = context.l10n;
 
     return AppScaffold(
-      title: 'Active Game',
+      title: l10n.active_game_title,
+
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: switch (currentGame) {
           AsyncData(:final value) =>
             value == null
-                ? const _ErrorView(error: 'Game not found')
+                ? _ErrorView(error: l10n.game_not_found)
                 : _GameResultTable(game: value),
-          AsyncError() => const _ErrorView(error: 'Load Game error'),
+          AsyncError() => _ErrorView(error: l10n.load_game_error),
           _ => const Center(child: CircularProgressIndicator()),
         },
       ),

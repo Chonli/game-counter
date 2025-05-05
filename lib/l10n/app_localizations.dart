@@ -95,6 +95,12 @@ abstract class AppLocalizations {
     Locale('fr')
   ];
 
+  /// No description provided for @active_game_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Active Game'**
+  String get active_game_title;
+
   /// No description provided for @add_game.
   ///
   /// In en, this message translates to:
@@ -118,6 +124,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Add Players'**
   String get add_players;
+
+  /// No description provided for @add_round.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Round'**
+  String get add_round;
+
+  /// No description provided for @add_round_add_1.
+  ///
+  /// In en, this message translates to:
+  /// **'+1'**
+  String get add_round_add_1;
+
+  /// No description provided for @add_round_add_10.
+  ///
+  /// In en, this message translates to:
+  /// **'+10'**
+  String get add_round_add_10;
+
+  /// No description provided for @add_round_add_5.
+  ///
+  /// In en, this message translates to:
+  /// **'+5'**
+  String get add_round_add_5;
+
+  /// No description provided for @add_round_add_50.
+  ///
+  /// In en, this message translates to:
+  /// **'+50'**
+  String get add_round_add_50;
+
+  /// No description provided for @add_round_button.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Round'**
+  String get add_round_button;
+
+  /// No description provided for @add_round_error_game_not_found.
+  ///
+  /// In en, this message translates to:
+  /// **'Game not found'**
+  String get add_round_error_game_not_found;
+
+  /// No description provided for @add_round_error_load_game.
+  ///
+  /// In en, this message translates to:
+  /// **'Load Game error'**
+  String get add_round_error_load_game;
+
+  /// No description provided for @add_round_score.
+  ///
+  /// In en, this message translates to:
+  /// **'Score:'**
+  String get add_round_score;
+
+  /// No description provided for @add_round_subtract_1.
+  ///
+  /// In en, this message translates to:
+  /// **'-1'**
+  String get add_round_subtract_1;
+
+  /// No description provided for @add_round_subtract_10.
+  ///
+  /// In en, this message translates to:
+  /// **'-10'**
+  String get add_round_subtract_10;
+
+  /// No description provided for @add_round_subtract_5.
+  ///
+  /// In en, this message translates to:
+  /// **'-5'**
+  String get add_round_subtract_5;
+
+  /// No description provided for @add_round_subtract_50.
+  ///
+  /// In en, this message translates to:
+  /// **'-50'**
+  String get add_round_subtract_50;
+
+  /// No description provided for @add_round_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a round'**
+  String get add_round_title;
 
   /// No description provided for @common_cancel.
   ///
@@ -155,6 +245,12 @@ abstract class AppLocalizations {
   /// **'Game'**
   String get game;
 
+  /// No description provided for @game_not_found.
+  ///
+  /// In en, this message translates to:
+  /// **'Game not found'**
+  String get game_not_found;
+
   /// No description provided for @home_title.
   ///
   /// In en, this message translates to:
@@ -172,6 +268,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'French'**
   String get lang_french;
+
+  /// No description provided for @load_game_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Load Game error'**
+  String get load_game_error;
 
   /// No description provided for @no_games.
   ///

@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:score_counter/core/widgets/app_scaffold.dart';
+import 'package:score_counter/l10n/l10n.dart';
 import 'package:score_counter/model/game.dart';
 import 'package:score_counter/model/round.dart';
 import 'package:score_counter/module/game/notifier.dart';
@@ -17,15 +18,16 @@ class AddRoundPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final game = ref.watch(currentGameProvider(gameId));
     final gameValue = game.valueOrNull;
+    final l10n = context.l10n;
 
     return AppScaffold(
-      title: 'Ajouter un tour',
+      title: l10n.add_round_title,
       body: switch (game) {
         AsyncData(:final value) =>
           value == null
-              ? _ErrorView(error: 'Game not found')
+              ? _ErrorView(error: l10n.add_round_error_game_not_found)
               : _AddRoundBody(game: value),
-        AsyncError() => _ErrorView(error: 'Load Game error'),
+        AsyncError() => _ErrorView(error: l10n.add_round_error_load_game),
         _ => Center(child: CircularProgressIndicator()),
       },
       floatingActionButton: FloatingActionButton(
@@ -38,7 +40,7 @@ class AddRoundPage extends HookConsumerWidget {
                   context.pop();
                 }
                 : null,
-        child: Text('Add Round'),
+        child: Text(l10n.add_round_button),
       ),
     );
   }
@@ -70,6 +72,7 @@ class _AddRoundBody extends HookConsumerWidget {
         playerByScores: Map.fromEntries(players.map((p) => MapEntry(p.id, 0))),
       ),
     );
+    final l10n = context.l10n;
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -83,7 +86,9 @@ class _AddRoundBody extends HookConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(p.name),
-                    Text('Score: ${round.value.playerByScores[p.id]}'),
+                    Text(
+                      '${l10n.add_round_score} ${round.value.playerByScores[p.id]}',
+                    ),
                   ],
                 ),
                 isThreeLine: true,
@@ -93,25 +98,25 @@ class _AddRoundBody extends HookConsumerWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         ElevatedButton(
-                          child: Text('+1'),
+                          child: Text(l10n.add_round_add_1),
                           onPressed: () {
                             round.value.addScore(p.id, 1);
                           },
                         ),
                         ElevatedButton(
-                          child: Text('+5'),
+                          child: Text(l10n.add_round_add_5),
                           onPressed: () {
                             round.value.addScore(p.id, 5);
                           },
                         ),
                         ElevatedButton(
-                          child: Text('+10'),
+                          child: Text(l10n.add_round_add_10),
                           onPressed: () {
                             round.value.addScore(p.id, 10);
                           },
                         ),
                         ElevatedButton(
-                          child: Text('+50'),
+                          child: Text(l10n.add_round_add_50),
                           onPressed: () {
                             round.value.addScore(p.id, 50);
                           },
@@ -122,25 +127,25 @@ class _AddRoundBody extends HookConsumerWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         ElevatedButton(
-                          child: Text('-1'),
+                          child: Text(l10n.add_round_subtract_1),
                           onPressed: () {
                             round.value.addScore(p.id, -1);
                           },
                         ),
                         ElevatedButton(
-                          child: Text('-5'),
+                          child: Text(l10n.add_round_subtract_5),
                           onPressed: () {
                             round.value.addScore(p.id, -5);
                           },
                         ),
                         ElevatedButton(
-                          child: Text('-10'),
+                          child: Text(l10n.add_round_subtract_10),
                           onPressed: () {
                             round.value.addScore(p.id, -10);
                           },
                         ),
                         ElevatedButton(
-                          child: Text('-50'),
+                          child: Text(l10n.add_round_subtract_50),
                           onPressed: () {
                             round.value.addScore(p.id, -50);
                           },
