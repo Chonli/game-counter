@@ -21,6 +21,18 @@ class AppLocalizationsFr extends AppLocalizations {
   String get add_players => 'Ajouter des joueurs';
 
   @override
+  String get common_cancel => 'Annuler';
+
+  @override
+  String get common_delete => 'Supprimer';
+
+  @override
+  String get delete_game => 'Supprimer la partie';
+
+  @override
+  String get delete_game_confirmation => 'Êtes-vous sûr de vouloir supprimer cette partie ?';
+
+  @override
   String get error_loading_games => 'Erreur lors du chargement des parties.';
 
   @override

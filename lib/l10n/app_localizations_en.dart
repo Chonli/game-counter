@@ -21,6 +21,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get add_players => 'Add Players';
 
   @override
+  String get common_cancel => 'Cancel';
+
+  @override
+  String get common_delete => 'Delete';
+
+  @override
+  String get delete_game => 'Delete Game';
+
+  @override
+  String get delete_game_confirmation => 'Are you sure you want to delete this game?';
+
+  @override
   String get error_loading_games => 'Error loading games.';
 
   @override

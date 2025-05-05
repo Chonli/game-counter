@@ -119,6 +119,30 @@ abstract class AppLocalizations {
   /// **'Add Players'**
   String get add_players;
 
+  /// No description provided for @common_cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get common_cancel;
+
+  /// No description provided for @common_delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get common_delete;
+
+  /// No description provided for @delete_game.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Game'**
+  String get delete_game;
+
+  /// No description provided for @delete_game_confirmation.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete this game?'**
+  String get delete_game_confirmation;
+
   /// No description provided for @error_loading_games.
   ///
   /// In en, this message translates to:

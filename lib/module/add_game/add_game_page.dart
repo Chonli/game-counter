@@ -58,6 +58,7 @@ class AddGamePage extends HookConsumerWidget {
                       final playerName = playerNameController.text;
                       if (playerName.isNotEmpty) {
                         players.value = [...players.value, playerName];
+                        playerNameController.clear();
                       }
                     },
                     icon: const Icon(Icons.add),
