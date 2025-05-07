@@ -22,6 +22,8 @@ class GamesRepository {
 
   int createGame(Game game) => dao.addGame(game.toEntity());
 
+  void updateGame(Game game) => dao.updateGame(game.toEntity());
+
   void removeGame(int id) => dao.removeGame(id);
 
   Game? getGame(int id) => dao.getGame(id)?.toModel();

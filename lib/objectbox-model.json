@@ -29,7 +29,7 @@
     },
     {
       "id": "5:1858635641791322862",
-      "lastPropertyId": "6:1805177125668867032",
+      "lastPropertyId": "7:8634500096037058916",
       "name": "RoundEntity",
       "properties": [
         {
@@ -42,6 +42,11 @@
           "id": "6:1805177125668867032",
           "name": "index",
           "type": 6
+        },
+        {
+          "id": "7:8634500096037058916",
+          "name": "dbSavePlayerByScores",
+          "type": 9
         }
       ],
       "relations": []

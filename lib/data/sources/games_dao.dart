@@ -3,6 +3,7 @@ import 'package:objectbox/objectbox.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:score_counter/core/database.dart';
 import 'package:score_counter/data/entities/game.dart';
+import 'package:score_counter/data/entities/round.dart';
 
 part 'games_dao.g.dart';
 
@@ -10,14 +11,16 @@ part 'games_dao.g.dart';
 GamesDao gamesDao(Ref ref) {
   final db = ref.watch(databaseProvider);
   final box = db.box<GameEntity>();
+  final roundBox = db.box<RoundEntity>();
 
-  return GamesDao(box);
+  return GamesDao(box, roundBox);
 }
 
 class GamesDao {
-  const GamesDao(this.box);
+  const GamesDao(this.box, this.roundBox);
 
   final Box<GameEntity> box;
+  final Box<RoundEntity> roundBox;
 
   GameEntity? getGame(int id) {
     return box.get(id);
@@ -32,10 +35,20 @@ class GamesDao {
   }
 
   int updateGame(GameEntity game) {
-    return box.put(game, mode: PutMode.update);
+    box.remove(game.id);
+    return box.put(game);
+  }
+
+  int addRound(RoundEntity round) {
+    return roundBox.put(round);
   }
 
   void removeGame(int id) {
     box.remove(id);
+  }
+
+  void clearGames() {
+    box.removeAll();
+    roundBox.removeAll();
   }
 }

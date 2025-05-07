@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'notifier.dart';
+part of 'add_round_page.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$currentGameHash() => r'64d9d38de24ee8b87877bc694b0083b570bc684e';
+String _$currentRoundHash() => r'20ea57622627e924e7aea04e4bf279e9c5d7d9c2';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,31 +29,31 @@ class _SystemHash {
   }
 }
 
-abstract class _$CurrentGame extends BuildlessAutoDisposeAsyncNotifier<Game?> {
-  late final int gameId;
+abstract class _$CurrentRound extends BuildlessAutoDisposeNotifier<Round> {
+  late final Round round;
 
-  FutureOr<Game?> build(int gameId);
+  Round build(Round round);
 }
 
-/// See also [CurrentGame].
-@ProviderFor(CurrentGame)
-const currentGameProvider = CurrentGameFamily();
+/// See also [_CurrentRound].
+@ProviderFor(_CurrentRound)
+const _currentRoundProvider = _CurrentRoundFamily();
 
-/// See also [CurrentGame].
-class CurrentGameFamily extends Family<AsyncValue<Game?>> {
-  /// See also [CurrentGame].
-  const CurrentGameFamily();
+/// See also [_CurrentRound].
+class _CurrentRoundFamily extends Family<Round> {
+  /// See also [_CurrentRound].
+  const _CurrentRoundFamily();
 
-  /// See also [CurrentGame].
-  CurrentGameProvider call(int gameId) {
-    return CurrentGameProvider(gameId);
+  /// See also [_CurrentRound].
+  _CurrentRoundProvider call(Round round) {
+    return _CurrentRoundProvider(round);
   }
 
   @override
-  CurrentGameProvider getProviderOverride(
-    covariant CurrentGameProvider provider,
+  _CurrentRoundProvider getProviderOverride(
+    covariant _CurrentRoundProvider provider,
   ) {
-    return call(provider.gameId);
+    return call(provider.round);
   }
 
   static const Iterable<ProviderOrFamily>? _dependencies = null;
@@ -68,74 +68,75 @@ class CurrentGameFamily extends Family<AsyncValue<Game?>> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'currentGameProvider';
+  String? get name => r'_currentRoundProvider';
 }
 
-/// See also [CurrentGame].
-class CurrentGameProvider
-    extends AutoDisposeAsyncNotifierProviderImpl<CurrentGame, Game?> {
-  /// See also [CurrentGame].
-  CurrentGameProvider(int gameId)
+/// See also [_CurrentRound].
+class _CurrentRoundProvider
+    extends AutoDisposeNotifierProviderImpl<_CurrentRound, Round> {
+  /// See also [_CurrentRound].
+  _CurrentRoundProvider(Round round)
     : this._internal(
-        () => CurrentGame()..gameId = gameId,
-        from: currentGameProvider,
-        name: r'currentGameProvider',
+        () => _CurrentRound()..round = round,
+        from: _currentRoundProvider,
+        name: r'_currentRoundProvider',
         debugGetCreateSourceHash:
             const bool.fromEnvironment('dart.vm.product')
                 ? null
-                : _$currentGameHash,
-        dependencies: CurrentGameFamily._dependencies,
-        allTransitiveDependencies: CurrentGameFamily._allTransitiveDependencies,
-        gameId: gameId,
+                : _$currentRoundHash,
+        dependencies: _CurrentRoundFamily._dependencies,
+        allTransitiveDependencies:
+            _CurrentRoundFamily._allTransitiveDependencies,
+        round: round,
       );
 
-  CurrentGameProvider._internal(
+  _CurrentRoundProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
     required super.allTransitiveDependencies,
     required super.debugGetCreateSourceHash,
     required super.from,
-    required this.gameId,
+    required this.round,
   }) : super.internal();
 
-  final int gameId;
+  final Round round;
 
   @override
-  FutureOr<Game?> runNotifierBuild(covariant CurrentGame notifier) {
-    return notifier.build(gameId);
+  Round runNotifierBuild(covariant _CurrentRound notifier) {
+    return notifier.build(round);
   }
 
   @override
-  Override overrideWith(CurrentGame Function() create) {
+  Override overrideWith(_CurrentRound Function() create) {
     return ProviderOverride(
       origin: this,
-      override: CurrentGameProvider._internal(
-        () => create()..gameId = gameId,
+      override: _CurrentRoundProvider._internal(
+        () => create()..round = round,
         from: from,
         name: null,
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
-        gameId: gameId,
+        round: round,
       ),
     );
   }
 
   @override
-  AutoDisposeAsyncNotifierProviderElement<CurrentGame, Game?> createElement() {
-    return _CurrentGameProviderElement(this);
+  AutoDisposeNotifierProviderElement<_CurrentRound, Round> createElement() {
+    return _CurrentRoundProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is CurrentGameProvider && other.gameId == gameId;
+    return other is _CurrentRoundProvider && other.round == round;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, gameId.hashCode);
+    hash = _SystemHash.combine(hash, round.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -143,18 +144,18 @@ class CurrentGameProvider
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-mixin CurrentGameRef on AutoDisposeAsyncNotifierProviderRef<Game?> {
-  /// The parameter `gameId` of this provider.
-  int get gameId;
+mixin _CurrentRoundRef on AutoDisposeNotifierProviderRef<Round> {
+  /// The parameter `round` of this provider.
+  Round get round;
 }
 
-class _CurrentGameProviderElement
-    extends AutoDisposeAsyncNotifierProviderElement<CurrentGame, Game?>
-    with CurrentGameRef {
-  _CurrentGameProviderElement(super.provider);
+class _CurrentRoundProviderElement
+    extends AutoDisposeNotifierProviderElement<_CurrentRound, Round>
+    with _CurrentRoundRef {
+  _CurrentRoundProviderElement(super.provider);
 
   @override
-  int get gameId => (origin as CurrentGameProvider).gameId;
+  Round get round => (origin as _CurrentRoundProvider).round;
 }
 
 // ignore_for_file: type=lint

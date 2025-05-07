@@ -6,7 +6,7 @@ part of 'games_dao.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$gamesDaoHash() => r'a2b364fe88259e3153a6717ae1aebb7f58546656';
+String _$gamesDaoHash() => r'caef7649d6c692b0cf202d1d04becc969a1f071d';
 
 /// See also [gamesDao].
 @ProviderFor(gamesDao)

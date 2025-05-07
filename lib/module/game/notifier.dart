@@ -1,4 +1,3 @@
-import 'package:collection/collection.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:score_counter/data/repositories/games.dart';
 import 'package:score_counter/model/game.dart';
@@ -21,12 +20,14 @@ class CurrentGame extends _$CurrentGame {
       return;
     }
 
-    final existRound = game.rounds.firstWhereOrNull((r) => r.id == round.id);
+    final repo = ref.read(gamesRepositoryProvider);
+    final updatedRounds =
+        game.rounds
+          ..where((r) => r.id != round.id)
+          ..add(round);
 
-    if (existRound != null) {
-      // update round
-    } else {
-      // create round
-    }
+    final updatedGame = game.copyWith(rounds: updatedRounds);
+    repo.updateGame(updatedGame);
+    state = AsyncValue.data(updatedGame);
   }
 }

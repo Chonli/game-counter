@@ -8,6 +8,7 @@ class GameEntity {
   @Id()
   int id;
   String name;
+  @Property(type: PropertyType.date)
   DateTime createDate;
   final players = ToMany<PlayerEntity>();
   final rounds = ToMany<RoundEntity>();

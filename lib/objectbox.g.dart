@@ -52,7 +52,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
     id: const obx_int.IdUid(5, 1858635641791322862),
     name: 'RoundEntity',
-    lastPropertyId: const obx_int.IdUid(6, 1805177125668867032),
+    lastPropertyId: const obx_int.IdUid(7, 8634500096037058916),
     flags: 0,
     properties: <obx_int.ModelProperty>[
       obx_int.ModelProperty(
@@ -65,6 +65,12 @@ final _entities = <obx_int.ModelEntity>[
         id: const obx_int.IdUid(6, 1805177125668867032),
         name: 'index',
         type: 6,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(7, 8634500096037058916),
+        name: 'dbSavePlayerByScores',
+        type: 9,
         flags: 0,
       ),
     ],
@@ -236,9 +242,14 @@ obx_int.ModelDefinition getObjectBoxModel() {
         object.id = id;
       },
       objectToFB: (RoundEntity object, fb.Builder fbb) {
-        fbb.startTable(7);
+        final dbSavePlayerByScoresOffset =
+            object.dbSavePlayerByScores == null
+                ? null
+                : fbb.writeString(object.dbSavePlayerByScores!);
+        fbb.startTable(8);
         fbb.addInt64(0, object.id);
         fbb.addInt64(5, object.index);
+        fbb.addOffset(6, dbSavePlayerByScoresOffset);
         fbb.finish(fbb.endTable());
         return object.id;
       },
@@ -257,7 +268,10 @@ obx_int.ModelDefinition getObjectBoxModel() {
           14,
           0,
         );
-        final object = RoundEntity(id: idParam, index: indexParam);
+        final object = RoundEntity(id: idParam, index: indexParam)
+          ..dbSavePlayerByScores = const fb.StringReader(
+            asciiOptimization: true,
+          ).vTableGetNullable(buffer, rootOffset, 16);
 
         return object;
       },
@@ -349,6 +363,11 @@ class RoundEntity_ {
   /// See [RoundEntity.index].
   static final index = obx.QueryIntegerProperty<RoundEntity>(
     _entities[1].properties[1],
+  );
+
+  /// See [RoundEntity.dbSavePlayerByScores].
+  static final dbSavePlayerByScores = obx.QueryStringProperty<RoundEntity>(
+    _entities[1].properties[2],
   );
 }
 
