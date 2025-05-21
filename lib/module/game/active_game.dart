@@ -66,33 +66,72 @@ class _GameResultTable extends StatelessWidget {
     final totalScore = List.filled(game.players.length, 0);
     final indexedPlayers = game.players.indexed;
 
-    return DataTable(
-      columns:
-          game.players
-              .map((player) => DataColumn(label: Text(player.name)))
-              .toList(),
-
-      rows: [
+    return Table(
+      border: TableBorder(
+        horizontalInside: BorderSide(width: 1, color: Colors.grey),
+      ),
+      children: [
+        TableRow(
+          children: <Widget>[
+            ...game.players.map(
+              (player) => Text(
+                player.name,
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+          ],
+        ),
         ...game.rounds.map(
-          (round) => DataRow(
-            cells: [
+          (round) => TableRow(
+            children: <Widget>[
               ...indexedPlayers.map((player) {
                 final score = round.playerByScores[player.$2.id] ?? 0;
                 totalScore[player.$1] += score;
-                return DataCell(Text(score.toString()));
+                return Text(score.toString());
               }),
             ],
           ),
         ),
         // total row
-        DataRow(
-          cells: [
+        TableRow(
+          children: <Widget>[
             ...indexedPlayers.map(
-              (player) => DataCell(Text(totalScore[player.$1].toString())),
+              (player) => Text(
+                totalScore[player.$1].toString(),
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
             ),
           ],
         ),
       ],
     );
+
+    //   rows: [
+    //     ...game.rounds.map(
+    //       (round) => DataRow(
+    //         cells: [
+    //           ...indexedPlayers.map((player) {
+    //             final score = round.playerByScores[player.$2.id] ?? 0;
+    //             totalScore[player.$1] += score;
+    //             return DataCell(Text(score.toString()));
+    //           }),
+    //         ],
+    //       ),
+    //     ),
+    //     // total row
+    //     DataRow(
+    //       cells: [
+    //         ...indexedPlayers.map(
+    //           (player) => DataCell(
+    //             Text(
+    //               totalScore[player.$1].toString(),
+    //               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+    //             ),
+    //           ),
+    //         ),
+    //       ],
+    //     ),
+    //   ],
+    // );
   }
 }
