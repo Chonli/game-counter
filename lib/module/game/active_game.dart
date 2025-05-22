@@ -19,7 +19,17 @@ class ActiveGamePage extends HookConsumerWidget {
 
     return AppScaffold(
       title: l10n.active_game_title,
-
+      actions: [
+        IconButton(
+          icon: Icon(Icons.bar_chart),
+          onPressed: () {
+            context.pushNamed(
+              AppRoute.chart.name,
+              pathParameters: {'gameId': gameId.toString()},
+            );
+          },
+        ),
+      ],
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: switch (currentGame) {

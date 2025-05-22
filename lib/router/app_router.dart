@@ -5,6 +5,7 @@ import 'package:score_counter/extension/go_router.dart';
 import 'package:score_counter/module/add_game/add_game_page.dart';
 import 'package:score_counter/module/game/active_game.dart';
 import 'package:score_counter/module/game/add_round/add_round_page.dart';
+import 'package:score_counter/module/game/chart_page.dart';
 import 'package:score_counter/module/home/home_page.dart';
 import 'package:score_counter/module/preferences/preferences_page.dart';
 import 'package:score_counter/router/app_route.dart';
@@ -38,6 +39,11 @@ GoRouter appRouter(Ref ref) {
                       gameId: state.gameId,
                       roundId: state.roundId,
                     ),
+              ),
+              GoRoute(
+                path: AppRoute.chart.path,
+                name: AppRoute.chart.name,
+                builder: (context, state) => ChartPage(gameId: state.gameId),
               ),
             ],
           ),

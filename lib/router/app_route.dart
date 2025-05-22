@@ -10,4 +10,5 @@ class AppRoute {
   static const addGame = AppRoute._('addGame', 'addGame');
   static const activeGame = AppRoute._('activeGame/:gameId', 'activeGame');
   static const addRound = AppRoute._('addRound/:roundId', 'addRound');
+  static const chart = AppRoute._('chart', 'chart');
 }

@@ -10,6 +10,7 @@ dependencies:
   collection: ^1.19.1
   cupertino_icons: ^1.0.8
   dart_mappable: ^4.5.0
+  fl_chart: ^1.0.0
   flutter:
     sdk: flutter
   flutter_hooks: ^0.21.2
