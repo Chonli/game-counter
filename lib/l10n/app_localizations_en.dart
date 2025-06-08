@@ -75,7 +75,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get delete_game => 'Delete Game';
 
   @override
-  String get delete_game_confirmation => 'Are you sure you want to delete this game?';
+  String get delete_game_confirmation =>
+      'Are you sure you want to delete this game?';
 
   @override
   String get error_loading_games => 'Error loading games.';

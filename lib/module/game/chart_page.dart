@@ -37,6 +37,10 @@ class _ChartView extends StatelessWidget {
   Widget build(BuildContext context) {
     final indexedPlayers = game.players.indexed;
 
+    if (indexedPlayers.isEmpty) {
+      return SizedBox.shrink();
+    }
+
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: LineChart(

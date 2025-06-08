@@ -16,8 +16,23 @@ class AddGamePage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = context.l10n;
     final nameController = useTextEditingController();
-    final playerNameController = useTextEditingController();
-    final players = useState<List<String>>([]);
+    final playerControllers = useState<List<TextEditingController>>([]);
+    final playerFocusNodes = useState<List<FocusNode>>([]);
+    final nameFocusNode = useFocusNode();
+
+    // Function to add a new player field
+    void addPlayerField() {
+      final newController = TextEditingController();
+      final newFocusNode = FocusNode();
+      playerControllers.value = [...playerControllers.value, newController];
+      playerFocusNodes.value = [...playerFocusNodes.value, newFocusNode];
+    }
+
+    // Call addPlayerField once at the first build
+    useEffect(() {
+      addPlayerField();
+      return null;
+    }, const []);
 
     return Scaffold(
       appBar: AppBar(title: Text(l10n.add_game_title)),
@@ -29,14 +44,16 @@ class AddGamePage extends HookConsumerWidget {
             children: [
               TextFormField(
                 controller: nameController,
+                focusNode: nameFocusNode,
                 decoration: InputDecoration(
                   labelText: l10n.add_game_name_field,
                 ),
-              ),
-              const SizedBox(height: 20),
-              Text("${l10n.add_players}:", style: TextStyle(fontSize: 24)),
-              ...players.value.map(
-                (player) => Text(player, style: TextStyle(fontSize: 16)),
+                onFieldSubmitted: (_) {
+                  // Move focus to the first player field when the name field is submitted
+                  if (playerFocusNodes.value.isNotEmpty) {
+                    playerFocusNodes.value.first.requestFocus();
+                  }
+                },
               ),
               const SizedBox(height: 20),
               Row(
@@ -45,31 +62,45 @@ class AddGamePage extends HookConsumerWidget {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Expanded(
-                    child: TextFormField(
-                      controller: playerNameController,
-                      decoration: InputDecoration(
-                        labelText: "${l10n.player} ${players.value.length + 1}",
-                      ),
+                    child: Text(
+                      "${l10n.add_players}:",
+                      style: TextStyle(fontSize: 24),
                     ),
                   ),
-                  const SizedBox(height: 20),
                   IconButton(
-                    onPressed: () {
-                      final playerName = playerNameController.text;
-                      if (playerName.isNotEmpty) {
-                        players.value = [...players.value, playerName];
-                        playerNameController.clear();
-                      }
-                    },
+                    onPressed: () => addPlayerField(),
                     icon: const Icon(Icons.add),
                   ),
                 ],
               ),
+              ...playerControllers.value.indexed.map((entry) {
+                final (index, controller) = entry;
+                final focusNode = playerFocusNodes.value[index];
+                return Padding(
+                  padding: EdgeInsetsGeometry.only(bottom: 10),
+                  child: TextFormField(
+                    controller: controller,
+                    focusNode: focusNode,
+                    decoration: InputDecoration(
+                      labelText: "${l10n.player} ${index + 1}",
+                    ),
+                    onFieldSubmitted: (_) {
+                      // Move focus to the next player field or add a new one if it's the last field
+                      if (index < playerControllers.value.length - 1) {
+                        playerFocusNodes.value[index + 1].requestFocus();
+                      } else {
+                        addPlayerField();
+                        playerFocusNodes.value.last.requestFocus();
+                      }
+                    },
+                  ),
+                );
+              }),
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
                   if (_key.currentState!.validate() &&
-                      players.value.isNotEmpty) {
+                      playerControllers.value.isNotEmpty) {
                     final name = nameController.text;
 
                     final newGame = Game(
@@ -77,11 +108,11 @@ class AddGamePage extends HookConsumerWidget {
                       name: name,
                       createDate: DateTime.now(),
                       players:
-                          players.value
+                          playerControllers.value
                               .map(
-                                (player) => Player(
+                                (controller) => Player(
                                   id: 0,
-                                  name: player,
+                                  name: controller.text,
                                   color: Colors.blue,
                                 ),
                               )
