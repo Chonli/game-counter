@@ -86,7 +86,10 @@ class _GameResultTable extends StatelessWidget {
             ...game.players.map(
               (player) => Text(
                 player.name,
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: player.color,
+                ),
               ),
             ),
           ],

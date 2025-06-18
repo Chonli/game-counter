@@ -54,9 +54,12 @@ class _ChartView extends StatelessWidget {
           lineBarsData:
               indexedPlayers.map((player) {
                 int totalScore = 0;
-                final playerScores = List.generate(game.rounds.length, (index) {
+                final playerScores = List.generate(game.rounds.length + 1, (
+                  index,
+                ) {
+                  if (index == 0) return 0;
                   totalScore +=
-                      game.rounds[index].playerByScores[player.$2.id] ?? 0;
+                      game.rounds[index - 1].playerByScores[player.$2.id] ?? 0;
 
                   return totalScore;
                 });
@@ -69,8 +72,8 @@ class _ChartView extends StatelessWidget {
                           entry.value.toDouble(),
                         );
                       }).toList(),
-                  // TODO: use player color
-                  color: Colors.primaries[player.$1 % Colors.primaries.length],
+
+                  color: player.$2.color,
                   barWidth: 2,
                   isStrokeCapRound: true,
                   dotData: FlDotData(show: true),

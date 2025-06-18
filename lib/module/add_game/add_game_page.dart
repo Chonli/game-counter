@@ -26,6 +26,7 @@ class AddGamePage extends HookConsumerWidget {
       final newFocusNode = FocusNode();
       playerControllers.value = [...playerControllers.value, newController];
       playerFocusNodes.value = [...playerFocusNodes.value, newFocusNode];
+      newFocusNode.requestFocus();
     }
 
     // Call addPlayerField once at the first build
@@ -77,7 +78,7 @@ class AddGamePage extends HookConsumerWidget {
                 final (index, controller) = entry;
                 final focusNode = playerFocusNodes.value[index];
                 return Padding(
-                  padding: EdgeInsetsGeometry.only(bottom: 10),
+                  padding: EdgeInsets.only(bottom: 10),
                   child: TextFormField(
                     controller: controller,
                     focusNode: focusNode,
@@ -99,21 +100,27 @@ class AddGamePage extends HookConsumerWidget {
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
+                  final validPlayers = playerControllers.value.where(
+                    (player) => player.text.isNotEmpty,
+                  );
                   if (_key.currentState!.validate() &&
-                      playerControllers.value.isNotEmpty) {
+                      validPlayers.isNotEmpty) {
                     final name = nameController.text;
+                    int i = 0;
 
                     final newGame = Game(
                       id: 0,
                       name: name,
                       createDate: DateTime.now(),
                       players:
-                          playerControllers.value
+                          validPlayers
                               .map(
-                                (controller) => Player(
+                                (player) => Player(
                                   id: 0,
-                                  name: controller.text,
-                                  color: Colors.blue,
+                                  name: player.text,
+                                  color:
+                                      Colors.primaries[i++ %
+                                          Colors.primaries.length],
                                 ),
                               )
                               .toList(),
