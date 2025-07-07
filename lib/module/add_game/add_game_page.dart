@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -6,6 +7,29 @@ import 'package:score_counter/l10n/l10n.dart';
 import 'package:score_counter/model/game.dart';
 import 'package:score_counter/model/player.dart';
 import 'package:score_counter/notifier/games.dart';
+
+const List<Color> _availableColors = [
+  Colors.red,
+  Colors.pink,
+  Colors.purple,
+  Colors.deepPurple,
+  Colors.indigo,
+  Colors.blue,
+  Colors.lightBlue,
+  Colors.cyan,
+  Colors.teal,
+  Colors.green,
+  Colors.lightGreen,
+  Colors.lime,
+  Colors.yellow,
+  Colors.amber,
+  Colors.orange,
+  Colors.deepOrange,
+  Colors.brown,
+  Colors.grey,
+  Colors.blueGrey,
+  Colors.black,
+];
 
 class AddGamePage extends HookConsumerWidget {
   AddGamePage({super.key});
@@ -18,18 +42,18 @@ class AddGamePage extends HookConsumerWidget {
     final nameController = useTextEditingController();
     final playerControllers = useState<List<TextEditingController>>([]);
     final playerFocusNodes = useState<List<FocusNode>>([]);
+    final playerColors = useState<List<Color>>([]);
     final nameFocusNode = useFocusNode();
 
-    // Function to add a new player field
     void addPlayerField() {
       final newController = TextEditingController();
       final newFocusNode = FocusNode();
       playerControllers.value = [...playerControllers.value, newController];
       playerFocusNodes.value = [...playerFocusNodes.value, newFocusNode];
+      playerColors.value = [...playerColors.value, _availableColors.first];
       newFocusNode.requestFocus();
     }
 
-    // Call addPlayerField once at the first build
     useEffect(() {
       addPlayerField();
       return null;
@@ -50,7 +74,6 @@ class AddGamePage extends HookConsumerWidget {
                   labelText: l10n.add_game_name_field,
                 ),
                 onFieldSubmitted: (_) {
-                  // Move focus to the first player field when the name field is submitted
                   if (playerFocusNodes.value.isNotEmpty) {
                     playerFocusNodes.value.first.requestFocus();
                   }
@@ -79,21 +102,65 @@ class AddGamePage extends HookConsumerWidget {
                 final focusNode = playerFocusNodes.value[index];
                 return Padding(
                   padding: EdgeInsets.only(bottom: 10),
-                  child: TextFormField(
-                    controller: controller,
-                    focusNode: focusNode,
-                    decoration: InputDecoration(
-                      labelText: "${l10n.player} ${index + 1}",
-                    ),
-                    onFieldSubmitted: (_) {
-                      // Move focus to the next player field or add a new one if it's the last field
-                      if (index < playerControllers.value.length - 1) {
-                        playerFocusNodes.value[index + 1].requestFocus();
-                      } else {
-                        addPlayerField();
-                        playerFocusNodes.value.last.requestFocus();
-                      }
-                    },
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: TextFormField(
+                          controller: controller,
+                          focusNode: focusNode,
+                          decoration: InputDecoration(
+                            labelText: "${l10n.player} ${index + 1}",
+                          ),
+                          onFieldSubmitted: (_) {
+                            if (index < playerControllers.value.length - 1) {
+                              playerFocusNodes.value[index + 1].requestFocus();
+                            } else {
+                              addPlayerField();
+                              playerFocusNodes.value.last.requestFocus();
+                            }
+                          },
+                        ),
+                      ),
+                      IconButton(
+                        icon: Icon(
+                          Icons.color_lens,
+                          color: playerColors.value[index],
+                        ),
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text('Pick a color!'),
+                                content: SingleChildScrollView(
+                                  child: BlockPicker(
+                                    pickerColor: playerColors.value[index],
+                                    availableColors: _availableColors,
+                                    onColorChanged: (Color color) {
+                                      playerColors.value = [
+                                        ...playerColors.value.sublist(0, index),
+                                        color,
+                                        ...playerColors.value.sublist(
+                                          index + 1,
+                                        ),
+                                      ];
+                                    },
+                                  ),
+                                ),
+                                actions: <Widget>[
+                                  ElevatedButton(
+                                    child: Text(l10n.common_ok),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
+                      ),
+                    ],
                   ),
                 );
               }),
@@ -104,6 +171,7 @@ class AddGamePage extends HookConsumerWidget {
                     (player) => player.text.isNotEmpty,
                   );
                   if (_key.currentState!.validate() &&
+                      nameController.text.isNotEmpty &&
                       validPlayers.isNotEmpty) {
                     final name = nameController.text;
                     int i = 0;
@@ -118,9 +186,7 @@ class AddGamePage extends HookConsumerWidget {
                                 (player) => Player(
                                   id: 0,
                                   name: player.text,
-                                  color:
-                                      Colors.primaries[i++ %
-                                          Colors.primaries.length],
+                                  color: playerColors.value[i++],
                                 ),
                               )
                               .toList(),

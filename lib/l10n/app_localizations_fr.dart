@@ -72,6 +72,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get common_delete => 'Supprimer';
 
   @override
+  String get common_ok => 'Ok';
+
+  @override
   String get delete_game => 'Supprimer la partie';
 
   @override

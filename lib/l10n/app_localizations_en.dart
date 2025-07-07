@@ -72,6 +72,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get common_delete => 'Delete';
 
   @override
+  String get common_ok => 'Ok';
+
+  @override
   String get delete_game => 'Delete Game';
 
   @override

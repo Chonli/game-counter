@@ -21,6 +21,7 @@
   "add_round_title": "Ajouter un tour",
   "common_cancel": "Annuler",
   "common_delete": "Supprimer",
+  "common_ok": "Ok",
   "delete_game": "Supprimer la partie",
   "delete_game_confirmation": "Êtes-vous sûr de vouloir supprimer cette partie ?",
   "error_loading_games": "Erreur lors du chargement des parties.",

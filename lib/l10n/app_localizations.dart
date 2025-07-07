@@ -224,6 +224,12 @@ abstract class AppLocalizations {
   /// **'Delete'**
   String get common_delete;
 
+  /// No description provided for @common_ok.
+  ///
+  /// In en, this message translates to:
+  /// **'Ok'**
+  String get common_ok;
+
   /// No description provided for @delete_game.
   ///
   /// In en, this message translates to:

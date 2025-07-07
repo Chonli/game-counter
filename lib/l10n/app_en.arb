@@ -21,6 +21,7 @@
   "add_round_title": "Add a round",
   "common_cancel": "Cancel",
   "common_delete": "Delete",
+  "common_ok": "Ok",
   "delete_game": "Delete Game",
   "delete_game_confirmation": "Are you sure you want to delete this game?",
   "error_loading_games": "Error loading games.",

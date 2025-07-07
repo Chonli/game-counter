@@ -85,7 +85,13 @@ class _AddRoundBody extends HookConsumerWidget {
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(p.name),
+                      Text(
+                        p.name,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: p.color,
+                        ),
+                      ),
                       Text(
                         '${l10n.add_round_score} ${round.playerByScores[p.id]}',
                       ),
