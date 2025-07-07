@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:score_counter/core/widgets/app_scaffold.dart';
+import 'package:score_counter/core/widgets/background_dismiss.dart';
 import 'package:score_counter/l10n/l10n.dart';
 import 'package:score_counter/model/game.dart';
 import 'package:score_counter/notifier/games.dart';
@@ -66,8 +67,13 @@ class _ListGameTile extends ConsumerWidget {
 
     return Dismissible(
       key: Key(game.id.toString()),
-      background: _BackgroundTile(AlignmentDirectional.centerStart),
-      secondaryBackground: _BackgroundTile(AlignmentDirectional.centerEnd),
+      background: BackgroundDismiss(
+        alignement: AlignmentDirectional.centerStart,
+      ),
+      // TODO: implement update
+      secondaryBackground: BackgroundDismiss(
+        alignement: AlignmentDirectional.centerEnd,
+      ),
       confirmDismiss:
           (direction) => showDialog(
             context: context,
@@ -99,26 +105,6 @@ class _ListGameTile extends ConsumerWidget {
             pathParameters: {'gameId': game.id.toString()},
           );
         },
-      ),
-    );
-  }
-}
-
-class _BackgroundTile extends StatelessWidget {
-  const _BackgroundTile(this.alignement);
-
-  final AlignmentGeometry alignement;
-
-  @override
-  Widget build(BuildContext context) {
-    return ColoredBox(
-      color: Colors.red,
-      child: Align(
-        alignment: alignement,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12.0),
-          child: Icon(size: 24, color: Colors.white, Icons.delete),
-        ),
       ),
     );
   }

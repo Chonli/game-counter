@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:score_counter/core/widgets/app_scaffold.dart';
+import 'package:score_counter/core/widgets/background_dismiss.dart';
 import 'package:score_counter/l10n/l10n.dart';
 import 'package:score_counter/model/game.dart';
 import 'package:score_counter/module/game/notifier.dart';
@@ -66,85 +67,127 @@ class _ErrorView extends StatelessWidget {
   }
 }
 
-class _GameResultTable extends StatelessWidget {
+class _GameResultTable extends HookConsumerWidget {
   const _GameResultTable({required this.game});
 
   final Game game;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = context.l10n;
     final totalScore = List.filled(game.players.length, 0);
-    final indexedPlayers = game.players.indexed;
 
-    return Table(
-      border: TableBorder(
-        horizontalInside: BorderSide(width: 1, color: Colors.grey),
-      ),
-      children: [
-        TableRow(
-          children: <Widget>[
-            ...game.players.map(
-              (player) => Text(
-                player.name,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: player.color,
-                ),
-              ),
-            ),
-          ],
-        ),
-        ...game.rounds.map(
-          (round) => TableRow(
-            children: <Widget>[
-              ...indexedPlayers.map((player) {
-                final score = round.playerByScores[player.$2.id] ?? 0;
-                totalScore[player.$1] += score;
-                return Text(score.toString());
-              }),
-            ],
+    // Calculate total scores for each player
+    for (final round in game.rounds) {
+      for (final player in game.players) {
+        final score = round.playerByScores[player.id] ?? 0;
+        totalScore[game.players.indexOf(player)] += score;
+      }
+    }
+
+    return CustomScrollView(
+      slivers: [
+        SliverList(
+          delegate: SliverChildBuilderDelegate(
+            childCount: game.rounds.length + 2, // +1 for header, +1 for total
+            (context, index) {
+              if (index == 0) {
+                // Header row
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children:
+                        game.players.map((player) {
+                          return Text(
+                            player.name,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: player.color,
+                            ),
+                            textAlign: TextAlign.center,
+                          );
+                        }).toList(),
+                  ),
+                );
+              } else if (index == game.rounds.length + 1) {
+                // Total row
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children:
+                        totalScore.map((score) {
+                          return Text(
+                            score.toString(),
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center,
+                          );
+                        }).toList(),
+                  ),
+                );
+              } else {
+                // Data rows
+                final roundIndex = index - 1;
+                final round = game.rounds[roundIndex];
+
+                return Dismissible(
+                  key: Key('${round.id}'),
+                  background: BackgroundDismiss(
+                    alignement: AlignmentDirectional.centerStart,
+                  ),
+                  // TODO implement update rounds
+                  secondaryBackground: BackgroundDismiss(
+                    alignement: AlignmentDirectional.centerEnd,
+                  ),
+                  confirmDismiss:
+                      (direction) => showDialog(
+                        context: context,
+                        builder:
+                            (context) => AlertDialog(
+                              title: Text(l10n.delete_game),
+                              content: Text(l10n.delete_game_confirmation),
+                              actions: [
+                                TextButton(
+                                  onPressed: () => context.pop(),
+                                  child: Text(l10n.common_cancel),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    ref
+                                        .read(
+                                          currentGameProvider(game.id).notifier,
+                                        )
+                                        .removeRound(round);
+
+                                    context.pop();
+                                  },
+                                  child: Text(l10n.common_delete),
+                                ),
+                              ],
+                            ),
+                      ),
+
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children:
+                          game.players.map((player) {
+                            final score = round.playerByScores[player.id] ?? 0;
+                            return Text(
+                              score.toString(),
+                              textAlign: TextAlign.center,
+                            );
+                          }).toList(),
+                    ),
+                  ),
+                );
+              }
+            },
           ),
-        ),
-        // total row
-        TableRow(
-          children: <Widget>[
-            ...indexedPlayers.map(
-              (player) => Text(
-                totalScore[player.$1].toString(),
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ),
-          ],
         ),
       ],
     );
-
-    //   rows: [
-    //     ...game.rounds.map(
-    //       (round) => DataRow(
-    //         cells: [
-    //           ...indexedPlayers.map((player) {
-    //             final score = round.playerByScores[player.$2.id] ?? 0;
-    //             totalScore[player.$1] += score;
-    //             return DataCell(Text(score.toString()));
-    //           }),
-    //         ],
-    //       ),
-    //     ),
-    //     // total row
-    //     DataRow(
-    //       cells: [
-    //         ...indexedPlayers.map(
-    //           (player) => DataCell(
-    //             Text(
-    //               totalScore[player.$1].toString(),
-    //               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-    //             ),
-    //           ),
-    //         ),
-    //       ],
-    //     ),
-    //   ],
-    // );
   }
 }

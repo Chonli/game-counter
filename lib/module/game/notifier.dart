@@ -14,6 +14,18 @@ class CurrentGame extends _$CurrentGame {
     return repo.getGame(gameId);
   }
 
+  void removeRound(Round round) {
+    final game = state.valueOrNull;
+    if (game == null) {
+      return;
+    }
+
+    final repo = ref.read(gamesRepositoryProvider);
+    final updatedRounds = game.rounds..remove(round);
+    final updatedGame = game.copyWith(rounds: updatedRounds);
+    repo.updateGame(updatedGame);
+  }
+
   void addOrUpdateRound(Round round) {
     final game = state.valueOrNull;
     if (game == null) {
