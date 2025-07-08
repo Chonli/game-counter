@@ -1,7 +1,7 @@
 name: score_counter
 description: 'A Flutter applicaton to count scores for a game.'
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-version: 1.0.0+1
+version: 0.0.2+2
 
 environment:
   sdk: ^3.7.0

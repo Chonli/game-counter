@@ -8,11 +8,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-      
+
     - name: Run Tests
       uses: ./.github/actions/flutter-tests
 
@@ -29,14 +28,11 @@ jobs:
         keyPassword: ${{ secrets.KEYPASSWORD }} 
       run: flutter build appbundle --obfuscate --split-debug-info='obfuscation_debug_files'
 
-    - name: Get release file aab path
-      id: releaseAab
-      run: echo "aabfile=$(find build/app/outputs/bundle -name '*.aab')" >> $GITHUB_OUTPUT
-
     - name: Upload AppBundle to Internal Testing
-      uses: wzieba/step-google-play@v3
+      uses: r0adkll/upload-google-play@v1
       with:
-        serviceAccountJson: ${{ secrets.GOOGLE_PLAY_AUTH }}
+        serviceAccountJsonPlainText: ${{ secrets.GOOGLE_PLAY_AUTH }}
         packageName: com.chonli.score_counter
-        source: build/app/outputs/bundle/release/app-release.aab
+        releaseFiles: build/app/outputs/bundle/release/app-release.aab
         track: internal
+        status: draft
