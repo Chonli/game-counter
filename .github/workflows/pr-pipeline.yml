@@ -1,0 +1,33 @@
+name: PR Pipeline
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: 'latest'
+
+    - name: Install dependencies
+      run: flutter pub get
+
+    - name: Run Linter
+      run: |
+          dart analyze
+          dart run custom_lint
+
+    - name: Run Unit Tests
+      run: flutter test
+
+    - name: Build APK
+      run: flutter build apk --debug
