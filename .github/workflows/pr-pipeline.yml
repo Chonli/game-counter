@@ -12,24 +12,9 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-
-    - name: Set up Flutter
-      uses: subosito/flutter-action@v2
-      with:
-        flutter-version: '3.32.5'
-
-    - name: Install dependencies
-      run: flutter pub get
-
-    - name: Run Linter
-      run: |
-          dart analyze
-          dart run custom_lint
-
-    - name: Run Unit Tests
-      run: |
-        Y | bash <(curl -s https://raw.githubusercontent.com/objectbox/objectbox-dart/main/install.sh)
-        flutter test
+            
+    - name: Run Tests
+      uses: ./.github/actions/flutter-tests
 
     - name: Build APK
       run: flutter build apk --debug
