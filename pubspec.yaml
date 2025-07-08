@@ -30,6 +30,7 @@ dev_dependencies:
   build_runner: ^2.4.15
   custom_lint: ^0.7.5
   dart_mappable_builder: ^4.5.0
+  flutter_launcher_icons: ^0.14.4
   flutter_lints: ^6.0.0
   flutter_test:
     sdk: flutter
@@ -44,3 +45,8 @@ flutter:
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: 'launcher_icon/icon.png'
