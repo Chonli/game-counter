@@ -242,10 +242,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
         object.id = id;
       },
       objectToFB: (RoundEntity object, fb.Builder fbb) {
-        final dbSavePlayerByScoresOffset =
-            object.dbSavePlayerByScores == null
-                ? null
-                : fbb.writeString(object.dbSavePlayerByScores!);
+        final dbSavePlayerByScoresOffset = object.dbSavePlayerByScores == null
+            ? null
+            : fbb.writeString(object.dbSavePlayerByScores!);
         fbb.startTable(8);
         fbb.addInt64(0, object.id);
         fbb.addInt64(5, object.index);
@@ -279,11 +278,10 @@ obx_int.ModelDefinition getObjectBoxModel() {
     GameEntity: obx_int.EntityDefinition<GameEntity>(
       model: _entities[2],
       toOneRelations: (GameEntity object) => [],
-      toManyRelations:
-          (GameEntity object) => {
-            obx_int.RelInfo<GameEntity>.toMany(1, object.id): object.players,
-            obx_int.RelInfo<GameEntity>.toMany(2, object.id): object.rounds,
-          },
+      toManyRelations: (GameEntity object) => {
+        obx_int.RelInfo<GameEntity>.toMany(1, object.id): object.players,
+        obx_int.RelInfo<GameEntity>.toMany(2, object.id): object.rounds,
+      },
       getId: (GameEntity object) => object.id,
       setId: (GameEntity object, int id) {
         object.id = id;

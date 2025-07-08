@@ -31,4 +31,12 @@ extension GameExtension on Game {
 
     return game;
   }
+
+  void updatePlayerScore() {
+    for (final player in players) {
+      player.totalScore = rounds.fold(0, (previousValue, element) {
+        return previousValue + (element.playerByScores[player.id] ?? 0);
+      });
+    }
+  }
 }

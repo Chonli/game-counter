@@ -11,7 +11,10 @@ class CurrentGame extends _$CurrentGame {
   FutureOr<Game?> build(int gameId) {
     final repo = ref.read(gamesRepositoryProvider);
 
-    return repo.getGame(gameId);
+    final game = repo.getGame(gameId);
+    game?.updatePlayerScore();
+
+    return game;
   }
 
   void removeRound(Round round) {
@@ -23,7 +26,9 @@ class CurrentGame extends _$CurrentGame {
     final repo = ref.read(gamesRepositoryProvider);
     final updatedRounds = game.rounds..remove(round);
     final updatedGame = game.copyWith(rounds: updatedRounds);
+    updatedGame.updatePlayerScore();
     repo.updateGame(updatedGame);
+    state = AsyncValue.data(updatedGame);
   }
 
   void addOrUpdateRound(Round round) {
@@ -36,9 +41,11 @@ class CurrentGame extends _$CurrentGame {
     final updatedRounds =
         game.rounds
           ..where((r) => r.id != round.id)
-          ..add(round);
+          ..add(round)
+          ..sort((a, b) => a.index.compareTo(b.index));
 
     final updatedGame = game.copyWith(rounds: updatedRounds);
+    updatedGame.updatePlayerScore();
     repo.updateGame(updatedGame);
     state = AsyncValue.data(updatedGame);
   }

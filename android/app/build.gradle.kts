@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.chonli.score_counter"
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = 36
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -24,7 +24,7 @@ android {
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion
-        targetSdk = flutter.targetSdkVersion
+        targetSdk = 36
         versionCode = flutter.versionCode
         versionName = flutter.versionName
     }
@@ -41,3 +41,4 @@ android {
 flutter {
     source = "../.."
 }
+

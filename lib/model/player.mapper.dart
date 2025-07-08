@@ -26,19 +26,24 @@ class PlayerMapper extends ClassMapperBase<Player> {
   static const Field<Player, String> _f$name = Field('name', _$name);
   static Color _$color(Player v) => v.color;
   static const Field<Player, Color> _f$color = Field('color', _$color);
+  static int _$totalScore(Player v) => v.totalScore;
+  static const Field<Player, int> _f$totalScore =
+      Field('totalScore', _$totalScore, opt: true, def: 0);
 
   @override
   final MappableFields<Player> fields = const {
     #id: _f$id,
     #name: _f$name,
     #color: _f$color,
+    #totalScore: _f$totalScore,
   };
 
   static Player _instantiate(DecodingData data) {
     return Player(
         id: data.dec(_f$id),
         name: data.dec(_f$name),
-        color: data.dec(_f$color));
+        color: data.dec(_f$color),
+        totalScore: data.dec(_f$totalScore));
   }
 
   @override
@@ -87,7 +92,7 @@ extension PlayerValueCopy<$R, $Out> on ObjectCopyWith<$R, Player, $Out> {
 
 abstract class PlayerCopyWith<$R, $In extends Player, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
-  $R call({int? id, String? name, Color? color});
+  $R call({int? id, String? name, Color? color, int? totalScore});
   PlayerCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -98,16 +103,19 @@ class _PlayerCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Player, $Out>
   @override
   late final ClassMapperBase<Player> $mapper = PlayerMapper.ensureInitialized();
   @override
-  $R call({int? id, String? name, Color? color}) => $apply(FieldCopyWithData({
+  $R call({int? id, String? name, Color? color, int? totalScore}) =>
+      $apply(FieldCopyWithData({
         if (id != null) #id: id,
         if (name != null) #name: name,
-        if (color != null) #color: color
+        if (color != null) #color: color,
+        if (totalScore != null) #totalScore: totalScore
       }));
   @override
   Player $make(CopyWithData data) => Player(
       id: data.get(#id, or: $value.id),
       name: data.get(#name, or: $value.name),
-      color: data.get(#color, or: $value.color));
+      color: data.get(#color, or: $value.color),
+      totalScore: data.get(#totalScore, or: $value.totalScore));
 
   @override
   PlayerCopyWith<$R2, Player, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>

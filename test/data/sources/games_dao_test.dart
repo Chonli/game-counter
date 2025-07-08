@@ -5,14 +5,14 @@ import 'package:score_counter/data/entities/round.dart';
 import 'package:score_counter/data/sources/games_dao.dart';
 import 'package:score_counter/objectbox.g.dart';
 
-import 'utils.dart';
+import '../../utils.dart';
 
 void main() {
   late GamesDao gamesDao;
   late Store db;
 
   setUp(() async {
-    db = await openStore(directory: "memory:test-db");
+    db = Store(getObjectBoxModel(), directory: "memory:test-db");
     final box = db.box<GameEntity>();
     final roundBox = db.box<RoundEntity>();
 

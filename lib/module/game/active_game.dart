@@ -75,15 +75,6 @@ class _GameResultTable extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = context.l10n;
-    final totalScore = List.filled(game.players.length, 0);
-
-    // Calculate total scores for each player
-    for (final round in game.rounds) {
-      for (final player in game.players) {
-        final score = round.playerByScores[player.id] ?? 0;
-        totalScore[game.players.indexOf(player)] += score;
-      }
-    }
 
     return CustomScrollView(
       slivers: [
@@ -93,21 +84,28 @@ class _GameResultTable extends HookConsumerWidget {
             (context, index) {
               if (index == 0) {
                 // Header row
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children:
-                        game.players.map((player) {
-                          return Text(
-                            player.name,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: player.color,
-                            ),
-                            textAlign: TextAlign.center,
-                          );
-                        }).toList(),
+                return DecoratedBox(
+                  decoration: BoxDecoration(
+                    border: BoxBorder.fromLTRB(
+                      bottom: BorderSide(color: Colors.grey),
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children:
+                          game.players.map((player) {
+                            return Text(
+                              player.name,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: player.color,
+                              ),
+                              textAlign: TextAlign.center,
+                            );
+                          }).toList(),
+                    ),
                   ),
                 );
               } else if (index == game.rounds.length + 1) {
@@ -117,9 +115,9 @@ class _GameResultTable extends HookConsumerWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children:
-                        totalScore.map((score) {
+                        game.players.map((player) {
                           return Text(
-                            score.toString(),
+                            player.totalScore.toString(),
                             style: TextStyle(fontWeight: FontWeight.bold),
                             textAlign: TextAlign.center,
                           );
@@ -131,55 +129,65 @@ class _GameResultTable extends HookConsumerWidget {
                 final roundIndex = index - 1;
                 final round = game.rounds[roundIndex];
 
-                return Dismissible(
-                  key: Key('${round.id}'),
-                  background: BackgroundDismiss(
-                    alignement: AlignmentDirectional.centerStart,
+                return DecoratedBox(
+                  decoration: BoxDecoration(
+                    border: BoxBorder.fromLTRB(
+                      bottom: BorderSide(color: Colors.grey),
+                    ),
                   ),
-                  // TODO implement update rounds
-                  secondaryBackground: BackgroundDismiss(
-                    alignement: AlignmentDirectional.centerEnd,
-                  ),
-                  confirmDismiss:
-                      (direction) => showDialog(
-                        context: context,
-                        builder:
-                            (context) => AlertDialog(
-                              title: Text(l10n.delete_game),
-                              content: Text(l10n.delete_game_confirmation),
-                              actions: [
-                                TextButton(
-                                  onPressed: () => context.pop(),
-                                  child: Text(l10n.common_cancel),
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    ref
-                                        .read(
-                                          currentGameProvider(game.id).notifier,
-                                        )
-                                        .removeRound(round);
+                  child: Dismissible(
+                    key: Key('${round.id}'),
+                    background: BackgroundDismiss(
+                      alignement: AlignmentDirectional.centerStart,
+                    ),
+                    // TODO implement update rounds
+                    secondaryBackground: BackgroundDismiss(
+                      alignement: AlignmentDirectional.centerEnd,
+                    ),
+                    confirmDismiss:
+                        (direction) => showDialog(
+                          context: context,
+                          builder:
+                              (context) => AlertDialog(
+                                title: Text(l10n.delete_game),
+                                content: Text(l10n.delete_game_confirmation),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () => context.pop(),
+                                    child: Text(l10n.common_cancel),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      ref
+                                          .read(
+                                            currentGameProvider(
+                                              game.id,
+                                            ).notifier,
+                                          )
+                                          .removeRound(round);
 
-                                    context.pop();
-                                  },
-                                  child: Text(l10n.common_delete),
-                                ),
-                              ],
-                            ),
+                                      context.pop();
+                                    },
+                                    child: Text(l10n.common_delete),
+                                  ),
+                                ],
+                              ),
+                        ),
+
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children:
+                            game.players.map((player) {
+                              final score =
+                                  round.playerByScores[player.id] ?? 0;
+                              return Text(
+                                score.toString(),
+                                textAlign: TextAlign.center,
+                              );
+                            }).toList(),
                       ),
-
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children:
-                          game.players.map((player) {
-                            final score = round.playerByScores[player.id] ?? 0;
-                            return Text(
-                              score.toString(),
-                              textAlign: TextAlign.center,
-                            );
-                          }).toList(),
                     ),
                   ),
                 );

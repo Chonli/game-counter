@@ -6,11 +6,17 @@ part 'player.mapper.dart';
 
 @MappableClass() // no need to set caseStyle here
 class Player with PlayerMappable {
-  Player({required this.id, required this.name, required this.color});
+  Player({
+    required this.id,
+    required this.name,
+    required this.color,
+    this.totalScore = 0,
+  });
 
   int id;
   String name;
   Color color;
+  int totalScore;
 }
 
 extension PlayerExtension on Player {
