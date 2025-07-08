@@ -1,0 +1,31 @@
+name: Flutter Tests
+description: Run Flutter Init and Tests
+
+
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.32.5'
+
+    - name: Install dependencies
+      shell: bash
+      run: flutter pub get
+
+    - name: Run Linter
+      shell: bash
+      run: |
+          dart analyze
+          dart run custom_lint
+
+    - name: Init objectbo lib
+      shell: bash
+      continue-on-error: true
+      run: Y | bash <(curl -s https://raw.githubusercontent.com/objectbox/objectbox-dart/main/install.sh)
+
+    - name: Run Unit Tests
+      shell: bash
+      run: flutter test
