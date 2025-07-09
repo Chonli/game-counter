@@ -4,23 +4,58 @@
   "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
   "entities": [
     {
-      "id": "4:2971194582392692577",
-      "lastPropertyId": "4:8063499548271766326",
-      "name": "PlayerEntity",
+      "id": "1:3275677112749751919",
+      "lastPropertyId": "3:2106022416997536326",
+      "name": "GameEntity",
       "properties": [
         {
-          "id": "1:4848997874296738527",
+          "id": "1:5558258013999247047",
           "name": "id",
           "type": 6,
           "flags": 1
         },
         {
-          "id": "2:2864229011932638368",
+          "id": "2:5657056280553392794",
           "name": "name",
           "type": 9
         },
         {
-          "id": "4:8063499548271766326",
+          "id": "3:2106022416997536326",
+          "name": "createDate",
+          "type": 10
+        }
+      ],
+      "relations": [
+        {
+          "id": "1:6834237167268557952",
+          "name": "players",
+          "targetId": "2:9083680030095837492"
+        },
+        {
+          "id": "2:8250862366400271415",
+          "name": "rounds",
+          "targetId": "4:6118862544910749761"
+        }
+      ]
+    },
+    {
+      "id": "2:9083680030095837492",
+      "lastPropertyId": "3:1442686348130381836",
+      "name": "PlayerEntity",
+      "properties": [
+        {
+          "id": "1:7257477530103836099",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:3407368536867903894",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "3:1442686348130381836",
           "name": "color",
           "type": 6
         }
@@ -28,93 +63,63 @@
       "relations": []
     },
     {
-      "id": "5:1858635641791322862",
-      "lastPropertyId": "7:8634500096037058916",
-      "name": "RoundEntity",
+      "id": "3:7914021761693517881",
+      "lastPropertyId": "3:6219361135751725001",
+      "name": "PreferencesEntity",
       "properties": [
         {
-          "id": "1:3814532658651776898",
+          "id": "1:6961114608435299990",
           "name": "id",
           "type": 6,
-          "flags": 1
+          "flags": 129
         },
         {
-          "id": "6:1805177125668867032",
-          "name": "index",
-          "type": 6
+          "id": "2:5927784811819739754",
+          "name": "themeMode",
+          "type": 9
         },
         {
-          "id": "7:8634500096037058916",
-          "name": "dbSavePlayerByScores",
+          "id": "3:6219361135751725001",
+          "name": "language",
           "type": 9
         }
       ],
       "relations": []
     },
     {
-      "id": "6:3150320265497678194",
-      "lastPropertyId": "3:8605340114923631938",
-      "name": "GameEntity",
+      "id": "4:6118862544910749761",
+      "lastPropertyId": "3:3213534649559015225",
+      "name": "RoundEntity",
       "properties": [
         {
-          "id": "1:8804196349143853855",
+          "id": "1:8852772319347164553",
           "name": "id",
           "type": 6,
           "flags": 1
         },
         {
-          "id": "2:424138405055645625",
-          "name": "name",
-          "type": 9
+          "id": "2:4103108070283966812",
+          "name": "index",
+          "type": 6
         },
         {
-          "id": "3:8605340114923631938",
-          "name": "createDate",
-          "type": 10
+          "id": "3:3213534649559015225",
+          "name": "dbSavePlayerByScores",
+          "type": 9
         }
       ],
-      "relations": [
-        {
-          "id": "1:6128079963374975692",
-          "name": "players",
-          "targetId": "4:2971194582392692577"
-        },
-        {
-          "id": "2:5154039330368770140",
-          "name": "rounds",
-          "targetId": "5:1858635641791322862"
-        }
-      ]
+      "relations": []
     }
   ],
-  "lastEntityId": "6:3150320265497678194",
+  "lastEntityId": "4:6118862544910749761",
   "lastIndexId": "0:0",
-  "lastRelationId": "2:5154039330368770140",
+  "lastRelationId": "2:8250862366400271415",
   "lastSequenceId": "0:0",
   "modelVersion": 5,
   "modelVersionParserMinimum": 5,
-  "retiredEntityUids": [
-    8816259552723938980,
-    6881748196356932770,
-    1419381352289660982
-  ],
+  "retiredEntityUids": [],
   "retiredIndexUids": [],
-  "retiredPropertyUids": [
-    2602513995602490272,
-    8198908648596655920,
-    866044339508809125,
-    5307349344244511266,
-    1039161536597161031,
-    7024354633358351193,
-    1897326301637448573,
-    1022947341105917299,
-    4270376878298114339,
-    6782487397448865989,
-    9105575387370467626,
-    9170334553884357958,
-    4817348994218527693,
-    1643977456355976676
-  ],
+  "retiredPropertyUids": [],
   "retiredRelationUids": [],
   "version": 1
 }

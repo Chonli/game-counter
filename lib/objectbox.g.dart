@@ -16,31 +16,71 @@ import 'package:objectbox_flutter_libs/objectbox_flutter_libs.dart';
 
 import 'data/entities/game.dart';
 import 'data/entities/player.dart';
+import 'data/entities/preferences.dart';
 import 'data/entities/round.dart';
 
 export 'package:objectbox/objectbox.dart'; // so that callers only have to import this file
 
 final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
-    id: const obx_int.IdUid(4, 2971194582392692577),
-    name: 'PlayerEntity',
-    lastPropertyId: const obx_int.IdUid(4, 8063499548271766326),
+    id: const obx_int.IdUid(1, 3275677112749751919),
+    name: 'GameEntity',
+    lastPropertyId: const obx_int.IdUid(3, 2106022416997536326),
     flags: 0,
     properties: <obx_int.ModelProperty>[
       obx_int.ModelProperty(
-        id: const obx_int.IdUid(1, 4848997874296738527),
+        id: const obx_int.IdUid(1, 5558258013999247047),
         name: 'id',
         type: 6,
         flags: 1,
       ),
       obx_int.ModelProperty(
-        id: const obx_int.IdUid(2, 2864229011932638368),
+        id: const obx_int.IdUid(2, 5657056280553392794),
         name: 'name',
         type: 9,
         flags: 0,
       ),
       obx_int.ModelProperty(
-        id: const obx_int.IdUid(4, 8063499548271766326),
+        id: const obx_int.IdUid(3, 2106022416997536326),
+        name: 'createDate',
+        type: 10,
+        flags: 0,
+      ),
+    ],
+    relations: <obx_int.ModelRelation>[
+      obx_int.ModelRelation(
+        id: const obx_int.IdUid(1, 6834237167268557952),
+        name: 'players',
+        targetId: const obx_int.IdUid(2, 9083680030095837492),
+      ),
+      obx_int.ModelRelation(
+        id: const obx_int.IdUid(2, 8250862366400271415),
+        name: 'rounds',
+        targetId: const obx_int.IdUid(4, 6118862544910749761),
+      ),
+    ],
+    backlinks: <obx_int.ModelBacklink>[],
+  ),
+  obx_int.ModelEntity(
+    id: const obx_int.IdUid(2, 9083680030095837492),
+    name: 'PlayerEntity',
+    lastPropertyId: const obx_int.IdUid(3, 1442686348130381836),
+    flags: 0,
+    properties: <obx_int.ModelProperty>[
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(1, 7257477530103836099),
+        name: 'id',
+        type: 6,
+        flags: 1,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(2, 3407368536867903894),
+        name: 'name',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(3, 1442686348130381836),
         name: 'color',
         type: 6,
         flags: 0,
@@ -50,26 +90,26 @@ final _entities = <obx_int.ModelEntity>[
     backlinks: <obx_int.ModelBacklink>[],
   ),
   obx_int.ModelEntity(
-    id: const obx_int.IdUid(5, 1858635641791322862),
-    name: 'RoundEntity',
-    lastPropertyId: const obx_int.IdUid(7, 8634500096037058916),
+    id: const obx_int.IdUid(3, 7914021761693517881),
+    name: 'PreferencesEntity',
+    lastPropertyId: const obx_int.IdUid(3, 6219361135751725001),
     flags: 0,
     properties: <obx_int.ModelProperty>[
       obx_int.ModelProperty(
-        id: const obx_int.IdUid(1, 3814532658651776898),
+        id: const obx_int.IdUid(1, 6961114608435299990),
         name: 'id',
         type: 6,
-        flags: 1,
+        flags: 129,
       ),
       obx_int.ModelProperty(
-        id: const obx_int.IdUid(6, 1805177125668867032),
-        name: 'index',
-        type: 6,
+        id: const obx_int.IdUid(2, 5927784811819739754),
+        name: 'themeMode',
+        type: 9,
         flags: 0,
       ),
       obx_int.ModelProperty(
-        id: const obx_int.IdUid(7, 8634500096037058916),
-        name: 'dbSavePlayerByScores',
+        id: const obx_int.IdUid(3, 6219361135751725001),
+        name: 'language',
         type: 9,
         flags: 0,
       ),
@@ -78,42 +118,31 @@ final _entities = <obx_int.ModelEntity>[
     backlinks: <obx_int.ModelBacklink>[],
   ),
   obx_int.ModelEntity(
-    id: const obx_int.IdUid(6, 3150320265497678194),
-    name: 'GameEntity',
-    lastPropertyId: const obx_int.IdUid(3, 8605340114923631938),
+    id: const obx_int.IdUid(4, 6118862544910749761),
+    name: 'RoundEntity',
+    lastPropertyId: const obx_int.IdUid(3, 3213534649559015225),
     flags: 0,
     properties: <obx_int.ModelProperty>[
       obx_int.ModelProperty(
-        id: const obx_int.IdUid(1, 8804196349143853855),
+        id: const obx_int.IdUid(1, 8852772319347164553),
         name: 'id',
         type: 6,
         flags: 1,
       ),
       obx_int.ModelProperty(
-        id: const obx_int.IdUid(2, 424138405055645625),
-        name: 'name',
-        type: 9,
+        id: const obx_int.IdUid(2, 4103108070283966812),
+        name: 'index',
+        type: 6,
         flags: 0,
       ),
       obx_int.ModelProperty(
-        id: const obx_int.IdUid(3, 8605340114923631938),
-        name: 'createDate',
-        type: 10,
+        id: const obx_int.IdUid(3, 3213534649559015225),
+        name: 'dbSavePlayerByScores',
+        type: 9,
         flags: 0,
       ),
     ],
-    relations: <obx_int.ModelRelation>[
-      obx_int.ModelRelation(
-        id: const obx_int.IdUid(1, 6128079963374975692),
-        name: 'players',
-        targetId: const obx_int.IdUid(4, 2971194582392692577),
-      ),
-      obx_int.ModelRelation(
-        id: const obx_int.IdUid(2, 5154039330368770140),
-        name: 'rounds',
-        targetId: const obx_int.IdUid(5, 1858635641791322862),
-      ),
-    ],
+    relations: <obx_int.ModelRelation>[],
     backlinks: <obx_int.ModelBacklink>[],
   ),
 ];
@@ -156,32 +185,13 @@ Future<obx.Store> openStore({
 obx_int.ModelDefinition getObjectBoxModel() {
   final model = obx_int.ModelInfo(
     entities: _entities,
-    lastEntityId: const obx_int.IdUid(6, 3150320265497678194),
+    lastEntityId: const obx_int.IdUid(4, 6118862544910749761),
     lastIndexId: const obx_int.IdUid(0, 0),
-    lastRelationId: const obx_int.IdUid(2, 5154039330368770140),
+    lastRelationId: const obx_int.IdUid(2, 8250862366400271415),
     lastSequenceId: const obx_int.IdUid(0, 0),
-    retiredEntityUids: const [
-      8816259552723938980,
-      6881748196356932770,
-      1419381352289660982,
-    ],
+    retiredEntityUids: const [],
     retiredIndexUids: const [],
-    retiredPropertyUids: const [
-      2602513995602490272,
-      8198908648596655920,
-      866044339508809125,
-      5307349344244511266,
-      1039161536597161031,
-      7024354633358351193,
-      1897326301637448573,
-      1022947341105917299,
-      4270376878298114339,
-      6782487397448865989,
-      9105575387370467626,
-      9170334553884357958,
-      4817348994218527693,
-      1643977456355976676,
-    ],
+    retiredPropertyUids: const [],
     retiredRelationUids: const [],
     modelVersion: 5,
     modelVersionParserMinimum: 5,
@@ -189,94 +199,8 @@ obx_int.ModelDefinition getObjectBoxModel() {
   );
 
   final bindings = <Type, obx_int.EntityDefinition>{
-    PlayerEntity: obx_int.EntityDefinition<PlayerEntity>(
-      model: _entities[0],
-      toOneRelations: (PlayerEntity object) => [],
-      toManyRelations: (PlayerEntity object) => {},
-      getId: (PlayerEntity object) => object.id,
-      setId: (PlayerEntity object, int id) {
-        object.id = id;
-      },
-      objectToFB: (PlayerEntity object, fb.Builder fbb) {
-        final nameOffset = fbb.writeString(object.name);
-        fbb.startTable(5);
-        fbb.addInt64(0, object.id);
-        fbb.addOffset(1, nameOffset);
-        fbb.addInt64(3, object.color);
-        fbb.finish(fbb.endTable());
-        return object.id;
-      },
-      objectFromFB: (obx.Store store, ByteData fbData) {
-        final buffer = fb.BufferContext(fbData);
-        final rootOffset = buffer.derefObject(0);
-        final idParam = const fb.Int64Reader().vTableGet(
-          buffer,
-          rootOffset,
-          4,
-          0,
-        );
-        final nameParam = const fb.StringReader(
-          asciiOptimization: true,
-        ).vTableGet(buffer, rootOffset, 6, '');
-        final colorParam = const fb.Int64Reader().vTableGet(
-          buffer,
-          rootOffset,
-          10,
-          0,
-        );
-        final object = PlayerEntity(
-          id: idParam,
-          name: nameParam,
-          color: colorParam,
-        );
-
-        return object;
-      },
-    ),
-    RoundEntity: obx_int.EntityDefinition<RoundEntity>(
-      model: _entities[1],
-      toOneRelations: (RoundEntity object) => [],
-      toManyRelations: (RoundEntity object) => {},
-      getId: (RoundEntity object) => object.id,
-      setId: (RoundEntity object, int id) {
-        object.id = id;
-      },
-      objectToFB: (RoundEntity object, fb.Builder fbb) {
-        final dbSavePlayerByScoresOffset = object.dbSavePlayerByScores == null
-            ? null
-            : fbb.writeString(object.dbSavePlayerByScores!);
-        fbb.startTable(8);
-        fbb.addInt64(0, object.id);
-        fbb.addInt64(5, object.index);
-        fbb.addOffset(6, dbSavePlayerByScoresOffset);
-        fbb.finish(fbb.endTable());
-        return object.id;
-      },
-      objectFromFB: (obx.Store store, ByteData fbData) {
-        final buffer = fb.BufferContext(fbData);
-        final rootOffset = buffer.derefObject(0);
-        final idParam = const fb.Int64Reader().vTableGet(
-          buffer,
-          rootOffset,
-          4,
-          0,
-        );
-        final indexParam = const fb.Int64Reader().vTableGet(
-          buffer,
-          rootOffset,
-          14,
-          0,
-        );
-        final object = RoundEntity(id: idParam, index: indexParam)
-          ..dbSavePlayerByScores = const fb.StringReader(
-            asciiOptimization: true,
-          ).vTableGetNullable(buffer, rootOffset, 16);
-
-        return object;
-      },
-    ),
     GameEntity: obx_int.EntityDefinition<GameEntity>(
-      model: _entities[2],
+      model: _entities[0],
       toOneRelations: (GameEntity object) => [],
       toManyRelations: (GameEntity object) => {
         obx_int.RelInfo<GameEntity>.toMany(1, object.id): object.players,
@@ -328,26 +252,200 @@ obx_int.ModelDefinition getObjectBoxModel() {
         return object;
       },
     ),
+    PlayerEntity: obx_int.EntityDefinition<PlayerEntity>(
+      model: _entities[1],
+      toOneRelations: (PlayerEntity object) => [],
+      toManyRelations: (PlayerEntity object) => {},
+      getId: (PlayerEntity object) => object.id,
+      setId: (PlayerEntity object, int id) {
+        object.id = id;
+      },
+      objectToFB: (PlayerEntity object, fb.Builder fbb) {
+        final nameOffset = fbb.writeString(object.name);
+        fbb.startTable(4);
+        fbb.addInt64(0, object.id);
+        fbb.addOffset(1, nameOffset);
+        fbb.addInt64(2, object.color);
+        fbb.finish(fbb.endTable());
+        return object.id;
+      },
+      objectFromFB: (obx.Store store, ByteData fbData) {
+        final buffer = fb.BufferContext(fbData);
+        final rootOffset = buffer.derefObject(0);
+        final idParam = const fb.Int64Reader().vTableGet(
+          buffer,
+          rootOffset,
+          4,
+          0,
+        );
+        final nameParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGet(buffer, rootOffset, 6, '');
+        final colorParam = const fb.Int64Reader().vTableGet(
+          buffer,
+          rootOffset,
+          8,
+          0,
+        );
+        final object = PlayerEntity(
+          id: idParam,
+          name: nameParam,
+          color: colorParam,
+        );
+
+        return object;
+      },
+    ),
+    PreferencesEntity: obx_int.EntityDefinition<PreferencesEntity>(
+      model: _entities[2],
+      toOneRelations: (PreferencesEntity object) => [],
+      toManyRelations: (PreferencesEntity object) => {},
+      getId: (PreferencesEntity object) => object.id,
+      setId: (PreferencesEntity object, int id) {
+        object.id = id;
+      },
+      objectToFB: (PreferencesEntity object, fb.Builder fbb) {
+        final themeModeOffset = fbb.writeString(object.themeMode);
+        final languageOffset = fbb.writeString(object.language);
+        fbb.startTable(4);
+        fbb.addInt64(0, object.id);
+        fbb.addOffset(1, themeModeOffset);
+        fbb.addOffset(2, languageOffset);
+        fbb.finish(fbb.endTable());
+        return object.id;
+      },
+      objectFromFB: (obx.Store store, ByteData fbData) {
+        final buffer = fb.BufferContext(fbData);
+        final rootOffset = buffer.derefObject(0);
+        final idParam = const fb.Int64Reader().vTableGet(
+          buffer,
+          rootOffset,
+          4,
+          0,
+        );
+        final themeModeParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGet(buffer, rootOffset, 6, '');
+        final languageParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGet(buffer, rootOffset, 8, '');
+        final object = PreferencesEntity(
+          id: idParam,
+          themeMode: themeModeParam,
+          language: languageParam,
+        );
+
+        return object;
+      },
+    ),
+    RoundEntity: obx_int.EntityDefinition<RoundEntity>(
+      model: _entities[3],
+      toOneRelations: (RoundEntity object) => [],
+      toManyRelations: (RoundEntity object) => {},
+      getId: (RoundEntity object) => object.id,
+      setId: (RoundEntity object, int id) {
+        object.id = id;
+      },
+      objectToFB: (RoundEntity object, fb.Builder fbb) {
+        final dbSavePlayerByScoresOffset = object.dbSavePlayerByScores == null
+            ? null
+            : fbb.writeString(object.dbSavePlayerByScores!);
+        fbb.startTable(4);
+        fbb.addInt64(0, object.id);
+        fbb.addInt64(1, object.index);
+        fbb.addOffset(2, dbSavePlayerByScoresOffset);
+        fbb.finish(fbb.endTable());
+        return object.id;
+      },
+      objectFromFB: (obx.Store store, ByteData fbData) {
+        final buffer = fb.BufferContext(fbData);
+        final rootOffset = buffer.derefObject(0);
+        final idParam = const fb.Int64Reader().vTableGet(
+          buffer,
+          rootOffset,
+          4,
+          0,
+        );
+        final indexParam = const fb.Int64Reader().vTableGet(
+          buffer,
+          rootOffset,
+          6,
+          0,
+        );
+        final object = RoundEntity(id: idParam, index: indexParam)
+          ..dbSavePlayerByScores = const fb.StringReader(
+            asciiOptimization: true,
+          ).vTableGetNullable(buffer, rootOffset, 8);
+
+        return object;
+      },
+    ),
   };
 
   return obx_int.ModelDefinition(model, bindings);
+}
+
+/// [GameEntity] entity fields to define ObjectBox queries.
+class GameEntity_ {
+  /// See [GameEntity.id].
+  static final id = obx.QueryIntegerProperty<GameEntity>(
+    _entities[0].properties[0],
+  );
+
+  /// See [GameEntity.name].
+  static final name = obx.QueryStringProperty<GameEntity>(
+    _entities[0].properties[1],
+  );
+
+  /// See [GameEntity.createDate].
+  static final createDate = obx.QueryDateProperty<GameEntity>(
+    _entities[0].properties[2],
+  );
+
+  /// see [GameEntity.players]
+  static final players = obx.QueryRelationToMany<GameEntity, PlayerEntity>(
+    _entities[0].relations[0],
+  );
+
+  /// see [GameEntity.rounds]
+  static final rounds = obx.QueryRelationToMany<GameEntity, RoundEntity>(
+    _entities[0].relations[1],
+  );
 }
 
 /// [PlayerEntity] entity fields to define ObjectBox queries.
 class PlayerEntity_ {
   /// See [PlayerEntity.id].
   static final id = obx.QueryIntegerProperty<PlayerEntity>(
-    _entities[0].properties[0],
+    _entities[1].properties[0],
   );
 
   /// See [PlayerEntity.name].
   static final name = obx.QueryStringProperty<PlayerEntity>(
-    _entities[0].properties[1],
+    _entities[1].properties[1],
   );
 
   /// See [PlayerEntity.color].
   static final color = obx.QueryIntegerProperty<PlayerEntity>(
-    _entities[0].properties[2],
+    _entities[1].properties[2],
+  );
+}
+
+/// [PreferencesEntity] entity fields to define ObjectBox queries.
+class PreferencesEntity_ {
+  /// See [PreferencesEntity.id].
+  static final id = obx.QueryIntegerProperty<PreferencesEntity>(
+    _entities[2].properties[0],
+  );
+
+  /// See [PreferencesEntity.themeMode].
+  static final themeMode = obx.QueryStringProperty<PreferencesEntity>(
+    _entities[2].properties[1],
+  );
+
+  /// See [PreferencesEntity.language].
+  static final language = obx.QueryStringProperty<PreferencesEntity>(
+    _entities[2].properties[2],
   );
 }
 
@@ -355,44 +453,16 @@ class PlayerEntity_ {
 class RoundEntity_ {
   /// See [RoundEntity.id].
   static final id = obx.QueryIntegerProperty<RoundEntity>(
-    _entities[1].properties[0],
+    _entities[3].properties[0],
   );
 
   /// See [RoundEntity.index].
   static final index = obx.QueryIntegerProperty<RoundEntity>(
-    _entities[1].properties[1],
+    _entities[3].properties[1],
   );
 
   /// See [RoundEntity.dbSavePlayerByScores].
   static final dbSavePlayerByScores = obx.QueryStringProperty<RoundEntity>(
-    _entities[1].properties[2],
-  );
-}
-
-/// [GameEntity] entity fields to define ObjectBox queries.
-class GameEntity_ {
-  /// See [GameEntity.id].
-  static final id = obx.QueryIntegerProperty<GameEntity>(
-    _entities[2].properties[0],
-  );
-
-  /// See [GameEntity.name].
-  static final name = obx.QueryStringProperty<GameEntity>(
-    _entities[2].properties[1],
-  );
-
-  /// See [GameEntity.createDate].
-  static final createDate = obx.QueryDateProperty<GameEntity>(
-    _entities[2].properties[2],
-  );
-
-  /// see [GameEntity.players]
-  static final players = obx.QueryRelationToMany<GameEntity, PlayerEntity>(
-    _entities[2].relations[0],
-  );
-
-  /// see [GameEntity.rounds]
-  static final rounds = obx.QueryRelationToMany<GameEntity, RoundEntity>(
-    _entities[2].relations[1],
+    _entities[3].properties[2],
   );
 }

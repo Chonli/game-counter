@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:objectbox/objectbox.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -19,7 +20,9 @@ GamesDao gamesDao(Ref ref) {
 class GamesDao {
   const GamesDao(this.box, this.roundBox);
 
+  @visibleForTesting
   final Box<GameEntity> box;
+  @visibleForTesting
   final Box<RoundEntity> roundBox;
 
   GameEntity? getGame(int id) {

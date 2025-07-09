@@ -6,6 +6,7 @@ import 'package:path_provider/path_provider.dart'
     show getApplicationSupportDirectory;
 import 'package:score_counter/core/database.dart';
 import 'package:score_counter/l10n/app_localizations.dart';
+import 'package:score_counter/notifier/preferences.dart';
 import 'package:score_counter/objectbox.g.dart';
 import 'package:score_counter/router/app_router.dart';
 
@@ -31,6 +32,7 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(appRouterProvider);
+    final preferences = ref.watch(preferencesNotifierProvider);
 
     return MaterialApp.router(
       routerConfig: router,
@@ -41,12 +43,15 @@ class MyApp extends ConsumerWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: AppLocalizations.supportedLocales,
+      locale: Locale(preferences.language),
+      themeMode: preferences.themeMode,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
       ),
       darkTheme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.blueAccent.shade700,
+          brightness: Brightness.dark,
         ),
       ),
     );
