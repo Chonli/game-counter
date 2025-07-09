@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
@@ -40,22 +41,42 @@ class AddGamePage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = context.l10n;
     final nameController = useTextEditingController();
+    final maxScoreByRoundController = useTextEditingController();
+    final maxScoreController = useTextEditingController();
+    final maxRoundsController = useTextEditingController();
+
     final playerControllers = useState<List<TextEditingController>>([]);
     final playerFocusNodes = useState<List<FocusNode>>([]);
     final playerColors = useState<List<Color>>([]);
     final nameFocusNode = useFocusNode();
+    final maxScoreByRoundFocusNode = useFocusNode();
+    final maxScoreFocusNode = useFocusNode();
+    final maxRoundsFocusNode = useFocusNode();
+    final validateFocusNode = useFocusNode();
 
-    void addPlayerField() {
+    void addPlayerField({bool forceFocus = true}) {
       final newController = TextEditingController();
       final newFocusNode = FocusNode();
       playerControllers.value = [...playerControllers.value, newController];
       playerFocusNodes.value = [...playerFocusNodes.value, newFocusNode];
       playerColors.value = [...playerColors.value, _availableColors.first];
-      newFocusNode.requestFocus();
+      if (forceFocus) {
+        newFocusNode.requestFocus();
+      }
+    }
+
+    void deletePlayerField() {
+      if (playerControllers.value.length > 1) {
+        playerControllers.value.removeLast();
+        playerFocusNodes.value.removeLast();
+        playerColors.value.removeLast();
+        playerFocusNodes.value.last.requestFocus();
+      }
     }
 
     useEffect(() {
-      addPlayerField();
+      addPlayerField(forceFocus: false);
+      nameFocusNode.requestFocus();
       return null;
     }, const []);
 
@@ -74,9 +95,50 @@ class AddGamePage extends HookConsumerWidget {
                   labelText: l10n.add_game_name_field,
                 ),
                 onFieldSubmitted: (_) {
+                  maxScoreByRoundFocusNode.requestFocus();
+                },
+              ),
+              const SizedBox(height: 20),
+              TextFormField(
+                controller: maxScoreByRoundController,
+                focusNode: maxScoreByRoundFocusNode,
+                decoration: InputDecoration(
+                  labelText: l10n.add_game_max_score_by_round_field,
+                ),
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                keyboardType: TextInputType.numberWithOptions(),
+                onFieldSubmitted: (_) {
                   if (playerFocusNodes.value.isNotEmpty) {
-                    playerFocusNodes.value.first.requestFocus();
+                    maxScoreFocusNode.requestFocus();
                   }
+                },
+              ),
+              const SizedBox(height: 20),
+              TextFormField(
+                controller: maxScoreController,
+                focusNode: maxScoreFocusNode,
+                decoration: InputDecoration(
+                  labelText: l10n.add_game_max_score_field,
+                ),
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                keyboardType: TextInputType.numberWithOptions(),
+                onFieldSubmitted: (_) {
+                  if (playerFocusNodes.value.isNotEmpty) {
+                    maxRoundsFocusNode.requestFocus();
+                  }
+                },
+              ),
+              const SizedBox(height: 20),
+              TextFormField(
+                controller: maxRoundsController,
+                focusNode: maxRoundsFocusNode,
+                decoration: InputDecoration(
+                  labelText: l10n.add_game_max_rounds_field,
+                ),
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                keyboardType: TextInputType.numberWithOptions(),
+                onFieldSubmitted: (_) {
+                  playerFocusNodes.value.first.requestFocus();
                 },
               ),
               const SizedBox(height: 20),
@@ -94,6 +156,10 @@ class AddGamePage extends HookConsumerWidget {
                   IconButton(
                     onPressed: () => addPlayerField(),
                     icon: const Icon(Icons.add),
+                  ),
+                  IconButton(
+                    onPressed: () => deletePlayerField(),
+                    icon: const Icon(Icons.delete),
                   ),
                 ],
               ),
@@ -131,7 +197,7 @@ class AddGamePage extends HookConsumerWidget {
                             context: context,
                             builder: (BuildContext context) {
                               return AlertDialog(
-                                title: Text('Pick a color!'),
+                                title: Text(l10n.add_game_players_color),
                                 content: SingleChildScrollView(
                                   child: BlockPicker(
                                     pickerColor: playerColors.value[index],
@@ -165,7 +231,9 @@ class AddGamePage extends HookConsumerWidget {
                 );
               }),
               const SizedBox(height: 20),
+
               ElevatedButton(
+                focusNode: validateFocusNode,
                 onPressed: () {
                   final validPlayers = playerControllers.value.where(
                     (player) => player.text.isNotEmpty,

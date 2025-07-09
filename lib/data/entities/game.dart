@@ -10,10 +10,20 @@ class GameEntity {
   String name;
   @Property(type: PropertyType.date)
   DateTime createDate;
+  int? maxScoreByRound;
+  int? maxScore;
+  int? maxRounds;
   final players = ToMany<PlayerEntity>();
   final rounds = ToMany<RoundEntity>();
 
-  GameEntity({this.id = 0, required this.name, required this.createDate});
+  GameEntity({
+    this.id = 0,
+    required this.name,
+    required this.createDate,
+    this.maxScoreByRound,
+    this.maxScore,
+    this.maxRounds,
+  });
 }
 
 extension GameEntityExtension on GameEntity {

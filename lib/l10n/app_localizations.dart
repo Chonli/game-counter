@@ -110,11 +110,35 @@ abstract class AppLocalizations {
   /// **'Add Game'**
   String get add_game;
 
+  /// No description provided for @add_game_max_rounds_field.
+  ///
+  /// In en, this message translates to:
+  /// **'Max Rounds'**
+  String get add_game_max_rounds_field;
+
+  /// No description provided for @add_game_max_score_by_round_field.
+  ///
+  /// In en, this message translates to:
+  /// **'Max Score by Round'**
+  String get add_game_max_score_by_round_field;
+
+  /// No description provided for @add_game_max_score_field.
+  ///
+  /// In en, this message translates to:
+  /// **'Max Score'**
+  String get add_game_max_score_field;
+
   /// No description provided for @add_game_name_field.
   ///
   /// In en, this message translates to:
   /// **'Game Name'**
   String get add_game_name_field;
+
+  /// No description provided for @add_game_players_color.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a color'**
+  String get add_game_players_color;
 
   /// No description provided for @add_game_title.
   ///

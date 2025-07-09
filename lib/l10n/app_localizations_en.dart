@@ -15,7 +15,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get add_game => 'Add Game';
 
   @override
+  String get add_game_max_rounds_field => 'Max Rounds';
+
+  @override
+  String get add_game_max_score_by_round_field => 'Max Score by Round';
+
+  @override
+  String get add_game_max_score_field => 'Max Score';
+
+  @override
   String get add_game_name_field => 'Game Name';
+
+  @override
+  String get add_game_players_color => 'Choose a color';
 
   @override
   String get add_game_title => 'Add New Game';

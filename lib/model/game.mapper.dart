@@ -29,6 +29,15 @@ class GameMapper extends ClassMapperBase<Game> {
   static DateTime _$createDate(Game v) => v.createDate;
   static const Field<Game, DateTime> _f$createDate =
       Field('createDate', _$createDate);
+  static int? _$maxScoreByRound(Game v) => v.maxScoreByRound;
+  static const Field<Game, int> _f$maxScoreByRound =
+      Field('maxScoreByRound', _$maxScoreByRound, opt: true);
+  static int? _$maxScore(Game v) => v.maxScore;
+  static const Field<Game, int> _f$maxScore =
+      Field('maxScore', _$maxScore, opt: true);
+  static int? _$maxRounds(Game v) => v.maxRounds;
+  static const Field<Game, int> _f$maxRounds =
+      Field('maxRounds', _$maxRounds, opt: true);
   static List<Player> _$players(Game v) => v.players;
   static const Field<Game, List<Player>> _f$players =
       Field('players', _$players, opt: true, def: const []);
@@ -41,6 +50,9 @@ class GameMapper extends ClassMapperBase<Game> {
     #id: _f$id,
     #name: _f$name,
     #createDate: _f$createDate,
+    #maxScoreByRound: _f$maxScoreByRound,
+    #maxScore: _f$maxScore,
+    #maxRounds: _f$maxRounds,
     #players: _f$players,
     #rounds: _f$rounds,
   };
@@ -50,6 +62,9 @@ class GameMapper extends ClassMapperBase<Game> {
         id: data.dec(_f$id),
         name: data.dec(_f$name),
         createDate: data.dec(_f$createDate),
+        maxScoreByRound: data.dec(_f$maxScoreByRound),
+        maxScore: data.dec(_f$maxScore),
+        maxRounds: data.dec(_f$maxRounds),
         players: data.dec(_f$players),
         rounds: data.dec(_f$rounds));
   }
@@ -106,6 +121,9 @@ abstract class GameCopyWith<$R, $In extends Game, $Out>
       {int? id,
       String? name,
       DateTime? createDate,
+      int? maxScoreByRound,
+      int? maxScore,
+      int? maxRounds,
       List<Player>? players,
       List<Round>? rounds});
   GameCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
@@ -130,12 +148,18 @@ class _GameCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Game, $Out>
           {int? id,
           String? name,
           DateTime? createDate,
+          Object? maxScoreByRound = $none,
+          Object? maxScore = $none,
+          Object? maxRounds = $none,
           List<Player>? players,
           List<Round>? rounds}) =>
       $apply(FieldCopyWithData({
         if (id != null) #id: id,
         if (name != null) #name: name,
         if (createDate != null) #createDate: createDate,
+        if (maxScoreByRound != $none) #maxScoreByRound: maxScoreByRound,
+        if (maxScore != $none) #maxScore: maxScore,
+        if (maxRounds != $none) #maxRounds: maxRounds,
         if (players != null) #players: players,
         if (rounds != null) #rounds: rounds
       }));
@@ -144,6 +168,9 @@ class _GameCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Game, $Out>
       id: data.get(#id, or: $value.id),
       name: data.get(#name, or: $value.name),
       createDate: data.get(#createDate, or: $value.createDate),
+      maxScoreByRound: data.get(#maxScoreByRound, or: $value.maxScoreByRound),
+      maxScore: data.get(#maxScore, or: $value.maxScore),
+      maxRounds: data.get(#maxRounds, or: $value.maxRounds),
       players: data.get(#players, or: $value.players),
       rounds: data.get(#rounds, or: $value.rounds));
 

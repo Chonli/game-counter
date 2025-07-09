@@ -10,6 +10,9 @@ class Game with GameMappable {
   int id;
   String name;
   DateTime createDate;
+  int? maxScoreByRound;
+  int? maxScore;
+  int? maxRounds;
   List<Player> players;
   List<Round> rounds;
 
@@ -17,6 +20,9 @@ class Game with GameMappable {
     required this.id,
     required this.name,
     required this.createDate,
+    this.maxScoreByRound,
+    this.maxScore,
+    this.maxRounds,
     this.players = const [],
     this.rounds = const [],
   });
@@ -24,7 +30,14 @@ class Game with GameMappable {
 
 extension GameExtension on Game {
   GameEntity toEntity() {
-    final game = GameEntity(id: id, name: name, createDate: createDate);
+    final game = GameEntity(
+      id: id,
+      name: name,
+      createDate: createDate,
+      maxScoreByRound: maxScoreByRound,
+      maxScore: maxScore,
+      maxRounds: maxRounds,
+    );
 
     game.players.addAll(players.map((e) => e.toEntity()));
     game.rounds.addAll(rounds.map((e) => e.toEntity()));

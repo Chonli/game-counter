@@ -25,7 +25,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
     id: const obx_int.IdUid(1, 3275677112749751919),
     name: 'GameEntity',
-    lastPropertyId: const obx_int.IdUid(3, 2106022416997536326),
+    lastPropertyId: const obx_int.IdUid(6, 1214197374641903117),
     flags: 0,
     properties: <obx_int.ModelProperty>[
       obx_int.ModelProperty(
@@ -44,6 +44,24 @@ final _entities = <obx_int.ModelEntity>[
         id: const obx_int.IdUid(3, 2106022416997536326),
         name: 'createDate',
         type: 10,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(4, 491116759087902724),
+        name: 'maxScoreByRound',
+        type: 6,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(5, 7323278558095964310),
+        name: 'maxScore',
+        type: 6,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(6, 1214197374641903117),
+        name: 'maxRounds',
+        type: 6,
         flags: 0,
       ),
     ],
@@ -212,10 +230,13 @@ obx_int.ModelDefinition getObjectBoxModel() {
       },
       objectToFB: (GameEntity object, fb.Builder fbb) {
         final nameOffset = fbb.writeString(object.name);
-        fbb.startTable(4);
+        fbb.startTable(7);
         fbb.addInt64(0, object.id);
         fbb.addOffset(1, nameOffset);
         fbb.addInt64(2, object.createDate.millisecondsSinceEpoch);
+        fbb.addInt64(3, object.maxScoreByRound);
+        fbb.addInt64(4, object.maxScore);
+        fbb.addInt64(5, object.maxRounds);
         fbb.finish(fbb.endTable());
         return object.id;
       },
@@ -234,10 +255,28 @@ obx_int.ModelDefinition getObjectBoxModel() {
         final createDateParam = DateTime.fromMillisecondsSinceEpoch(
           const fb.Int64Reader().vTableGet(buffer, rootOffset, 8, 0),
         );
+        final maxScoreByRoundParam = const fb.Int64Reader().vTableGetNullable(
+          buffer,
+          rootOffset,
+          10,
+        );
+        final maxScoreParam = const fb.Int64Reader().vTableGetNullable(
+          buffer,
+          rootOffset,
+          12,
+        );
+        final maxRoundsParam = const fb.Int64Reader().vTableGetNullable(
+          buffer,
+          rootOffset,
+          14,
+        );
         final object = GameEntity(
           id: idParam,
           name: nameParam,
           createDate: createDateParam,
+          maxScoreByRound: maxScoreByRoundParam,
+          maxScore: maxScoreParam,
+          maxRounds: maxRoundsParam,
         );
         obx_int.InternalToManyAccess.setRelInfo<GameEntity>(
           object.players,
@@ -400,6 +439,21 @@ class GameEntity_ {
   /// See [GameEntity.createDate].
   static final createDate = obx.QueryDateProperty<GameEntity>(
     _entities[0].properties[2],
+  );
+
+  /// See [GameEntity.maxScoreByRound].
+  static final maxScoreByRound = obx.QueryIntegerProperty<GameEntity>(
+    _entities[0].properties[3],
+  );
+
+  /// See [GameEntity.maxScore].
+  static final maxScore = obx.QueryIntegerProperty<GameEntity>(
+    _entities[0].properties[4],
+  );
+
+  /// See [GameEntity.maxRounds].
+  static final maxRounds = obx.QueryIntegerProperty<GameEntity>(
+    _entities[0].properties[5],
   );
 
   /// see [GameEntity.players]

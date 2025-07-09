@@ -15,7 +15,19 @@ class AppLocalizationsFr extends AppLocalizations {
   String get add_game => 'Ajouter une partie';
 
   @override
+  String get add_game_max_rounds_field => 'Nombre de tours maximal';
+
+  @override
+  String get add_game_max_score_by_round_field => 'Score maximal par tour';
+
+  @override
+  String get add_game_max_score_field => 'Score maximal';
+
+  @override
   String get add_game_name_field => 'Nom de la partie';
+
+  @override
+  String get add_game_players_color => 'Choisissez une couleur';
 
   @override
   String get add_game_title => 'Ajouter une nouvelle partie';
