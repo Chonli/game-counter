@@ -143,6 +143,21 @@ class _AddRoundBody extends HookConsumerWidget {
                                   .addScore(p.id, 50);
                             },
                           ),
+                          if (game.hasMaxScoreByRound)
+                            ElevatedButton(
+                              child: Text(l10n.add_round_add_rest),
+                              onPressed: () {
+                                final rest = initRound.restScoreForThisRounds(
+                                  game.maxScoreByRound ?? 0,
+                                );
+
+                                ref
+                                    .read(
+                                      _currentRoundProvider(initRound).notifier,
+                                    )
+                                    .addScore(p.id, rest);
+                              },
+                            ),
                         ],
                       ),
                       Row(

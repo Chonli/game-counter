@@ -182,6 +182,12 @@ abstract class AppLocalizations {
   /// **'+50'**
   String get add_round_add_50;
 
+  /// No description provided for @add_round_add_rest.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Rest'**
+  String get add_round_add_rest;
+
   /// No description provided for @add_round_button.
   ///
   /// In en, this message translates to:

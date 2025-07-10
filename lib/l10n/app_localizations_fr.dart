@@ -51,6 +51,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get add_round_add_50 => '+50';
 
   @override
+  String get add_round_add_rest => 'Reste';
+
+  @override
   String get add_round_button => 'Ajouter un tour';
 
   @override

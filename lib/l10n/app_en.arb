@@ -14,6 +14,7 @@
   "add_round_add_10": "+10",
   "add_round_add_5": "+5",
   "add_round_add_50": "+50",
+  "add_round_add_rest": "Add Rest",
   "add_round_button": "Add Round",
   "add_round_error_game_not_found": "Game not found",
   "add_round_error_load_game": "Load Game error",

@@ -19,10 +19,6 @@ void main() {
     );
   });
 
-  tearDown(() {
-    container.dispose();
-  });
-
   group('GamesNotifier', () {
     test('createGame adds a new game to the state', () async {
       // Arrange

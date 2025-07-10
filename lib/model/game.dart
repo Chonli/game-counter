@@ -52,4 +52,24 @@ extension GameExtension on Game {
       });
     }
   }
+
+  bool get hasReachedMaxScore {
+    final safeMaxScore = maxScore;
+    if (safeMaxScore == null) {
+      return false;
+    }
+
+    return players.any((p) => p.totalScore >= safeMaxScore);
+  }
+
+  bool get hasReachedMaxRounds {
+    final safeMaxRounds = maxRounds;
+    if (safeMaxRounds == null) {
+      return false;
+    }
+
+    return rounds.length >= safeMaxRounds;
+  }
+
+  bool get hasMaxScoreByRound => maxScoreByRound != null;
 }

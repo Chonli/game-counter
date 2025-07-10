@@ -14,6 +14,7 @@
   "add_round_add_10": "+10",
   "add_round_add_5": "+5",
   "add_round_add_50": "+50",
+  "add_round_add_rest": "Reste",
   "add_round_button": "Ajouter un tour",
   "add_round_error_game_not_found": "Jeu introuvable",
   "add_round_error_load_game": "Erreur de chargement du jeu",

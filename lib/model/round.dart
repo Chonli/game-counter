@@ -16,4 +16,7 @@ extension RoundExtension on Round {
   RoundEntity toEntity() {
     return RoundEntity(id: id, index: index, playerByScores: playerByScores);
   }
+
+  int restScoreForThisRounds(int maxScoreByRound) =>
+      maxScoreByRound - playerByScores.values.reduce((a, b) => a + b);
 }

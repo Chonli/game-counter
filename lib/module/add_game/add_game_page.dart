@@ -248,6 +248,11 @@ class AddGamePage extends HookConsumerWidget {
                       id: 0,
                       name: name,
                       createDate: DateTime.now(),
+                      maxScoreByRound: int.tryParse(
+                        maxScoreByRoundController.text,
+                      ),
+                      maxScore: int.tryParse(maxScoreController.text),
+                      maxRounds: int.tryParse(maxRoundsController.text),
                       players:
                           validPlayers
                               .map(
