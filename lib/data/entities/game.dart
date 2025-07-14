@@ -34,6 +34,9 @@ extension GameEntityExtension on GameEntity {
       createDate: createDate,
       players: players.map((e) => e.toModel()).toList(),
       rounds: rounds.map((e) => e.toModel()).toList(),
+      maxScoreByRound: maxScoreByRound,
+      maxScore: maxScore,
+      maxRounds: maxRounds,
     );
   }
 }

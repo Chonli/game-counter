@@ -24,6 +24,11 @@ class _CurrentRound extends _$CurrentRound {
 
     state = state.copyWith(playerByScores: playerByScores);
   }
+
+  void addRestScoreForThisRounds(int playerId, int maxScoreByRound) {
+    final rest = state.restScoreForThisRounds(maxScoreByRound);
+    addScore(playerId, rest);
+  }
 }
 
 class AddRoundPage extends HookConsumerWidget {
@@ -100,8 +105,9 @@ class _AddRoundBody extends HookConsumerWidget {
                   isThreeLine: true,
                   subtitle: Column(
                     children: [
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
+                      Wrap(
+                        spacing: 5,
+                        alignment: WrapAlignment.center,
                         children: [
                           ElevatedButton(
                             child: Text(l10n.add_round_add_1),
@@ -147,21 +153,20 @@ class _AddRoundBody extends HookConsumerWidget {
                             ElevatedButton(
                               child: Text(l10n.add_round_add_rest),
                               onPressed: () {
-                                final rest = initRound.restScoreForThisRounds(
-                                  game.maxScoreByRound ?? 0,
-                                );
-
                                 ref
                                     .read(
                                       _currentRoundProvider(initRound).notifier,
                                     )
-                                    .addScore(p.id, rest);
+                                    .addRestScoreForThisRounds(
+                                      p.id,
+                                      game.maxScoreByRound ?? 0,
+                                    );
                               },
                             ),
                         ],
                       ),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
+                      Wrap(
+                        spacing: 5,
                         children: [
                           ElevatedButton(
                             child: Text(l10n.add_round_subtract_1),
