@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:score_counter/data/entities/game.dart';
+import 'package:score_counter/data/entities/game_options.dart';
 import 'package:score_counter/data/entities/player.dart';
 import 'package:score_counter/data/entities/round.dart';
 
@@ -9,16 +10,20 @@ void main() {
       // Arrange
       final playerEntity = PlayerEntity(id: 1, name: 'Player 1', color: 255);
       final roundEntity = RoundEntity(id: 1, playerByScores: {1: 10}, index: 1);
-      final gameEntity = GameEntity(
+      final gameOptionsEntity = GameOptionsEntity(
         id: 1,
-        name: 'Test Game',
-        createDate: DateTime.now(),
         maxScoreByRound: 10,
         maxScore: 100,
         maxRounds: 10,
       );
+      final gameEntity = GameEntity(
+        id: 1,
+        name: 'Test Game',
+        createDate: DateTime.now(),
+      );
       gameEntity.players.add(playerEntity);
       gameEntity.rounds.add(roundEntity);
+      gameEntity.gameOptions.target = gameOptionsEntity;
 
       // Act
       final gameModel = gameEntity.toModel();
@@ -27,9 +32,18 @@ void main() {
       expect(gameModel.id, gameEntity.id);
       expect(gameModel.name, gameEntity.name);
       expect(gameModel.createDate, gameEntity.createDate);
-      expect(gameModel.maxScoreByRound, gameEntity.maxScoreByRound);
-      expect(gameModel.maxScore, gameEntity.maxScore);
-      expect(gameModel.maxRounds, gameEntity.maxRounds);
+      expect(
+        gameModel.gameOptions.maxScoreByRound,
+        gameEntity.gameOptions.target?.maxScoreByRound,
+      );
+      expect(
+        gameModel.gameOptions.maxScore,
+        gameEntity.gameOptions.target?.maxScore,
+      );
+      expect(
+        gameModel.gameOptions.maxRounds,
+        gameEntity.gameOptions.target?.maxRounds,
+      );
       expect(gameModel.players.length, 1);
       expect(gameModel.players.first.id, playerEntity.id);
       expect(gameModel.players.first.name, playerEntity.name);
@@ -53,9 +67,9 @@ void main() {
       expect(gameModel.id, gameEntity.id);
       expect(gameModel.name, gameEntity.name);
       expect(gameModel.createDate, gameEntity.createDate);
-      expect(gameModel.maxScoreByRound, null);
-      expect(gameModel.maxScore, null);
-      expect(gameModel.maxRounds, null);
+      expect(gameModel.gameOptions.maxScoreByRound, null);
+      expect(gameModel.gameOptions.maxScore, null);
+      expect(gameModel.gameOptions.maxRounds, null);
       expect(gameModel.players.isEmpty, true);
       expect(gameModel.rounds.isEmpty, true);
     });

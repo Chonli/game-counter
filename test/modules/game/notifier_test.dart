@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:score_counter/data/repositories/games.dart';
 import 'package:score_counter/model/game.dart';
+import 'package:score_counter/model/game_options.dart';
 import 'package:score_counter/model/player.dart';
 import 'package:score_counter/model/round.dart';
 import 'package:score_counter/module/game/notifier.dart';
@@ -18,7 +19,12 @@ void main() {
 
   setUp(() {
     registerFallbackValue(
-      Game(id: 1, name: 'Test', createDate: DateTime(2025)),
+      Game(
+        id: 1,
+        name: 'Test',
+        createDate: DateTime(2025),
+        gameOptions: GameOptions(),
+      ),
     );
     mockGamesRepository = MockGamesRepository();
     container = createContainer(
@@ -53,6 +59,7 @@ void main() {
         ],
         name: 'Test Game',
         createDate: DateTime(2025, 1, 1),
+        gameOptions: GameOptions(),
       );
 
       when(() => mockGamesRepository.getGame(gameId)).thenReturn(game);
@@ -70,6 +77,7 @@ void main() {
       expect(gameUpdated?.rounds, isNot(contains(roundToRemove)));
       expect(gameUpdated?.rounds.length, 2);
       expect(gameUpdated?.rounds.first.id, 2);
+      expect(gameUpdated?.players.first.totalScore, 80);
     });
 
     test(
@@ -93,6 +101,7 @@ void main() {
             Player(id: 1, name: 'Player 1', color: Colors.black),
             Player(id: 2, name: 'Player 2', color: Colors.blue),
           ],
+          gameOptions: GameOptions(),
         );
 
         when(() => mockGamesRepository.getGame(gameId)).thenReturn(game);
@@ -110,6 +119,7 @@ void main() {
         expect(gameUpdated?.rounds, contains(roundToAdd));
         expect(gameUpdated?.rounds.length, 3);
         expect(gameUpdated?.rounds.first.id, 1);
+        expect(gameUpdated?.players.first.totalScore, 90);
       },
     );
   });

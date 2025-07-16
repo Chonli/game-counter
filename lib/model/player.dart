@@ -13,10 +13,10 @@ class Player with PlayerMappable {
     this.totalScore = 0,
   });
 
-  int id;
-  String name;
-  Color color;
-  int totalScore;
+  final int id;
+  final String name;
+  final Color color;
+  final int totalScore;
 }
 
 extension PlayerExtension on Player {

@@ -159,7 +159,7 @@ class _AddRoundBody extends HookConsumerWidget {
                                     )
                                     .addRestScoreForThisRounds(
                                       p.id,
-                                      game.maxScoreByRound ?? 0,
+                                      game.gameOptions.maxScoreByRound ?? 0,
                                     );
                               },
                             ),

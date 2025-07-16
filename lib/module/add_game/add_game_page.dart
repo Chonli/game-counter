@@ -7,6 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:score_counter/core/widgets/app_gap.dart';
 import 'package:score_counter/l10n/l10n.dart';
 import 'package:score_counter/model/game.dart';
+import 'package:score_counter/model/game_options.dart';
 import 'package:score_counter/model/player.dart';
 import 'package:score_counter/notifier/games.dart';
 
@@ -259,11 +260,13 @@ class AddGamePage extends HookConsumerWidget {
                       id: 0,
                       name: name,
                       createDate: DateTime.now(),
-                      maxScoreByRound: int.tryParse(
-                        maxScoreByRoundController.text,
+                      gameOptions: GameOptions(
+                        maxScoreByRound: int.tryParse(
+                          maxScoreByRoundController.text,
+                        ),
+                        maxScore: int.tryParse(maxScoreController.text),
+                        maxRounds: int.tryParse(maxRoundsController.text),
                       ),
-                      maxScore: int.tryParse(maxScoreController.text),
-                      maxRounds: int.tryParse(maxRoundsController.text),
                       players:
                           validPlayers
                               .map(

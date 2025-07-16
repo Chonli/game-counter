@@ -15,6 +15,7 @@ import 'package:objectbox/objectbox.dart' as obx;
 import 'package:objectbox_flutter_libs/objectbox_flutter_libs.dart';
 
 import 'data/entities/game.dart';
+import 'data/entities/game_options.dart';
 import 'data/entities/player.dart';
 import 'data/entities/preferences.dart';
 import 'data/entities/round.dart';
@@ -25,7 +26,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
     id: const obx_int.IdUid(1, 3275677112749751919),
     name: 'GameEntity',
-    lastPropertyId: const obx_int.IdUid(6, 1214197374641903117),
+    lastPropertyId: const obx_int.IdUid(7, 672749846354144222),
     flags: 0,
     properties: <obx_int.ModelProperty>[
       obx_int.ModelProperty(
@@ -47,22 +48,12 @@ final _entities = <obx_int.ModelEntity>[
         flags: 0,
       ),
       obx_int.ModelProperty(
-        id: const obx_int.IdUid(4, 491116759087902724),
-        name: 'maxScoreByRound',
-        type: 6,
-        flags: 0,
-      ),
-      obx_int.ModelProperty(
-        id: const obx_int.IdUid(5, 7323278558095964310),
-        name: 'maxScore',
-        type: 6,
-        flags: 0,
-      ),
-      obx_int.ModelProperty(
-        id: const obx_int.IdUid(6, 1214197374641903117),
-        name: 'maxRounds',
-        type: 6,
-        flags: 0,
+        id: const obx_int.IdUid(7, 672749846354144222),
+        name: 'gameOptionsId',
+        type: 11,
+        flags: 520,
+        indexId: const obx_int.IdUid(1, 1244803024239804024),
+        relationTarget: 'GameOptionsEntity',
       ),
     ],
     relations: <obx_int.ModelRelation>[
@@ -163,6 +154,40 @@ final _entities = <obx_int.ModelEntity>[
     relations: <obx_int.ModelRelation>[],
     backlinks: <obx_int.ModelBacklink>[],
   ),
+  obx_int.ModelEntity(
+    id: const obx_int.IdUid(5, 477827973262178854),
+    name: 'GameOptionsEntity',
+    lastPropertyId: const obx_int.IdUid(4, 4630448279822891605),
+    flags: 0,
+    properties: <obx_int.ModelProperty>[
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(1, 4737857630568752641),
+        name: 'id',
+        type: 6,
+        flags: 1,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(2, 4849230333517081348),
+        name: 'maxScoreByRound',
+        type: 6,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(3, 3804086541422831658),
+        name: 'maxScore',
+        type: 6,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(4, 4630448279822891605),
+        name: 'maxRounds',
+        type: 6,
+        flags: 0,
+      ),
+    ],
+    relations: <obx_int.ModelRelation>[],
+    backlinks: <obx_int.ModelBacklink>[],
+  ),
 ];
 
 /// Shortcut for [obx.Store.new] that passes [getObjectBoxModel] and for Flutter
@@ -203,13 +228,17 @@ Future<obx.Store> openStore({
 obx_int.ModelDefinition getObjectBoxModel() {
   final model = obx_int.ModelInfo(
     entities: _entities,
-    lastEntityId: const obx_int.IdUid(4, 6118862544910749761),
-    lastIndexId: const obx_int.IdUid(0, 0),
+    lastEntityId: const obx_int.IdUid(5, 477827973262178854),
+    lastIndexId: const obx_int.IdUid(1, 1244803024239804024),
     lastRelationId: const obx_int.IdUid(2, 8250862366400271415),
     lastSequenceId: const obx_int.IdUid(0, 0),
     retiredEntityUids: const [],
     retiredIndexUids: const [],
-    retiredPropertyUids: const [],
+    retiredPropertyUids: const [
+      491116759087902724,
+      7323278558095964310,
+      1214197374641903117,
+    ],
     retiredRelationUids: const [],
     modelVersion: 5,
     modelVersionParserMinimum: 5,
@@ -219,7 +248,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
   final bindings = <Type, obx_int.EntityDefinition>{
     GameEntity: obx_int.EntityDefinition<GameEntity>(
       model: _entities[0],
-      toOneRelations: (GameEntity object) => [],
+      toOneRelations: (GameEntity object) => [object.gameOptions],
       toManyRelations: (GameEntity object) => {
         obx_int.RelInfo<GameEntity>.toMany(1, object.id): object.players,
         obx_int.RelInfo<GameEntity>.toMany(2, object.id): object.rounds,
@@ -230,13 +259,11 @@ obx_int.ModelDefinition getObjectBoxModel() {
       },
       objectToFB: (GameEntity object, fb.Builder fbb) {
         final nameOffset = fbb.writeString(object.name);
-        fbb.startTable(7);
+        fbb.startTable(8);
         fbb.addInt64(0, object.id);
         fbb.addOffset(1, nameOffset);
         fbb.addInt64(2, object.createDate.millisecondsSinceEpoch);
-        fbb.addInt64(3, object.maxScoreByRound);
-        fbb.addInt64(4, object.maxScore);
-        fbb.addInt64(5, object.maxRounds);
+        fbb.addInt64(6, object.gameOptions.targetId);
         fbb.finish(fbb.endTable());
         return object.id;
       },
@@ -255,29 +282,18 @@ obx_int.ModelDefinition getObjectBoxModel() {
         final createDateParam = DateTime.fromMillisecondsSinceEpoch(
           const fb.Int64Reader().vTableGet(buffer, rootOffset, 8, 0),
         );
-        final maxScoreByRoundParam = const fb.Int64Reader().vTableGetNullable(
-          buffer,
-          rootOffset,
-          10,
-        );
-        final maxScoreParam = const fb.Int64Reader().vTableGetNullable(
-          buffer,
-          rootOffset,
-          12,
-        );
-        final maxRoundsParam = const fb.Int64Reader().vTableGetNullable(
-          buffer,
-          rootOffset,
-          14,
-        );
         final object = GameEntity(
           id: idParam,
           name: nameParam,
           createDate: createDateParam,
-          maxScoreByRound: maxScoreByRoundParam,
-          maxScore: maxScoreParam,
-          maxRounds: maxRoundsParam,
         );
+        object.gameOptions.targetId = const fb.Int64Reader().vTableGet(
+          buffer,
+          rootOffset,
+          16,
+          0,
+        );
+        object.gameOptions.attach(store);
         obx_int.InternalToManyAccess.setRelInfo<GameEntity>(
           object.players,
           store,
@@ -419,6 +435,57 @@ obx_int.ModelDefinition getObjectBoxModel() {
         return object;
       },
     ),
+    GameOptionsEntity: obx_int.EntityDefinition<GameOptionsEntity>(
+      model: _entities[4],
+      toOneRelations: (GameOptionsEntity object) => [],
+      toManyRelations: (GameOptionsEntity object) => {},
+      getId: (GameOptionsEntity object) => object.id,
+      setId: (GameOptionsEntity object, int id) {
+        object.id = id;
+      },
+      objectToFB: (GameOptionsEntity object, fb.Builder fbb) {
+        fbb.startTable(5);
+        fbb.addInt64(0, object.id);
+        fbb.addInt64(1, object.maxScoreByRound);
+        fbb.addInt64(2, object.maxScore);
+        fbb.addInt64(3, object.maxRounds);
+        fbb.finish(fbb.endTable());
+        return object.id;
+      },
+      objectFromFB: (obx.Store store, ByteData fbData) {
+        final buffer = fb.BufferContext(fbData);
+        final rootOffset = buffer.derefObject(0);
+        final idParam = const fb.Int64Reader().vTableGet(
+          buffer,
+          rootOffset,
+          4,
+          0,
+        );
+        final maxScoreByRoundParam = const fb.Int64Reader().vTableGetNullable(
+          buffer,
+          rootOffset,
+          6,
+        );
+        final maxScoreParam = const fb.Int64Reader().vTableGetNullable(
+          buffer,
+          rootOffset,
+          8,
+        );
+        final maxRoundsParam = const fb.Int64Reader().vTableGetNullable(
+          buffer,
+          rootOffset,
+          10,
+        );
+        final object = GameOptionsEntity(
+          id: idParam,
+          maxScoreByRound: maxScoreByRoundParam,
+          maxScore: maxScoreParam,
+          maxRounds: maxRoundsParam,
+        );
+
+        return object;
+      },
+    ),
   };
 
   return obx_int.ModelDefinition(model, bindings);
@@ -441,20 +508,11 @@ class GameEntity_ {
     _entities[0].properties[2],
   );
 
-  /// See [GameEntity.maxScoreByRound].
-  static final maxScoreByRound = obx.QueryIntegerProperty<GameEntity>(
-    _entities[0].properties[3],
-  );
-
-  /// See [GameEntity.maxScore].
-  static final maxScore = obx.QueryIntegerProperty<GameEntity>(
-    _entities[0].properties[4],
-  );
-
-  /// See [GameEntity.maxRounds].
-  static final maxRounds = obx.QueryIntegerProperty<GameEntity>(
-    _entities[0].properties[5],
-  );
+  /// See [GameEntity.gameOptions].
+  static final gameOptions =
+      obx.QueryRelationToOne<GameEntity, GameOptionsEntity>(
+        _entities[0].properties[3],
+      );
 
   /// see [GameEntity.players]
   static final players = obx.QueryRelationToMany<GameEntity, PlayerEntity>(
@@ -518,5 +576,28 @@ class RoundEntity_ {
   /// See [RoundEntity.dbSavePlayerByScores].
   static final dbSavePlayerByScores = obx.QueryStringProperty<RoundEntity>(
     _entities[3].properties[2],
+  );
+}
+
+/// [GameOptionsEntity] entity fields to define ObjectBox queries.
+class GameOptionsEntity_ {
+  /// See [GameOptionsEntity.id].
+  static final id = obx.QueryIntegerProperty<GameOptionsEntity>(
+    _entities[4].properties[0],
+  );
+
+  /// See [GameOptionsEntity.maxScoreByRound].
+  static final maxScoreByRound = obx.QueryIntegerProperty<GameOptionsEntity>(
+    _entities[4].properties[1],
+  );
+
+  /// See [GameOptionsEntity.maxScore].
+  static final maxScore = obx.QueryIntegerProperty<GameOptionsEntity>(
+    _entities[4].properties[2],
+  );
+
+  /// See [GameOptionsEntity.maxRounds].
+  static final maxRounds = obx.QueryIntegerProperty<GameOptionsEntity>(
+    _entities[4].properties[3],
   );
 }

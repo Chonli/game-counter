@@ -1,7 +1,9 @@
 import 'package:objectbox/objectbox.dart';
+import 'package:score_counter/data/entities/game_options.dart';
 import 'package:score_counter/data/entities/player.dart';
 import 'package:score_counter/data/entities/round.dart';
 import 'package:score_counter/model/game.dart';
+import 'package:score_counter/model/game_options.dart';
 
 @Entity()
 class GameEntity {
@@ -10,20 +12,11 @@ class GameEntity {
   String name;
   @Property(type: PropertyType.date)
   DateTime createDate;
-  int? maxScoreByRound;
-  int? maxScore;
-  int? maxRounds;
+  final gameOptions = ToOne<GameOptionsEntity>();
   final players = ToMany<PlayerEntity>();
   final rounds = ToMany<RoundEntity>();
 
-  GameEntity({
-    this.id = 0,
-    required this.name,
-    required this.createDate,
-    this.maxScoreByRound,
-    this.maxScore,
-    this.maxRounds,
-  });
+  GameEntity({this.id = 0, required this.name, required this.createDate});
 }
 
 extension GameEntityExtension on GameEntity {
@@ -34,9 +27,7 @@ extension GameEntityExtension on GameEntity {
       createDate: createDate,
       players: players.map((e) => e.toModel()).toList(),
       rounds: rounds.map((e) => e.toModel()).toList(),
-      maxScoreByRound: maxScoreByRound,
-      maxScore: maxScore,
-      maxRounds: maxRounds,
+      gameOptions: gameOptions.target?.toModel() ?? GameOptions(),
     );
   }
 }
