@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:score_counter/core/theme/app_spacing.dart';
 import 'package:score_counter/model/game.dart';
 import 'package:score_counter/module/game/notifier.dart';
 
@@ -42,7 +43,7 @@ class _ChartView extends StatelessWidget {
     }
 
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(AppSpacing.md),
       child: LineChart(
         LineChartData(
           gridData: FlGridData(show: true),

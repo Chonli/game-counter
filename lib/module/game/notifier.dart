@@ -1,6 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:score_counter/data/repositories/games.dart';
 import 'package:score_counter/model/game.dart';
+import 'package:score_counter/model/player.dart';
 import 'package:score_counter/model/round.dart';
 
 part 'notifier.g.dart';
@@ -12,9 +13,10 @@ class CurrentGame extends _$CurrentGame {
     final repo = ref.read(gamesRepositoryProvider);
 
     final game = repo.getGame(gameId);
-    game?.updatePlayerScore();
 
-    return game;
+    if (game == null) return null;
+
+    return _calculateNewScore(game);
   }
 
   void removeRound(Round round) {
@@ -25,10 +27,28 @@ class CurrentGame extends _$CurrentGame {
 
     final repo = ref.read(gamesRepositoryProvider);
     final updatedRounds = game.rounds..remove(round);
-    final updatedGame = game.copyWith(rounds: updatedRounds);
-    updatedGame.updatePlayerScore();
+    final updatedGame = _calculateNewScore(
+      game.copyWith(rounds: updatedRounds),
+    );
     repo.updateGame(updatedGame);
     state = AsyncValue.data(updatedGame);
+  }
+
+  Game _calculateNewScore(Game game) {
+    // Create a new list of players with updated scores
+    final tmpPlayers = <Player>[];
+    for (final player in game.players) {
+      tmpPlayers.add(
+        player.copyWith(
+          totalScore: game.rounds.fold(0, (previousValue, element) {
+            return (previousValue ?? 0) +
+                (element.playerByScores[player.id] ?? 0);
+          }),
+        ),
+      );
+    }
+
+    return game.copyWith(players: tmpPlayers);
   }
 
   void addOrUpdateRound(Round round) {
@@ -44,8 +64,9 @@ class CurrentGame extends _$CurrentGame {
           ..add(round)
           ..sort((a, b) => a.index.compareTo(b.index));
 
-    final updatedGame = game.copyWith(rounds: updatedRounds);
-    updatedGame.updatePlayerScore();
+    final updatedGame = _calculateNewScore(
+      game.copyWith(rounds: updatedRounds),
+    );
     repo.updateGame(updatedGame);
     state = AsyncValue.data(updatedGame);
   }

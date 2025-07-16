@@ -3,6 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:score_counter/data/repositories/games.dart';
 import 'package:score_counter/model/game.dart';
+import 'package:score_counter/model/game_options.dart';
 import 'package:score_counter/notifier/games.dart';
 
 import '../common/container.dart';
@@ -19,10 +20,6 @@ void main() {
     );
   });
 
-  tearDown(() {
-    container.dispose();
-  });
-
   group('GamesNotifier', () {
     test('createGame adds a new game to the state', () async {
       // Arrange
@@ -30,6 +27,7 @@ void main() {
         id: 1,
         name: 'Test Game',
         createDate: DateTime(2025, 1, 1),
+        gameOptions: GameOptions(),
       );
       when(() => mockRepo.createGame(game)).thenReturn(1);
 
@@ -48,6 +46,7 @@ void main() {
         id: 1,
         name: 'Test Game',
         createDate: DateTime(2025, 1, 1),
+        gameOptions: GameOptions(),
       );
       when(() => mockRepo.createGame(game)).thenReturn(1);
       when(() => mockRepo.removeGame(1)).thenReturn(null);

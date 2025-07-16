@@ -15,10 +15,25 @@ class AppLocalizationsEn extends AppLocalizations {
   String get add_game => 'Add Game';
 
   @override
+  String get add_game_max_rounds_field => 'Max Rounds';
+
+  @override
+  String get add_game_max_score_by_round_field => 'Max Score by Round';
+
+  @override
+  String get add_game_max_score_field => 'Max Score';
+
+  @override
   String get add_game_name_field => 'Game Name';
 
   @override
+  String get add_game_players_color => 'Choose a color';
+
+  @override
   String get add_game_title => 'Add New Game';
+
+  @override
+  String get add_game_options => 'Game Options';
 
   @override
   String get add_players => 'Add Players';
@@ -37,6 +52,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get add_round_add_50 => '+50';
+
+  @override
+  String get add_round_add_rest => 'Add Rest';
 
   @override
   String get add_round_button => 'Add Round';
@@ -80,6 +98,9 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get delete_game_confirmation =>
       'Are you sure you want to delete this game?';
+
+  @override
+  String get empty_field_error => 'This field cannot be empty';
 
   @override
   String get error_loading_games => 'Error loading games.';

@@ -6,7 +6,7 @@ part of 'add_round_page.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$currentRoundHash() => r'20ea57622627e924e7aea04e4bf279e9c5d7d9c2';
+String _$currentRoundHash() => r'd82f743abe023b02179a916cc43bd61c35f0010b';
 
 /// Copied from Dart SDK
 class _SystemHash {

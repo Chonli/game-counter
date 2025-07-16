@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:3275677112749751919",
-      "lastPropertyId": "3:2106022416997536326",
+      "lastPropertyId": "7:672749846354144222",
       "name": "GameEntity",
       "properties": [
         {
@@ -23,6 +23,14 @@
           "id": "3:2106022416997536326",
           "name": "createDate",
           "type": 10
+        },
+        {
+          "id": "7:672749846354144222",
+          "name": "gameOptionsId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "1:1244803024239804024",
+          "relationTarget": "GameOptionsEntity"
         }
       ],
       "relations": [
@@ -109,17 +117,50 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "5:477827973262178854",
+      "lastPropertyId": "4:4630448279822891605",
+      "name": "GameOptionsEntity",
+      "properties": [
+        {
+          "id": "1:4737857630568752641",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:4849230333517081348",
+          "name": "maxScoreByRound",
+          "type": 6
+        },
+        {
+          "id": "3:3804086541422831658",
+          "name": "maxScore",
+          "type": 6
+        },
+        {
+          "id": "4:4630448279822891605",
+          "name": "maxRounds",
+          "type": 6
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "4:6118862544910749761",
-  "lastIndexId": "0:0",
+  "lastEntityId": "5:477827973262178854",
+  "lastIndexId": "1:1244803024239804024",
   "lastRelationId": "2:8250862366400271415",
   "lastSequenceId": "0:0",
   "modelVersion": 5,
   "modelVersionParserMinimum": 5,
   "retiredEntityUids": [],
   "retiredIndexUids": [],
-  "retiredPropertyUids": [],
+  "retiredPropertyUids": [
+    491116759087902724,
+    7323278558095964310,
+    1214197374641903117
+  ],
   "retiredRelationUids": [],
   "version": 1
 }

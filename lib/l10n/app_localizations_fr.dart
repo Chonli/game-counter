@@ -15,10 +15,25 @@ class AppLocalizationsFr extends AppLocalizations {
   String get add_game => 'Ajouter une partie';
 
   @override
+  String get add_game_max_rounds_field => 'Nombre de tours maximal';
+
+  @override
+  String get add_game_max_score_by_round_field => 'Score maximal par tour';
+
+  @override
+  String get add_game_max_score_field => 'Score maximal';
+
+  @override
   String get add_game_name_field => 'Nom de la partie';
 
   @override
+  String get add_game_players_color => 'Choisissez une couleur';
+
+  @override
   String get add_game_title => 'Ajouter une nouvelle partie';
+
+  @override
+  String get add_game_options => 'Options du jeu';
 
   @override
   String get add_players => 'Ajouter des joueurs';
@@ -37,6 +52,9 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get add_round_add_50 => '+50';
+
+  @override
+  String get add_round_add_rest => 'Reste';
 
   @override
   String get add_round_button => 'Ajouter un tour';
@@ -80,6 +98,9 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get delete_game_confirmation =>
       'Êtes-vous sûr de vouloir supprimer cette partie ?';
+
+  @override
+  String get empty_field_error => 'Ce champ ne peut pas être vide';
 
   @override
   String get error_loading_games => 'Erreur lors du chargement des parties.';

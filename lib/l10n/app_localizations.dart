@@ -110,17 +110,47 @@ abstract class AppLocalizations {
   /// **'Add Game'**
   String get add_game;
 
+  /// No description provided for @add_game_max_rounds_field.
+  ///
+  /// In en, this message translates to:
+  /// **'Max Rounds'**
+  String get add_game_max_rounds_field;
+
+  /// No description provided for @add_game_max_score_by_round_field.
+  ///
+  /// In en, this message translates to:
+  /// **'Max Score by Round'**
+  String get add_game_max_score_by_round_field;
+
+  /// No description provided for @add_game_max_score_field.
+  ///
+  /// In en, this message translates to:
+  /// **'Max Score'**
+  String get add_game_max_score_field;
+
   /// No description provided for @add_game_name_field.
   ///
   /// In en, this message translates to:
   /// **'Game Name'**
   String get add_game_name_field;
 
+  /// No description provided for @add_game_players_color.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a color'**
+  String get add_game_players_color;
+
   /// No description provided for @add_game_title.
   ///
   /// In en, this message translates to:
   /// **'Add New Game'**
   String get add_game_title;
+
+  /// No description provided for @add_game_options.
+  ///
+  /// In en, this message translates to:
+  /// **'Game Options'**
+  String get add_game_options;
 
   /// No description provided for @add_players.
   ///
@@ -157,6 +187,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'+50'**
   String get add_round_add_50;
+
+  /// No description provided for @add_round_add_rest.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Rest'**
+  String get add_round_add_rest;
 
   /// No description provided for @add_round_button.
   ///
@@ -241,6 +277,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Are you sure you want to delete this game?'**
   String get delete_game_confirmation;
+
+  /// No description provided for @empty_field_error.
+  ///
+  /// In en, this message translates to:
+  /// **'This field cannot be empty'**
+  String get empty_field_error;
 
   /// No description provided for @error_loading_games.
   ///

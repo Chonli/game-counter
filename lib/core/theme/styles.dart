@@ -10,7 +10,7 @@ class AppStyles {
     fontWeight: FontWeight.w500,
   );
   static const TextStyle body = TextStyle(
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: FontWeight.normal,
   );
   static const TextStyle button = TextStyle(

@@ -1,78 +1,77 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:score_counter/model/game.dart';
-import 'package:score_counter/model/player.dart';
-import 'package:score_counter/model/round.dart';
+import 'package:score_counter/data/entities/game.dart';
+import 'package:score_counter/data/entities/game_options.dart';
+import 'package:score_counter/data/entities/player.dart';
+import 'package:score_counter/data/entities/round.dart';
 
 void main() {
-  group('GameExtension', () {
-    test('toEntity should map Game to GameEntity correctly', () {
-      final game = Game(
+  group('GameEntityExtension', () {
+    test('toModel should convert GameEntity to Game model correctly', () {
+      // Arrange
+      final playerEntity = PlayerEntity(id: 1, name: 'Player 1', color: 255);
+      final roundEntity = RoundEntity(id: 1, playerByScores: {1: 10}, index: 1);
+      final gameOptionsEntity = GameOptionsEntity(
+        id: 1,
+        maxScoreByRound: 10,
+        maxScore: 100,
+        maxRounds: 10,
+      );
+      final gameEntity = GameEntity(
         id: 1,
         name: 'Test Game',
-        createDate: DateTime(2023, 10, 10),
-        players: [
-          Player(id: 1, name: 'Player 1', color: Colors.black),
-          Player(id: 2, name: 'Player 2', color: Colors.blue),
-        ],
-        rounds: [
-          Round(id: 1, playerByScores: {1: 10, 2: 20}, index: 0),
-          Round(id: 2, playerByScores: {1: 30, 2: 40}, index: 1),
-        ],
+        createDate: DateTime.now(),
       );
+      gameEntity.players.add(playerEntity);
+      gameEntity.rounds.add(roundEntity);
+      gameEntity.gameOptions.target = gameOptionsEntity;
 
-      final gameEntity = game.toEntity();
+      // Act
+      final gameModel = gameEntity.toModel();
 
-      expect(gameEntity.id, equals(game.id));
-      expect(gameEntity.name, equals(game.name));
-      expect(gameEntity.createDate, equals(game.createDate));
-      expect(gameEntity.players.length, equals(game.players.length));
-      expect(gameEntity.rounds.length, equals(game.rounds.length));
+      // Assert
+      expect(gameModel.id, gameEntity.id);
+      expect(gameModel.name, gameEntity.name);
+      expect(gameModel.createDate, gameEntity.createDate);
+      expect(
+        gameModel.gameOptions.maxScoreByRound,
+        gameEntity.gameOptions.target?.maxScoreByRound,
+      );
+      expect(
+        gameModel.gameOptions.maxScore,
+        gameEntity.gameOptions.target?.maxScore,
+      );
+      expect(
+        gameModel.gameOptions.maxRounds,
+        gameEntity.gameOptions.target?.maxRounds,
+      );
+      expect(gameModel.players.length, 1);
+      expect(gameModel.players.first.id, playerEntity.id);
+      expect(gameModel.players.first.name, playerEntity.name);
+      expect(gameModel.rounds.length, 1);
+      expect(gameModel.rounds.first.id, roundEntity.id);
+      expect(gameModel.rounds.first.playerByScores, roundEntity.playerByScores);
     });
 
-    test('updatePlayerScore should update totalScore for each player', () {
-      final game = Game(
+    test('toModel should handle null values correctly', () {
+      // Arrange
+      final gameEntity = GameEntity(
         id: 1,
         name: 'Test Game',
-        createDate: DateTime(2023, 10, 10),
-        players: [
-          Player(id: 1, name: 'Player 1', color: Colors.black),
-          Player(id: 2, name: 'Player 2', color: Colors.blue),
-        ],
-        rounds: [
-          Round(id: 1, playerByScores: {1: 10, 2: 30}, index: 0),
-          Round(id: 2, playerByScores: {1: 20, 2: 40}, index: 1),
-        ],
+        createDate: DateTime.now(),
       );
 
-      expect(game.players[0].totalScore, equals(0)); // default value
-      expect(game.players[1].totalScore, equals(0)); // default value
+      // Act
+      final gameModel = gameEntity.toModel();
 
-      game.updatePlayerScore();
-
-      expect(game.players[0].totalScore, equals(30)); // 10 + 20
-      expect(game.players[1].totalScore, equals(70)); // 30 + 40
-    });
-
-    test('updatePlayerScore should do nothing if rounds are empty', () {
-      final game = Game(
-        id: 1,
-        name: 'Test Game',
-        createDate: DateTime(2024, 1, 1),
-        players: [
-          Player(id: 1, name: 'Player 1', color: Colors.black),
-          Player(id: 2, name: 'Player 2', color: Colors.blue),
-        ],
-        rounds: [],
-      );
-
-      expect(game.players[0].totalScore, equals(0)); // default value
-      expect(game.players[1].totalScore, equals(0)); // default value
-
-      game.updatePlayerScore();
-
-      expect(game.players[0].totalScore, equals(0)); // default value
-      expect(game.players[1].totalScore, equals(0)); // default value
+      // Assert
+      expect(gameModel.id, gameEntity.id);
+      expect(gameModel.name, gameEntity.name);
+      expect(gameModel.createDate, gameEntity.createDate);
+      expect(gameModel.gameOptions.maxScoreByRound, null);
+      expect(gameModel.gameOptions.maxScore, null);
+      expect(gameModel.gameOptions.maxRounds, null);
+      expect(gameModel.players.isEmpty, true);
+      expect(gameModel.rounds.isEmpty, true);
     });
   });
 }

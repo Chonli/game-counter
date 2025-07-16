@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:score_counter/data/entities/game.dart';
+import 'package:score_counter/data/entities/game_options.dart';
 import 'package:score_counter/data/entities/player.dart';
 import 'package:score_counter/data/entities/round.dart';
 import 'package:score_counter/data/sources/games_dao.dart';
@@ -28,8 +29,18 @@ void main() {
   group('GamesDao', () {
     test('should return a list of games when getGames is called', () {
       final mockGames = <GameEntity>[
-        GameEntity(id: 0, name: 'Game 1', createDate: DateTime.now()),
-        GameEntity(id: 0, name: 'Game 2', createDate: DateTime.now()),
+        GameEntity(id: 0, name: 'Game 1', createDate: DateTime.now())
+          ..gameOptions.target = GameOptionsEntity(
+            maxRounds: 10,
+            maxScore: 100,
+            maxScoreByRound: 10,
+          ),
+        GameEntity(id: 0, name: 'Game 2', createDate: DateTime.now())
+          ..gameOptions.target = GameOptionsEntity(
+            maxRounds: 5,
+            maxScore: 200,
+            maxScoreByRound: 60,
+          ),
         GameEntity(id: 0, name: 'Game 3', createDate: DateTime.now()),
       ];
       for (final game in mockGames) {
@@ -42,6 +53,19 @@ void main() {
       final first = gamesDao.getGame(1);
 
       expect(first?.name, mockGames.first.name);
+      expect(
+        first?.gameOptions.target?.maxRounds,
+        mockGames.first.gameOptions.target?.maxRounds,
+      );
+      expect(
+        first?.gameOptions.target?.maxScore,
+        mockGames.first.gameOptions.target?.maxScore,
+      );
+      expect(
+        first?.gameOptions.target?.maxScoreByRound,
+        mockGames.first.gameOptions.target?.maxScoreByRound,
+      );
+      expect(first?.id, 1);
     });
 
     test('should return a game when getGameById is called with a valid id', () {

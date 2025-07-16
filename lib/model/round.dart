@@ -7,13 +7,16 @@ part 'round.mapper.dart';
 class Round with RoundMappable {
   Round({required this.id, required this.index, required this.playerByScores});
 
-  int id;
-  int index;
-  Map<int, int> playerByScores;
+  final int id;
+  final int index;
+  final Map<int, int> playerByScores;
 }
 
 extension RoundExtension on Round {
   RoundEntity toEntity() {
     return RoundEntity(id: id, index: index, playerByScores: playerByScores);
   }
+
+  int restScoreForThisRounds(int maxScoreByRound) =>
+      maxScoreByRound - playerByScores.values.reduce((a, b) => a + b);
 }
