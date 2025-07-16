@@ -146,6 +146,12 @@ abstract class AppLocalizations {
   /// **'Add New Game'**
   String get add_game_title;
 
+  /// No description provided for @add_game_options.
+  ///
+  /// In en, this message translates to:
+  /// **'Game Options'**
+  String get add_game_options;
+
   /// No description provided for @add_players.
   ///
   /// In en, this message translates to:
@@ -271,6 +277,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Are you sure you want to delete this game?'**
   String get delete_game_confirmation;
+
+  /// No description provided for @empty_field_error.
+  ///
+  /// In en, this message translates to:
+  /// **'This field cannot be empty'**
+  String get empty_field_error;
 
   /// No description provided for @error_loading_games.
   ///

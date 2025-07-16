@@ -33,6 +33,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get add_game_title => 'Add New Game';
 
   @override
+  String get add_game_options => 'Game Options';
+
+  @override
   String get add_players => 'Add Players';
 
   @override
@@ -95,6 +98,9 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get delete_game_confirmation =>
       'Are you sure you want to delete this game?';
+
+  @override
+  String get empty_field_error => 'This field cannot be empty';
 
   @override
   String get error_loading_games => 'Error loading games.';

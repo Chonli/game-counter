@@ -33,6 +33,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get add_game_title => 'Ajouter une nouvelle partie';
 
   @override
+  String get add_game_options => 'Options du jeu';
+
+  @override
   String get add_players => 'Ajouter des joueurs';
 
   @override
@@ -95,6 +98,9 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get delete_game_confirmation =>
       'Êtes-vous sûr de vouloir supprimer cette partie ?';
+
+  @override
+  String get empty_field_error => 'Ce champ ne peut pas être vide';
 
   @override
   String get error_loading_games => 'Erreur lors du chargement des parties.';
