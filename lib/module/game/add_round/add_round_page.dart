@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:score_counter/core/theme/app_spacing.dart';
 import 'package:score_counter/core/widgets/app_scaffold.dart';
 import 'package:score_counter/l10n/l10n.dart';
 import 'package:score_counter/model/game.dart';
@@ -80,12 +81,12 @@ class _AddRoundBody extends HookConsumerWidget {
     return AppScaffold(
       title: l10n.add_round_title,
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(AppSpacing.xs),
         child: ListView(
           children: [
             ...game.players.map(
               (p) => Card(
-                margin: EdgeInsets.all(10),
+                margin: EdgeInsets.all(AppSpacing.sm),
                 child: ListTile(
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -106,7 +107,7 @@ class _AddRoundBody extends HookConsumerWidget {
                   subtitle: Column(
                     children: [
                       Wrap(
-                        spacing: 5,
+                        spacing: AppSpacing.xxs,
                         alignment: WrapAlignment.center,
                         children: [
                           ElevatedButton(
@@ -166,7 +167,7 @@ class _AddRoundBody extends HookConsumerWidget {
                         ],
                       ),
                       Wrap(
-                        spacing: 5,
+                        spacing: AppSpacing.xxs,
                         children: [
                           ElevatedButton(
                             child: Text(l10n.add_round_subtract_1),

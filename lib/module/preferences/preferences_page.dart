@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:score_counter/core/theme/app_spacing.dart';
+import 'package:score_counter/core/widgets/app_gap.dart';
 import 'package:score_counter/l10n/l10n.dart';
 import 'package:score_counter/notifier/preferences.dart';
 
@@ -14,11 +16,11 @@ class PreferencesPage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(title: Text(l10n.preferences_title)),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(AppSpacing.xs),
         child: ListView(
           children: [
             Wrap(
-              spacing: 12,
+              spacing: AppSpacing.sm,
               alignment: WrapAlignment.spaceBetween,
               crossAxisAlignment: WrapCrossAlignment.center,
               children: [
@@ -47,9 +49,9 @@ class PreferencesPage extends ConsumerWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 16),
+            AppGap.md,
             Wrap(
-              spacing: 12,
+              spacing: AppSpacing.sm,
               alignment: WrapAlignment.spaceBetween,
               crossAxisAlignment: WrapCrossAlignment.center,
               children: [

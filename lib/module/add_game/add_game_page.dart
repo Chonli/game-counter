@@ -4,6 +4,7 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:score_counter/core/theme/app_spacing.dart';
 import 'package:score_counter/core/widgets/app_gap.dart';
 import 'package:score_counter/l10n/l10n.dart';
 import 'package:score_counter/model/game.dart';
@@ -85,7 +86,7 @@ class AddGamePage extends HookConsumerWidget {
     return Scaffold(
       appBar: AppBar(title: Text(l10n.add_game_title)),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(AppSpacing.md),
         child: Form(
           key: _key,
           child: ListView(
@@ -133,7 +134,7 @@ class AddGamePage extends HookConsumerWidget {
                 final (index, controller) = entry;
                 final focusNode = playerFocusNodes.value[index];
                 return Padding(
-                  padding: EdgeInsets.only(bottom: 10),
+                  padding: EdgeInsets.only(bottom: AppSpacing.sm),
                   child: Row(
                     children: [
                       Expanded(
