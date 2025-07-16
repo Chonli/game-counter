@@ -10,10 +10,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
 
     - name: Run Tests
       uses: ./.github/actions/flutter-tests
+
+    - name: Extract version from tag
+      uses: damienaicheh/extract-version-from-tag-action@v1.3.0
 
     - name: Decode Keystore
       env:
@@ -26,7 +31,7 @@ jobs:
         storePassword: ${{ secrets.STOREPASSWORD }}
         keyAlias: ${{ secrets.KEYALIAS }}
         keyPassword: ${{ secrets.KEYPASSWORD }} 
-      run: flutter build appbundle --obfuscate --split-debug-info='obfuscation_debug_files'
+      run: flutter build appbundle --obfuscate --split-debug-info='obfuscation_debug_files' --build-number=$NUMBER_OF_COMMITS --build-name=$MAJOR.$MINOR.$PATCH
 
     - name: Upload AppBundle to Internal Testing
       uses: r0adkll/upload-google-play@v1
