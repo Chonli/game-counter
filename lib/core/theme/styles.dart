@@ -18,3 +18,13 @@ class AppStyles {
     fontWeight: FontWeight.bold,
   );
 }
+
+extension TextStyleExtension on TextStyle {
+  TextStyle get normal => copyWith(fontWeight: FontWeight.normal);
+  TextStyle get semiBold => copyWith(fontWeight: FontWeight.w500);
+  TextStyle get bold => copyWith(fontWeight: FontWeight.bold);
+  TextStyle get underline => copyWith(decoration: TextDecoration.underline);
+  TextStyle get italic => copyWith(fontStyle: FontStyle.italic);
+  TextStyle withOpacity(double opacity) =>
+      copyWith(color: color?.withAlpha((opacity * 255).toInt()));
+}

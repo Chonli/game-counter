@@ -9,6 +9,12 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get about_dev => 'Developper : Chonli';
+
+  @override
+  String get about_project_link => 'Project link';
+
+  @override
   String get active_game_title => 'Active Game';
 
   @override
@@ -27,13 +33,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get add_game_name_field => 'Game Name';
 
   @override
+  String get add_game_options => 'Game Options';
+
+  @override
   String get add_game_players_color => 'Choose a color';
 
   @override
   String get add_game_title => 'Add New Game';
-
-  @override
-  String get add_game_options => 'Game Options';
 
   @override
   String get add_players => 'Add Players';
@@ -128,6 +134,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get player => 'Player';
+
+  @override
+  String get preferences_about => 'About...';
 
   @override
   String get preferences_language => 'Language';

@@ -9,6 +9,12 @@ class AppLocalizationsFr extends AppLocalizations {
   AppLocalizationsFr([String locale = 'fr']) : super(locale);
 
   @override
+  String get about_dev => 'Développeur : Chonli';
+
+  @override
+  String get about_project_link => 'Lien vers le projet';
+
+  @override
   String get active_game_title => 'Jeu actif';
 
   @override
@@ -27,13 +33,13 @@ class AppLocalizationsFr extends AppLocalizations {
   String get add_game_name_field => 'Nom de la partie';
 
   @override
+  String get add_game_options => 'Options du jeu';
+
+  @override
   String get add_game_players_color => 'Choisissez une couleur';
 
   @override
   String get add_game_title => 'Ajouter une nouvelle partie';
-
-  @override
-  String get add_game_options => 'Options du jeu';
 
   @override
   String get add_players => 'Ajouter des joueurs';
@@ -128,6 +134,9 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get player => 'Joueur';
+
+  @override
+  String get preferences_about => 'A propos...';
 
   @override
   String get preferences_language => 'Langue';

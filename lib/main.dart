@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path/path.dart' show join;
 import 'package:path_provider/path_provider.dart'
     show getApplicationSupportDirectory;
@@ -9,6 +10,7 @@ import 'package:score_counter/l10n/app_localizations.dart';
 import 'package:score_counter/notifier/preferences.dart';
 import 'package:score_counter/objectbox.g.dart';
 import 'package:score_counter/router/app_router.dart';
+import 'package:score_counter/services/package_info.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,9 +20,14 @@ Future<void> main() async {
   final dbPath = join(dir.path, 'my_database.db');
   final db = await openStore(directory: dbPath);
 
+  final packageInfo = await PackageInfo.fromPlatform();
+
   runApp(
     ProviderScope(
-      overrides: [databaseProvider.overrideWithValue(db)],
+      overrides: [
+        databaseProvider.overrideWithValue(db),
+        packageInfoProvider.overrideWithValue(AppPackageInfo(packageInfo)),
+      ],
       child: const MyApp(),
     ),
   );

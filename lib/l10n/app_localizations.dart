@@ -98,6 +98,18 @@ abstract class AppLocalizations {
     Locale('fr'),
   ];
 
+  /// No description provided for @about_dev.
+  ///
+  /// In en, this message translates to:
+  /// **'Developper : Chonli'**
+  String get about_dev;
+
+  /// No description provided for @about_project_link.
+  ///
+  /// In en, this message translates to:
+  /// **'Project link'**
+  String get about_project_link;
+
   /// No description provided for @active_game_title.
   ///
   /// In en, this message translates to:
@@ -134,6 +146,12 @@ abstract class AppLocalizations {
   /// **'Game Name'**
   String get add_game_name_field;
 
+  /// No description provided for @add_game_options.
+  ///
+  /// In en, this message translates to:
+  /// **'Game Options'**
+  String get add_game_options;
+
   /// No description provided for @add_game_players_color.
   ///
   /// In en, this message translates to:
@@ -145,12 +163,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Add New Game'**
   String get add_game_title;
-
-  /// No description provided for @add_game_options.
-  ///
-  /// In en, this message translates to:
-  /// **'Game Options'**
-  String get add_game_options;
 
   /// No description provided for @add_players.
   ///
@@ -337,6 +349,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Player'**
   String get player;
+
+  /// No description provided for @preferences_about.
+  ///
+  /// In en, this message translates to:
+  /// **'About...'**
+  String get preferences_about;
 
   /// No description provided for @preferences_language.
   ///
