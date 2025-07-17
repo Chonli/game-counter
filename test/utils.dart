@@ -6,6 +6,7 @@ extension GameEntityExtension on GameEntity {
 
     game.players.addAll(players);
     game.rounds.addAll(rounds);
+    game.gameOptions.target = gameOptions.target;
 
     return game;
   }

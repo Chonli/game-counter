@@ -27,6 +27,11 @@ GoRouter appRouter(Ref ref) {
             builder: (context, state) => AddGamePage(),
           ),
           GoRoute(
+            path: AppRoute.updateGame.path,
+            name: AppRoute.updateGame.name,
+            builder: (context, state) => AddGamePage(gameId: state.gameId),
+          ),
+          GoRoute(
             path: AppRoute.activeGame.path,
             name: AppRoute.activeGame.name,
             builder: (context, state) => ActiveGamePage(gameId: state.gameId),

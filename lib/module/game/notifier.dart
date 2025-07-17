@@ -58,11 +58,11 @@ class CurrentGame extends _$CurrentGame {
     }
 
     final repo = ref.read(gamesRepositoryProvider);
-    final updatedRounds =
-        game.rounds
-          ..where((r) => r.id != round.id)
-          ..add(round)
-          ..sort((a, b) => a.index.compareTo(b.index));
+    final updatedRounds = [...game.rounds];
+    updatedRounds
+      ..removeWhere((r) => r.id == round.id)
+      ..add(round)
+      ..sort((a, b) => a.index.compareTo(b.index));
 
     final updatedGame = _calculateNewScore(
       game.copyWith(rounds: updatedRounds),

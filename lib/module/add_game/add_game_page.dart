@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
@@ -6,6 +7,8 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:score_counter/core/theme/app_spacing.dart';
 import 'package:score_counter/core/widgets/app_gap.dart';
+import 'package:score_counter/core/widgets/error_view.dart';
+import 'package:score_counter/core/widgets/load_view.dart';
 import 'package:score_counter/l10n/l10n.dart';
 import 'package:score_counter/model/game.dart';
 import 'package:score_counter/model/game_options.dart';
@@ -36,36 +39,89 @@ const List<Color> _availableColors = [
 ];
 
 class AddGamePage extends HookConsumerWidget {
-  AddGamePage({super.key});
+  AddGamePage({super.key, this.gameId});
+
+  final int? gameId;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final games = ref.watch(gamesProvider);
+
+    final l10n = context.l10n;
+
+    return switch (games) {
+      AsyncData(:final value) => _View(
+        initialGame: value.firstWhereOrNull((game) => game.id == gameId),
+      ),
+      AsyncError() => ErrorView(error: l10n.add_round_error_load_game),
+      _ => LoadView(),
+    };
+  }
+}
+
+class _View extends HookConsumerWidget {
+  _View({this.initialGame});
 
   late final _key = GlobalKey<FormState>();
+  final Game? initialGame;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = context.l10n;
-    final nameController = useTextEditingController();
-    final maxScoreByRoundController = useTextEditingController();
-    final maxScoreController = useTextEditingController();
-    final maxRoundsController = useTextEditingController();
 
-    final playerControllers = useState<List<TextEditingController>>([]);
-    final playerFocusNodes = useState<List<FocusNode>>([]);
-    final playerColors = useState<List<Color>>([]);
+    // init game fields
+    final nameController = useTextEditingController(text: initialGame?.name);
+    final maxScoreByRoundController = useTextEditingController(
+      text: initialGame?.gameOptions.maxScoreByRound.toString() ?? '',
+    );
+    final maxScoreController = useTextEditingController(
+      text: initialGame?.gameOptions.maxScore.toString() ?? '',
+    );
+    final maxRoundsController = useTextEditingController(
+      text: initialGame?.gameOptions.maxRounds.toString() ?? '',
+    );
     final nameFocusNode = useFocusNode();
     final maxScoreByRoundFocusNode = useFocusNode();
     final maxScoreFocusNode = useFocusNode();
     final maxRoundsFocusNode = useFocusNode();
     final validateFocusNode = useFocusNode();
 
+    // init players fields
+    final indexPlayer = useState<int>(initialGame?.players.length ?? 0);
+    final playerControllers = useState<List<TextEditingController>>([
+      if (initialGame case final Game initialGame)
+        ...initialGame.players.map(
+          (player) => TextEditingController(text: player.name),
+        )
+      else
+        TextEditingController(),
+    ]);
+    final playerFocusNodes = useState<List<FocusNode>>([
+      if (initialGame case final Game initialGame)
+        ...initialGame.players.map((player) => FocusNode())
+      else
+        FocusNode(),
+    ]);
+    final playerColors = useState<List<Color>>([
+      if (initialGame case final Game initialGame)
+        ...initialGame.players.map((player) => player.color)
+      else
+        _availableColors.first,
+    ]);
+
     void addPlayerField({bool forceFocus = true}) {
       final newController = TextEditingController();
       final newFocusNode = FocusNode();
       playerControllers.value = [...playerControllers.value, newController];
       playerFocusNodes.value = [...playerFocusNodes.value, newFocusNode];
-      playerColors.value = [...playerColors.value, _availableColors.first];
+      playerColors.value = [
+        ...playerColors.value,
+        _availableColors[(indexPlayer.value + 1) % _availableColors.length],
+      ];
       if (forceFocus) {
         newFocusNode.requestFocus();
       }
+      indexPlayer.value++;
     }
 
     void deletePlayerField() {
@@ -74,14 +130,9 @@ class AddGamePage extends HookConsumerWidget {
         playerFocusNodes.value.removeLast();
         playerColors.value.removeLast();
         playerFocusNodes.value.last.requestFocus();
+        indexPlayer.value--;
       }
     }
-
-    useEffect(() {
-      addPlayerField(forceFocus: false);
-      nameFocusNode.requestFocus();
-      return null;
-    }, const []);
 
     return Scaffold(
       appBar: AppBar(title: Text(l10n.add_game_title)),
@@ -94,6 +145,7 @@ class AddGamePage extends HookConsumerWidget {
               TextFormField(
                 controller: nameController,
                 focusNode: nameFocusNode,
+                textCapitalization: TextCapitalization.sentences,
                 decoration: InputDecoration(
                   labelText: l10n.add_game_name_field,
                 ),
@@ -141,6 +193,7 @@ class AddGamePage extends HookConsumerWidget {
                         child: TextFormField(
                           controller: controller,
                           focusNode: focusNode,
+                          textCapitalization: TextCapitalization.words,
                           decoration: InputDecoration(
                             labelText: "${l10n.player} ${index + 1}",
                           ),
@@ -258,9 +311,9 @@ class AddGamePage extends HookConsumerWidget {
                     int i = 0;
 
                     final newGame = Game(
-                      id: 0,
+                      id: initialGame?.id ?? 0,
                       name: name,
-                      createDate: DateTime.now(),
+                      createDate: initialGame?.createDate ?? DateTime.now(),
                       gameOptions: GameOptions(
                         maxScoreByRound: int.tryParse(
                           maxScoreByRoundController.text,

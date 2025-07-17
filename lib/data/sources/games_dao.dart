@@ -38,8 +38,8 @@ class GamesDao {
   }
 
   int updateGame(GameEntity game) {
-    box.remove(game.id);
-    return box.put(game);
+    print('updateGame: ${box.get(game.id)?.id}');
+    return box.put(game, mode: PutMode.update);
   }
 
   int addRound(RoundEntity round) {

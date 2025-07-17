@@ -7,7 +7,7 @@ import 'package:score_counter/model/game_options.dart';
 
 @Entity()
 class GameEntity {
-  @Id()
+  @Id(assignable: true)
   int id;
   String name;
   @Property(type: PropertyType.date)

@@ -63,9 +63,7 @@ void main() {
       );
 
       when(() => mockGamesRepository.getGame(gameId)).thenReturn(game);
-      when(
-        () => mockGamesRepository.updateGame(any()),
-      ).thenAnswer((_) async => game);
+      when(() => mockGamesRepository.updateGame(any())).thenReturn(game.id);
 
       final notifier = container.read(currentGameProvider(gameId).notifier);
 
@@ -80,22 +78,62 @@ void main() {
       expect(gameUpdated?.players.first.totalScore, 80);
     });
 
+    test('addOrUpdateRound should update the game and add the round', () async {
+      final gameId = 1;
+      final roundToAdd = Round(id: 3, index: 3, playerByScores: {1: 10, 2: 20});
+      final game = Game(
+        id: gameId,
+        name: 'Test Game',
+        createDate: DateTime(2025, 1, 1),
+        rounds: [
+          Round(id: 2, index: 2, playerByScores: {1: 30, 2: 40}),
+          Round(id: 1, index: 1, playerByScores: {1: 50, 2: 15}),
+        ],
+        players: [
+          Player(id: 1, name: 'Player 1', color: Colors.black),
+          Player(id: 2, name: 'Player 2', color: Colors.blue),
+        ],
+        gameOptions: GameOptions(),
+      );
+
+      when(() => mockGamesRepository.getGame(gameId)).thenReturn(game);
+      when(() => mockGamesRepository.updateGame(any())).thenReturn(game.id);
+
+      final notifier = container.read(currentGameProvider(gameId).notifier);
+
+      await notifier.build(gameId);
+      notifier.addOrUpdateRound(roundToAdd);
+
+      verify(() => mockGamesRepository.updateGame(any())).called(1);
+      final gameUpdated = notifier.state.value;
+      expect(gameUpdated?.rounds, contains(roundToAdd));
+      expect(gameUpdated?.rounds.length, 3);
+      expect(gameUpdated?.rounds.first.id, 1);
+      expect(gameUpdated?.players.first.totalScore, 90);
+    });
+
     test(
-      'addOrUpdateRound should update the game and add or update the round',
+      'addOrUpdateRound should update the game and update the existing round',
       () async {
         final gameId = 1;
-        final roundToAdd = Round(
-          id: 3,
-          index: 3,
-          playerByScores: {1: 10, 2: 20},
+        final roundToUpdate = Round(
+          id: 2,
+          index: 2,
+          playerByScores: {1: 30, 2: 40},
+        );
+        final updatedRound = Round(
+          id: 2,
+          index: 2,
+          playerByScores: {1: 50, 2: 60},
         );
         final game = Game(
           id: gameId,
           name: 'Test Game',
           createDate: DateTime(2025, 1, 1),
           rounds: [
-            Round(id: 2, index: 2, playerByScores: {1: 30, 2: 40}),
-            Round(id: 1, index: 1, playerByScores: {1: 50, 2: 15}),
+            Round(id: 1, index: 1, playerByScores: {1: 10, 2: 20}),
+            roundToUpdate,
+            Round(id: 3, index: 3, playerByScores: {1: 70, 2: 80}),
           ],
           players: [
             Player(id: 1, name: 'Player 1', color: Colors.black),
@@ -105,21 +143,29 @@ void main() {
         );
 
         when(() => mockGamesRepository.getGame(gameId)).thenReturn(game);
-        when(
-          () => mockGamesRepository.updateGame(any()),
-        ).thenAnswer((_) async => game);
+        when(() => mockGamesRepository.updateGame(any())).thenReturn(game.id);
 
         final notifier = container.read(currentGameProvider(gameId).notifier);
 
         await notifier.build(gameId);
-        notifier.addOrUpdateRound(roundToAdd);
+
+        final intialGame = notifier.state.value;
+
+        expect(intialGame?.rounds, contains(roundToUpdate));
+        expect(intialGame?.rounds.length, 3);
+        expect(intialGame?.rounds[1].playerByScores[1], 30);
+        expect(intialGame?.rounds[1].playerByScores[2], 40);
+        expect(intialGame?.players.first.totalScore, 110);
+
+        notifier.addOrUpdateRound(updatedRound);
 
         verify(() => mockGamesRepository.updateGame(any())).called(1);
         final gameUpdated = notifier.state.value;
-        expect(gameUpdated?.rounds, contains(roundToAdd));
+        expect(gameUpdated?.rounds, contains(updatedRound));
         expect(gameUpdated?.rounds.length, 3);
-        expect(gameUpdated?.rounds.first.id, 1);
-        expect(gameUpdated?.players.first.totalScore, 90);
+        expect(gameUpdated?.rounds[1].playerByScores[1], 50);
+        expect(gameUpdated?.rounds[1].playerByScores[2], 60);
+        expect(gameUpdated?.players.first.totalScore, 130);
       },
     );
   });

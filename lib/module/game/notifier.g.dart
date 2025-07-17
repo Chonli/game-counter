@@ -6,7 +6,7 @@ part of 'notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$currentGameHash() => r'97302d2791125fe1fc2b5f9b185293c4e846f26a';
+String _$currentGameHash() => r'd8f79ea9ac1926834f14c0c6ac49bdefd19c9f05';
 
 /// Copied from Dart SDK
 class _SystemHash {

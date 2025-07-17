@@ -5,6 +5,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:score_counter/core/theme/app_spacing.dart';
 import 'package:score_counter/core/widgets/app_scaffold.dart';
+import 'package:score_counter/core/widgets/error_view.dart';
+import 'package:score_counter/core/widgets/load_view.dart';
 import 'package:score_counter/l10n/l10n.dart';
 import 'package:score_counter/model/game.dart';
 import 'package:score_counter/model/round.dart';
@@ -47,7 +49,10 @@ class AddRoundPage extends HookConsumerWidget {
     return switch (game) {
       AsyncData(:final value) =>
         value == null
-            ? _ErrorView(error: l10n.add_round_error_game_not_found)
+            ? ErrorPage(
+              title: l10n.add_round_title,
+              error: l10n.add_round_error_game_not_found,
+            )
             : _AddRoundBody(
               game: value,
               initRound:
@@ -60,8 +65,11 @@ class AddRoundPage extends HookConsumerWidget {
                     ),
                   ),
             ),
-      AsyncError() => _ErrorView(error: l10n.add_round_error_load_game),
-      _ => _LoadView(),
+      AsyncError() => ErrorPage(
+        title: l10n.add_round_title,
+        error: l10n.add_round_error_load_game,
+      ),
+      _ => LoadPage(title: l10n.add_round_title),
     };
   }
 }
@@ -229,36 +237,6 @@ class _AddRoundBody extends HookConsumerWidget {
 
         child: Icon(Icons.check),
       ),
-    );
-  }
-}
-
-class _ErrorView extends StatelessWidget {
-  const _ErrorView({required this.error});
-
-  final String error;
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = context.l10n;
-
-    return AppScaffold(
-      title: l10n.add_round_title,
-      body: Center(child: Text(error)),
-    );
-  }
-}
-
-class _LoadView extends StatelessWidget {
-  const _LoadView();
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = context.l10n;
-
-    return AppScaffold(
-      title: l10n.add_round_title,
-      body: Center(child: CircularProgressIndicator()),
     );
   }
 }

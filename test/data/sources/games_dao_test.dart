@@ -101,7 +101,14 @@ void main() {
         PlayerEntity(id: 0, name: 'Player 1', color: 0xFF112233),
         PlayerEntity(id: 0, name: 'Player 2', color: 0xFF112244),
       ]);
+      mockGame.gameOptions.target = GameOptionsEntity(
+        id: 0,
+        maxScoreByRound: 100,
+        maxScore: 1000,
+        maxRounds: 10,
+      );
       final newID = gamesDao.addGame(mockGame);
+
       final newMockGame = mockGame.updateId(newID);
       const newName = 'Updated Game 2';
       newMockGame.name = newName;
@@ -117,6 +124,10 @@ void main() {
       expect(resultGame?.name, newName);
       expect(resultGame?.rounds.first.index, 0);
       expect(resultGame?.rounds.first.playerByScores, playerByScores);
+      expect(
+        resultGame?.gameOptions.target?.maxRounds,
+        mockGame.gameOptions.target?.maxRounds,
+      );
     });
 
     test('should delete a game when deleteGame is called', () {

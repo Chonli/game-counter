@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:score_counter/data/repositories/games.dart';
 import 'package:score_counter/model/game.dart';
@@ -15,10 +16,19 @@ class Games extends _$Games {
 
   void createGame(Game game) {
     final repo = ref.read(gamesRepositoryProvider);
-    final newID = repo.createGame(game);
-    final oldValue = state.valueOrNull ?? [];
+    final oldValue = [...?state.valueOrNull];
+    final oldGame = oldValue.firstWhereOrNull(
+      (element) => element.id == game.id,
+    );
 
-    state = AsyncData([...oldValue, game.copyWith(id: newID)]);
+    if (oldGame != null) {
+      final newID = repo.updateGame(game);
+      oldValue.removeWhere((g) => g.id == game.id);
+      state = AsyncData([...oldValue, game.copyWith(id: newID)]);
+    } else {
+      final newID = repo.createGame(game);
+      state = AsyncData([...oldValue, game.copyWith(id: newID)]);
+    }
   }
 
   void removeGame(int id) {
