@@ -6,7 +6,7 @@ part of 'notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$currentGameHash() => r'd8f79ea9ac1926834f14c0c6ac49bdefd19c9f05';
+String _$currentGameHash() => r'1bdeb952397c79a515e34609070699046732154b';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,10 +29,10 @@ class _SystemHash {
   }
 }
 
-abstract class _$CurrentGame extends BuildlessAutoDisposeAsyncNotifier<Game?> {
+abstract class _$CurrentGame extends BuildlessAutoDisposeNotifier<Game?> {
   late final int gameId;
 
-  FutureOr<Game?> build(int gameId);
+  Game? build(int gameId);
 }
 
 /// See also [CurrentGame].
@@ -40,7 +40,7 @@ abstract class _$CurrentGame extends BuildlessAutoDisposeAsyncNotifier<Game?> {
 const currentGameProvider = CurrentGameFamily();
 
 /// See also [CurrentGame].
-class CurrentGameFamily extends Family<AsyncValue<Game?>> {
+class CurrentGameFamily extends Family<Game?> {
   /// See also [CurrentGame].
   const CurrentGameFamily();
 
@@ -73,7 +73,7 @@ class CurrentGameFamily extends Family<AsyncValue<Game?>> {
 
 /// See also [CurrentGame].
 class CurrentGameProvider
-    extends AutoDisposeAsyncNotifierProviderImpl<CurrentGame, Game?> {
+    extends AutoDisposeNotifierProviderImpl<CurrentGame, Game?> {
   /// See also [CurrentGame].
   CurrentGameProvider(int gameId)
     : this._internal(
@@ -102,7 +102,7 @@ class CurrentGameProvider
   final int gameId;
 
   @override
-  FutureOr<Game?> runNotifierBuild(covariant CurrentGame notifier) {
+  Game? runNotifierBuild(covariant CurrentGame notifier) {
     return notifier.build(gameId);
   }
 
@@ -123,7 +123,7 @@ class CurrentGameProvider
   }
 
   @override
-  AutoDisposeAsyncNotifierProviderElement<CurrentGame, Game?> createElement() {
+  AutoDisposeNotifierProviderElement<CurrentGame, Game?> createElement() {
     return _CurrentGameProviderElement(this);
   }
 
@@ -143,13 +143,13 @@ class CurrentGameProvider
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-mixin CurrentGameRef on AutoDisposeAsyncNotifierProviderRef<Game?> {
+mixin CurrentGameRef on AutoDisposeNotifierProviderRef<Game?> {
   /// The parameter `gameId` of this provider.
   int get gameId;
 }
 
 class _CurrentGameProviderElement
-    extends AutoDisposeAsyncNotifierProviderElement<CurrentGame, Game?>
+    extends AutoDisposeNotifierProviderElement<CurrentGame, Game?>
     with CurrentGameRef {
   _CurrentGameProviderElement(super.provider);
 

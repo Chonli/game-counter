@@ -20,9 +20,15 @@ class GamesRepository {
 
   List<Game> getGames() => dao.getGames().map((e) => e.toModel()).toList();
 
-  int createGame(Game game) => dao.addGame(game.toEntity());
+  Future<Game> addOrUpdateGame(Game game) async {
+    final gameEntity = game.toEntity();
 
-  int updateGame(Game game) => dao.updateGame(game.toEntity());
+    dao.updatePlayersOfGame(gameEntity);
+    dao.updateRoundsOfGame(gameEntity);
+    final result = await dao.addOrUpdateGame(gameEntity);
+
+    return result.toModel();
+  }
 
   void removeGame(int id) => dao.removeGame(id);
 

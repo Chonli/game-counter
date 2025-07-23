@@ -22,43 +22,49 @@ void main() {
 
   group('GamesNotifier', () {
     test('createGame adds a new game to the state', () async {
-      // Arrange
       final game = Game(
         id: 1,
         name: 'Test Game',
         createDate: DateTime(2025, 1, 1),
         gameOptions: GameOptions(),
       );
-      when(() => mockRepo.createGame(game)).thenReturn(1);
+      when(
+        () => mockRepo.addOrUpdateGame(game),
+      ).thenAnswer((_) => Future.value(game));
+      when(() => mockRepo.getGames()).thenReturn([game]);
 
-      // Act
       final notifier = container.read(gamesProvider.notifier);
-      notifier.createGame(game);
+      await notifier.createOrUpdateGame(game);
 
-      // Assert
-      final state = container.read(gamesProvider);
-      expect(state.value, [game.copyWith(id: 1)]);
+      final games = container.read(gamesProvider);
+      expect(games.length, 1);
+      expect(games.first.id, game.id);
+      expect(games.first.name, game.name);
     });
 
     test('removeGame removes a game from the state', () async {
-      // Arrange
       final game = Game(
         id: 1,
         name: 'Test Game',
         createDate: DateTime(2025, 1, 1),
         gameOptions: GameOptions(),
       );
-      when(() => mockRepo.createGame(game)).thenReturn(1);
+      when(
+        () => mockRepo.addOrUpdateGame(game),
+      ).thenAnswer((_) => Future.value(game));
       when(() => mockRepo.removeGame(1)).thenReturn(null);
+      when(() => mockRepo.getGames()).thenReturn([game]);
 
-      // Act
       final notifier = container.read(gamesProvider.notifier);
-      notifier.createGame(game);
+      await notifier.createOrUpdateGame(game);
+      final games = container.read(gamesProvider);
+      expect(games.length, 1);
+
+      when(() => mockRepo.getGames()).thenReturn([]);
       notifier.removeGame(1);
 
-      // Assert
-      final state = container.read(gamesProvider);
-      expect(state.value, []);
+      final games2 = container.read(gamesProvider);
+      expect(games2.isEmpty, true);
     });
   });
 }

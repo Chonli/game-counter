@@ -27,21 +27,14 @@ class MyHomePage extends StatelessWidget {
       ],
       body: Consumer(
         builder: (context, ref, _) {
-          final gamesAsyncValue = ref.watch(gamesProvider);
+          final games = ref.watch(gamesProvider);
+          if (games.isEmpty) {
+            return Center(child: Text(l10n.no_games));
+          }
 
-          return gamesAsyncValue.when(
-            data: (games) {
-              if (games.isEmpty) {
-                return Center(child: Text(l10n.no_games));
-              }
-              return ListView.builder(
-                itemCount: games.length,
-                itemBuilder: (context, index) => _ListGameTile(games[index]),
-              );
-            },
-            loading: () => const Center(child: CircularProgressIndicator()),
-            error:
-                (error, stack) => Center(child: Text(l10n.error_loading_games)),
+          return ListView.builder(
+            itemCount: games.length,
+            itemBuilder: (context, index) => _ListGameTile(games[index]),
           );
         },
       ),

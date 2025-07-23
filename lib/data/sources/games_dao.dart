@@ -1,57 +1,131 @@
-import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:objectbox/objectbox.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:score_counter/core/database.dart';
 import 'package:score_counter/data/entities/game.dart';
+import 'package:score_counter/data/entities/player.dart';
 import 'package:score_counter/data/entities/round.dart';
 
 part 'games_dao.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 GamesDao gamesDao(Ref ref) {
   final db = ref.watch(databaseProvider);
-  final box = db.box<GameEntity>();
-  final roundBox = db.box<RoundEntity>();
 
-  return GamesDao(box, roundBox);
+  ref.onDispose(() {
+    db.close();
+  });
+
+  return GamesDao(db);
 }
 
 class GamesDao {
-  const GamesDao(this.box, this.roundBox);
+  GamesDao(this.db)
+    : _gameBox = db.box<GameEntity>(),
+      _roundBox = db.box<RoundEntity>(),
+      _playerBox = db.box<PlayerEntity>();
 
-  @visibleForTesting
-  final Box<GameEntity> box;
-  @visibleForTesting
-  final Box<RoundEntity> roundBox;
+  final Store db;
 
+  final Box<GameEntity> _gameBox;
+
+  final Box<RoundEntity> _roundBox;
+
+  final Box<PlayerEntity> _playerBox;
+
+  // Games methods
   GameEntity? getGame(int id) {
-    return box.get(id);
+    // To prevent the error: "ObjectBoxException: Illegal ID value 0"
+    if (id < 1) {
+      return null;
+    }
+
+    return _gameBox.get(id);
   }
 
   List<GameEntity> getGames() {
-    return box.getAll();
+    return _gameBox.getAll();
   }
 
-  int addGame(GameEntity game) {
-    return box.put(game);
-  }
-
-  int updateGame(GameEntity game) {
-    print('updateGame: ${box.get(game.id)?.id}');
-    return box.put(game, mode: PutMode.update);
-  }
-
-  int addRound(RoundEntity round) {
-    return roundBox.put(round);
+  Future<GameEntity> addOrUpdateGame(GameEntity game) {
+    return _gameBox.putAndGetAsync(game);
   }
 
   void removeGame(int id) {
-    box.remove(id);
+    _gameBox.remove(id);
   }
 
   void clearGames() {
-    box.removeAll();
-    roundBox.removeAll();
+    _gameBox.removeAll();
+    _playerBox.removeAll();
+    _roundBox.removeAll();
+  }
+
+  // Players methods
+  void updatePlayersOfGame(GameEntity game) {
+    final oldGame = getGame(game.id);
+    if (oldGame == null || oldGame.players.isEmpty) {
+      return;
+    }
+
+    final newPlayersIds = game.players.map((r) => r.id).toList();
+    final oldPlayersIds = oldGame.players.map((r) => r.id).toList();
+    final playersToRemove = <int>[];
+    final playersToUpdate = <int>[];
+
+    for (final oldPlayerId in oldPlayersIds) {
+      if (!newPlayersIds.contains(oldPlayerId)) {
+        playersToRemove.add(oldPlayerId);
+      } else {
+        playersToUpdate.add(oldPlayerId);
+      }
+    }
+
+    _playerBox.removeMany(playersToRemove);
+    _playerBox.putMany(
+      game.players.where((r) => playersToUpdate.contains(r.id)).toList(),
+    );
+  }
+
+  // Rounds methods
+  void updateRoundsOfGame(GameEntity game) {
+    final oldGame = getGame(game.id);
+    if (oldGame == null || oldGame.rounds.isEmpty) {
+      return;
+    }
+
+    final newRoundsIds = game.rounds.map((r) => r.id).toList();
+    final oldRoundsIds = oldGame.rounds.map((r) => r.id).toList();
+    final roundsToRemove = <int>[];
+    final roundsToUpdate = <int>[];
+
+    for (final oldPlayerId in oldRoundsIds) {
+      if (!newRoundsIds.contains(oldPlayerId)) {
+        roundsToRemove.add(oldPlayerId);
+      } else {
+        roundsToUpdate.add(oldPlayerId);
+      }
+    }
+
+    _roundBox.removeMany(roundsToRemove);
+    _roundBox.putMany(
+      game.rounds.where((r) => roundsToUpdate.contains(r.id)).toList(),
+    );
+  }
+
+  void clearRoundsOfGame(int gameId) {
+    final game = getGame(gameId);
+    if (game == null) {
+      return;
+    }
+    _roundBox.removeMany(game.rounds.map((r) => r.id).toList());
+  }
+
+  Future<RoundEntity> addOrUpdateRound(RoundEntity round) {
+    return _roundBox.putAndGetAsync(round);
+  }
+
+  void removeRound(int id) {
+    _roundBox.remove(id);
   }
 }

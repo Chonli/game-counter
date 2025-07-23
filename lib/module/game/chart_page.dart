@@ -16,15 +16,10 @@ class ChartPage extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(title: Text('Chart')),
-      body: currentGame.when(
-        data:
-            (game) =>
-                game == null
-                    ? Center(child: Text('Game not found'))
-                    : _ChartView(game: game),
-        loading: () => Center(child: CircularProgressIndicator()),
-        error: (error, stack) => Center(child: Text('Error loading game')),
-      ),
+      body:
+          currentGame == null
+              ? Center(child: Text('Game not found'))
+              : _ChartView(game: currentGame),
     );
   }
 }

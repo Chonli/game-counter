@@ -332,7 +332,9 @@ class _View extends HookConsumerWidget {
                               )
                               .toList(),
                     );
-                    ref.read(gamesProvider.notifier).createGame(newGame);
+                    ref
+                        .read(gamesProvider.notifier)
+                        .createOrUpdateGame(newGame);
 
                     context.pop();
                   }

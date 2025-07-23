@@ -5,7 +5,7 @@ import 'package:score_counter/model/player.dart';
 
 @Entity()
 class PlayerEntity {
-  @Id()
+  @Id(assignable: true)
   int id;
   String name;
   int color;
