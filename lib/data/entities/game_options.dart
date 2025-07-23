@@ -3,7 +3,7 @@ import 'package:score_counter/model/game_options.dart';
 
 @Entity()
 class GameOptionsEntity {
-  @Id()
+  @Id(assignable: true)
   int id;
   int? maxScoreByRound;
   int? maxScore;

@@ -27,21 +27,14 @@ class MyHomePage extends StatelessWidget {
       ],
       body: Consumer(
         builder: (context, ref, _) {
-          final gamesAsyncValue = ref.watch(gamesProvider);
+          final games = ref.watch(gamesProvider);
+          if (games.isEmpty) {
+            return Center(child: Text(l10n.no_games));
+          }
 
-          return gamesAsyncValue.when(
-            data: (games) {
-              if (games.isEmpty) {
-                return Center(child: Text(l10n.no_games));
-              }
-              return ListView.builder(
-                itemCount: games.length,
-                itemBuilder: (context, index) => _ListGameTile(games[index]),
-              );
-            },
-            loading: () => const Center(child: CircularProgressIndicator()),
-            error:
-                (error, stack) => Center(child: Text(l10n.error_loading_games)),
+          return ListView.builder(
+            itemCount: games.length,
+            itemBuilder: (context, index) => _ListGameTile(games[index]),
           );
         },
       ),
@@ -70,32 +63,40 @@ class _ListGameTile extends ConsumerWidget {
       background: BackgroundDismiss(
         alignement: AlignmentDirectional.centerStart,
       ),
-      // TODO: implement update
       secondaryBackground: BackgroundDismiss(
         alignement: AlignmentDirectional.centerEnd,
+        type: DismissType.update,
       ),
       confirmDismiss:
-          (direction) => showDialog(
-            context: context,
-            builder:
-                (context) => AlertDialog(
-                  title: Text(l10n.delete_game),
-                  content: Text(l10n.delete_game_confirmation),
-                  actions: [
-                    TextButton(
-                      onPressed: () => context.pop(),
-                      child: Text(l10n.common_cancel),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        ref.read(gamesProvider.notifier).removeGame(game.id);
-                        context.pop();
-                      },
-                      child: Text(l10n.common_delete),
-                    ),
-                  ],
-                ),
-          ),
+          (direction) =>
+              direction == DismissDirection.endToStart
+                  ? context.pushNamed(
+                    AppRoute.updateGame.name,
+                    pathParameters: {'gameId': game.id.toString()},
+                  )
+                  : showDialog(
+                    context: context,
+                    builder:
+                        (context) => AlertDialog(
+                          title: Text(l10n.delete_game),
+                          content: Text(l10n.delete_game_confirmation),
+                          actions: [
+                            TextButton(
+                              onPressed: () => context.pop(),
+                              child: Text(l10n.common_cancel),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                ref
+                                    .read(gamesProvider.notifier)
+                                    .removeGame(game.id);
+                                context.pop();
+                              },
+                              child: Text(l10n.common_delete),
+                            ),
+                          ],
+                        ),
+                  ),
       child: ListTile(
         title: Text(game.name),
         subtitle: Text(game.createDate.toString()),

@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:score_counter/core/theme/app_spacing.dart';
 import 'package:score_counter/core/widgets/app_scaffold.dart';
 import 'package:score_counter/core/widgets/background_dismiss.dart';
+import 'package:score_counter/core/widgets/error_view.dart';
 import 'package:score_counter/l10n/l10n.dart';
 import 'package:score_counter/model/game.dart';
 import 'package:score_counter/module/game/notifier.dart';
@@ -37,9 +38,9 @@ class ActiveGamePage extends HookConsumerWidget {
         child: switch (currentGame) {
           AsyncData(:final value) =>
             value == null
-                ? _ErrorView(error: l10n.game_not_found)
+                ? ErrorView(error: l10n.game_not_found)
                 : _GameResultTable(game: value),
-          AsyncError() => _ErrorView(error: l10n.load_game_error),
+          AsyncError() => ErrorView(error: l10n.load_game_error),
           _ => const Center(child: CircularProgressIndicator()),
         },
       ),
@@ -54,17 +55,6 @@ class ActiveGamePage extends HookConsumerWidget {
         child: const Icon(Icons.add),
       ),
     );
-  }
-}
-
-class _ErrorView extends StatelessWidget {
-  const _ErrorView({required this.error});
-
-  final String error;
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(child: Text(error));
   }
 }
 
@@ -141,39 +131,50 @@ class _GameResultTable extends HookConsumerWidget {
                     background: BackgroundDismiss(
                       alignement: AlignmentDirectional.centerStart,
                     ),
-                    // TODO implement update rounds
                     secondaryBackground: BackgroundDismiss(
                       alignement: AlignmentDirectional.centerEnd,
+                      type: DismissType.update,
                     ),
                     confirmDismiss:
-                        (direction) => showDialog(
-                          context: context,
-                          builder:
-                              (context) => AlertDialog(
-                                title: Text(l10n.delete_game),
-                                content: Text(l10n.delete_game_confirmation),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () => context.pop(),
-                                    child: Text(l10n.common_cancel),
-                                  ),
-                                  TextButton(
-                                    onPressed: () {
-                                      ref
-                                          .read(
-                                            currentGameProvider(
-                                              game.id,
-                                            ).notifier,
-                                          )
-                                          .removeRound(round);
+                        (direction) =>
+                            direction == DismissDirection.endToStart
+                                ? context.pushNamed(
+                                  AppRoute.addRound.name,
+                                  pathParameters: {
+                                    'gameId': game.id.toString(),
+                                    'roundId': round.id.toString(),
+                                  },
+                                )
+                                : showDialog(
+                                  context: context,
+                                  builder:
+                                      (context) => AlertDialog(
+                                        title: Text(l10n.delete_game),
+                                        content: Text(
+                                          l10n.delete_game_confirmation,
+                                        ),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () => context.pop(),
+                                            child: Text(l10n.common_cancel),
+                                          ),
+                                          TextButton(
+                                            onPressed: () {
+                                              ref
+                                                  .read(
+                                                    currentGameProvider(
+                                                      game.id,
+                                                    ).notifier,
+                                                  )
+                                                  .removeRound(round);
 
-                                      context.pop();
-                                    },
-                                    child: Text(l10n.common_delete),
-                                  ),
-                                ],
-                              ),
-                        ),
+                                              context.pop();
+                                            },
+                                            child: Text(l10n.common_delete),
+                                          ),
+                                        ],
+                                      ),
+                                ),
 
                     child: Padding(
                       padding: const EdgeInsets.all(AppSpacing.xs),

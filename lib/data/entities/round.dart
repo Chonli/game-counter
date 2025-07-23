@@ -5,7 +5,7 @@ import 'package:score_counter/model/round.dart';
 
 @Entity()
 class RoundEntity {
-  @Id()
+  @Id(assignable: true)
   int id;
   int index;
   @Transient()
