@@ -6,7 +6,6 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:score_counter/core/theme/app_spacing.dart';
 import 'package:score_counter/core/widgets/app_scaffold.dart';
 import 'package:score_counter/core/widgets/error_view.dart';
-import 'package:score_counter/core/widgets/load_view.dart';
 import 'package:score_counter/l10n/l10n.dart';
 import 'package:score_counter/model/game.dart';
 import 'package:score_counter/model/round.dart';
@@ -46,31 +45,23 @@ class AddRoundPage extends HookConsumerWidget {
 
     final l10n = context.l10n;
 
-    return switch (game) {
-      AsyncData(:final value) =>
-        value == null
-            ? ErrorPage(
-              title: l10n.add_round_title,
-              error: l10n.add_round_error_game_not_found,
-            )
-            : _AddRoundBody(
-              game: value,
-              initRound:
-                  value.rounds.firstWhereOrNull((r) => r.id == roundId) ??
-                  Round(
-                    id: 0,
-                    index: value.rounds.length,
-                    playerByScores: Map.fromEntries(
-                      value.players.map((p) => MapEntry(p.id, 0)),
-                    ),
-                  ),
-            ),
-      AsyncError() => ErrorPage(
-        title: l10n.add_round_title,
-        error: l10n.add_round_error_load_game,
-      ),
-      _ => LoadPage(title: l10n.add_round_title),
-    };
+    return game == null
+        ? ErrorPage(
+          title: l10n.add_round_title,
+          error: l10n.add_round_error_game_not_found,
+        )
+        : _AddRoundBody(
+          game: game,
+          initRound:
+              game.rounds.firstWhereOrNull((r) => r.id == roundId) ??
+              Round(
+                id: 0,
+                index: game.rounds.length,
+                playerByScores: Map.fromEntries(
+                  game.players.map((p) => MapEntry(p.id, 0)),
+                ),
+              ),
+        );
   }
 }
 
@@ -228,8 +219,8 @@ class _AddRoundBody extends HookConsumerWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          ref
+        onPressed: () async {
+          await ref
               .read(currentGameProvider(game.id).notifier)
               .addOrUpdateRound(round);
           context.pop();

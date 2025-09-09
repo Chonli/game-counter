@@ -45,6 +45,13 @@ class _ChartView extends StatelessWidget {
           titlesData: FlTitlesData(
             topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
             leftTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+            bottomTitles: AxisTitles(
+              sideTitles: SideTitles(
+                interval: 1,
+                showTitles: true,
+                reservedSize: 30,
+              ),
+            ),
           ),
           borderData: FlBorderData(show: true),
           lineBarsData:

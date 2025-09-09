@@ -7,8 +7,6 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:score_counter/core/theme/app_spacing.dart';
 import 'package:score_counter/core/widgets/app_gap.dart';
-import 'package:score_counter/core/widgets/error_view.dart';
-import 'package:score_counter/core/widgets/load_view.dart';
 import 'package:score_counter/l10n/l10n.dart';
 import 'package:score_counter/model/game.dart';
 import 'package:score_counter/model/game_options.dart';
@@ -47,15 +45,9 @@ class AddGamePage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final games = ref.watch(gamesProvider);
 
-    final l10n = context.l10n;
-
-    return switch (games) {
-      AsyncData(:final value) => _View(
-        initialGame: value.firstWhereOrNull((game) => game.id == gameId),
-      ),
-      AsyncError() => ErrorView(error: l10n.add_round_error_load_game),
-      _ => LoadView(),
-    };
+    return _View(
+      initialGame: games.firstWhereOrNull((game) => game.id == gameId),
+    );
   }
 }
 

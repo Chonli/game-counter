@@ -35,14 +35,10 @@ class ActiveGamePage extends HookConsumerWidget {
       ],
       body: Padding(
         padding: const EdgeInsets.all(AppSpacing.md),
-        child: switch (currentGame) {
-          AsyncData(:final value) =>
-            value == null
+        child:
+            currentGame == null
                 ? ErrorView(error: l10n.game_not_found)
-                : _GameResultTable(game: value),
-          AsyncError() => ErrorView(error: l10n.load_game_error),
-          _ => const Center(child: CircularProgressIndicator()),
-        },
+                : _GameResultTable(game: currentGame),
       ),
 
       floatingActionButton: FloatingActionButton(
