@@ -6,7 +6,7 @@ part of 'add_round_page.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$currentRoundHash() => r'd82f743abe023b02179a916cc43bd61c35f0010b';
+String _$currentRoundHash() => r'fcb48c0249549ce61c9138b55d02d85b6cc476f0';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -80,10 +80,9 @@ class _CurrentRoundProvider
         () => _CurrentRound()..round = round,
         from: _currentRoundProvider,
         name: r'_currentRoundProvider',
-        debugGetCreateSourceHash:
-            const bool.fromEnvironment('dart.vm.product')
-                ? null
-                : _$currentRoundHash,
+        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+            ? null
+            : _$currentRoundHash,
         dependencies: _CurrentRoundFamily._dependencies,
         allTransitiveDependencies:
             _CurrentRoundFamily._allTransitiveDependencies,

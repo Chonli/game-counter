@@ -13,7 +13,7 @@ class Player with PlayerMappable {
     this.totalScore = 0,
   });
 
-  final int id;
+  final String id;
   final String name;
   final Color color;
   final int totalScore;

@@ -1,20 +1,12 @@
-import 'package:objectbox/objectbox.dart';
+import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:score_counter/model/game_options.dart';
 
-@Entity()
-class GameOptionsEntity {
-  @Id(assignable: true)
-  int id;
+class GameOptionsEntity extends HiveObject {
   int? maxScoreByRound;
   int? maxScore;
   int? maxRounds;
 
-  GameOptionsEntity({
-    this.id = 0,
-    this.maxScoreByRound,
-    this.maxScore,
-    this.maxRounds,
-  });
+  GameOptionsEntity({this.maxScoreByRound, this.maxScore, this.maxRounds});
 }
 
 extension GameOptionsEntityExtension on GameOptionsEntity {

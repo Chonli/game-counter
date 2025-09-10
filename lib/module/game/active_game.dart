@@ -13,7 +13,7 @@ import 'package:score_counter/router/app_route.dart';
 class ActiveGamePage extends HookConsumerWidget {
   const ActiveGamePage({super.key, required this.gameId});
 
-  final int gameId;
+  final String gameId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -35,10 +35,9 @@ class ActiveGamePage extends HookConsumerWidget {
       ],
       body: Padding(
         padding: const EdgeInsets.all(AppSpacing.md),
-        child:
-            currentGame == null
-                ? ErrorView(error: l10n.game_not_found)
-                : _GameResultTable(game: currentGame),
+        child: currentGame == null
+            ? ErrorView(error: l10n.game_not_found)
+            : _GameResultTable(game: currentGame),
       ),
 
       floatingActionButton: FloatingActionButton(
@@ -81,17 +80,16 @@ class _GameResultTable extends HookConsumerWidget {
                     padding: const EdgeInsets.all(AppSpacing.xs),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children:
-                          game.players.map((player) {
-                            return Text(
-                              player.name,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: player.color,
-                              ),
-                              textAlign: TextAlign.center,
-                            );
-                          }).toList(),
+                      children: game.players.map((player) {
+                        return Text(
+                          player.name,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: player.color,
+                          ),
+                          textAlign: TextAlign.center,
+                        );
+                      }).toList(),
                     ),
                   ),
                 );
@@ -101,14 +99,13 @@ class _GameResultTable extends HookConsumerWidget {
                   padding: const EdgeInsets.all(AppSpacing.xs),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children:
-                        game.players.map((player) {
-                          return Text(
-                            player.totalScore.toString(),
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.center,
-                          );
-                        }).toList(),
+                    children: game.players.map((player) {
+                      return Text(
+                        player.totalScore.toString(),
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      );
+                    }).toList(),
                   ),
                 );
               } else {
@@ -131,60 +128,52 @@ class _GameResultTable extends HookConsumerWidget {
                       alignement: AlignmentDirectional.centerEnd,
                       type: DismissType.update,
                     ),
-                    confirmDismiss:
-                        (direction) =>
-                            direction == DismissDirection.endToStart
-                                ? context.pushNamed(
-                                  AppRoute.addRound.name,
-                                  pathParameters: {
-                                    'gameId': game.id.toString(),
-                                    'roundId': round.id.toString(),
-                                  },
-                                )
-                                : showDialog(
-                                  context: context,
-                                  builder:
-                                      (context) => AlertDialog(
-                                        title: Text(l10n.delete_game),
-                                        content: Text(
-                                          l10n.delete_game_confirmation,
-                                        ),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () => context.pop(),
-                                            child: Text(l10n.common_cancel),
-                                          ),
-                                          TextButton(
-                                            onPressed: () {
-                                              ref
-                                                  .read(
-                                                    currentGameProvider(
-                                                      game.id,
-                                                    ).notifier,
-                                                  )
-                                                  .removeRound(round);
-
-                                              context.pop();
-                                            },
-                                            child: Text(l10n.common_delete),
-                                          ),
-                                        ],
-                                      ),
+                    confirmDismiss: (direction) =>
+                        direction == DismissDirection.endToStart
+                        ? context.pushNamed(
+                            AppRoute.addRound.name,
+                            pathParameters: {
+                              'gameId': game.id.toString(),
+                              'roundId': round.id.toString(),
+                            },
+                          )
+                        : showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: Text(l10n.delete_game),
+                              content: Text(l10n.delete_game_confirmation),
+                              actions: [
+                                TextButton(
+                                  onPressed: () => context.pop(),
+                                  child: Text(l10n.common_cancel),
                                 ),
+                                TextButton(
+                                  onPressed: () {
+                                    ref
+                                        .read(
+                                          currentGameProvider(game.id).notifier,
+                                        )
+                                        .removeRound(round);
+
+                                    context.pop();
+                                  },
+                                  child: Text(l10n.common_delete),
+                                ),
+                              ],
+                            ),
+                          ),
 
                     child: Padding(
                       padding: const EdgeInsets.all(AppSpacing.xs),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children:
-                            game.players.map((player) {
-                              final score =
-                                  round.playerByScores[player.id] ?? 0;
-                              return Text(
-                                score.toString(),
-                                textAlign: TextAlign.center,
-                              );
-                            }).toList(),
+                        children: game.players.map((player) {
+                          final score = round.playerByScores[player.id] ?? 0;
+                          return Text(
+                            score.toString(),
+                            textAlign: TextAlign.center,
+                          );
+                        }).toList(),
                       ),
                     ),
                   ),

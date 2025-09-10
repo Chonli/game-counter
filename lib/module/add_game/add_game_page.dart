@@ -12,6 +12,7 @@ import 'package:score_counter/model/game.dart';
 import 'package:score_counter/model/game_options.dart';
 import 'package:score_counter/model/player.dart';
 import 'package:score_counter/notifier/games.dart';
+import 'package:score_counter/services/generator_utilities.dart';
 
 const List<Color> _availableColors = [
   Colors.red,
@@ -39,7 +40,7 @@ const List<Color> _availableColors = [
 class AddGamePage extends HookConsumerWidget {
   AddGamePage({super.key, this.gameId});
 
-  final int? gameId;
+  final String? gameId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -301,9 +302,10 @@ class _View extends HookConsumerWidget {
                       validPlayers.isNotEmpty) {
                     final name = nameController.text;
                     int i = 0;
+                    final generator = ref.read(generatorUtilitiesProvider);
 
                     final newGame = Game(
-                      id: initialGame?.id ?? 0,
+                      id: initialGame?.id ?? generator.newId(),
                       name: name,
                       createDate: initialGame?.createDate ?? DateTime.now(),
                       gameOptions: GameOptions(
@@ -313,16 +315,15 @@ class _View extends HookConsumerWidget {
                         maxScore: int.tryParse(maxScoreController.text),
                         maxRounds: int.tryParse(maxRoundsController.text),
                       ),
-                      players:
-                          validPlayers
-                              .map(
-                                (player) => Player(
-                                  id: 0,
-                                  name: player.text,
-                                  color: playerColors.value[i++],
-                                ),
-                              )
-                              .toList(),
+                      players: validPlayers
+                          .map(
+                            (player) => Player(
+                              id: generator.newId(),
+                              name: player.text,
+                              color: playerColors.value[i++],
+                            ),
+                          )
+                          .toList(),
                     );
                     ref
                         .read(gamesProvider.notifier)

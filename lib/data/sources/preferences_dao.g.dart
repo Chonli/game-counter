@@ -6,17 +6,16 @@ part of 'preferences_dao.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$preferencesDaoHash() => r'eab15c696cf6e0ea4f042447e12579b3528acc37';
+String _$preferencesDaoHash() => r'4faf6bd35386767879fb6cb0781555d7b71ed684';
 
 /// See also [preferencesDao].
 @ProviderFor(preferencesDao)
 final preferencesDaoProvider = AutoDisposeProvider<PreferencesDao>.internal(
   preferencesDao,
   name: r'preferencesDaoProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$preferencesDaoHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$preferencesDaoHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

@@ -8,7 +8,7 @@ part 'game.mapper.dart';
 
 @MappableClass()
 class Game with GameMappable {
-  final int id;
+  final String id;
   final String name;
   final DateTime createDate;
   final GameOptions gameOptions;
@@ -27,11 +27,14 @@ class Game with GameMappable {
 
 extension GameExtension on Game {
   GameEntity toEntity() {
-    final game = GameEntity(id: id, name: name, createDate: createDate);
-
-    game.players.addAll(players.map((e) => e.toEntity()));
-    game.rounds.addAll(rounds.map((e) => e.toEntity()));
-    game.gameOptions.target = gameOptions.toEntity();
+    final game = GameEntity(
+      id: id,
+      name: name,
+      createDate: createDate,
+      gameOptions: gameOptions.toEntity(),
+      players: players.map((e) => e.toEntity()).toList(),
+      rounds: rounds.map((e) => e.toEntity()).toList(),
+    );
 
     return game;
   }

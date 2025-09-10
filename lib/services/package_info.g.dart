@@ -13,8 +13,9 @@ String _$packageInfoHash() => r'7d3d66644bbe841350bb8441bb058f39ee35bca8';
 final packageInfoProvider = Provider<AppPackageInfo>.internal(
   packageInfo,
   name: r'packageInfoProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$packageInfoHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$packageInfoHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

@@ -6,15 +6,16 @@ part of 'games_dao.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$gamesDaoHash() => r'b2b2f8b99768e37f551b70fbfc1f43157e93689f';
+String _$gamesDaoHash() => r'517273a96b84ca50c28d9cd8cfd295fa8921cce3';
 
 /// See also [gamesDao].
 @ProviderFor(gamesDao)
 final gamesDaoProvider = Provider<GamesDao>.internal(
   gamesDao,
   name: r'gamesDaoProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$gamesDaoHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$gamesDaoHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

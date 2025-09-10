@@ -9,7 +9,7 @@ part 'notifier.g.dart';
 @riverpod
 class CurrentGame extends _$CurrentGame {
   @override
-  Game? build(int gameId) {
+  Game? build(String gameId) {
     final repo = ref.read(gamesRepositoryProvider);
 
     final game = repo.getGame(gameId);
@@ -32,8 +32,8 @@ class CurrentGame extends _$CurrentGame {
       game.copyWith(rounds: updatedRounds),
     );
 
-    final result = await repo.addOrUpdateGame(updatedGame);
-    state = result;
+    await repo.addOrUpdateGame(updatedGame);
+    state = updatedGame;
   }
 
   Game _calculateNewScore(Game game) {
@@ -69,7 +69,8 @@ class CurrentGame extends _$CurrentGame {
     final updatedGame = _calculateNewScore(
       game.copyWith(rounds: updatedRounds),
     );
-    final result = await repo.addOrUpdateGame(updatedGame);
-    state = result;
+
+    await repo.addOrUpdateGame(updatedGame);
+    state = updatedGame;
   }
 }

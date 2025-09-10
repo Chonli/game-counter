@@ -21,7 +21,7 @@ class Games extends _$Games {
     state = repo.getGames();
   }
 
-  void removeGame(int id) {
+  void removeGame(String id) {
     final repo = ref.read(gamesRepositoryProvider);
     repo.removeGame(id);
     state = repo.getGames();

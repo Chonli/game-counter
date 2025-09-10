@@ -20,12 +20,12 @@ class RoundMapper extends ClassMapperBase<Round> {
   @override
   final String id = 'Round';
 
-  static int _$id(Round v) => v.id;
-  static const Field<Round, int> _f$id = Field('id', _$id);
+  static String _$id(Round v) => v.id;
+  static const Field<Round, String> _f$id = Field('id', _$id);
   static int _$index(Round v) => v.index;
   static const Field<Round, int> _f$index = Field('index', _$index);
-  static Map<int, int> _$playerByScores(Round v) => v.playerByScores;
-  static const Field<Round, Map<int, int>> _f$playerByScores =
+  static Map<String, int> _$playerByScores(Round v) => v.playerByScores;
+  static const Field<Round, Map<String, int>> _f$playerByScores =
       Field('playerByScores', _$playerByScores);
 
   @override
@@ -88,8 +88,8 @@ extension RoundValueCopy<$R, $Out> on ObjectCopyWith<$R, Round, $Out> {
 
 abstract class RoundCopyWith<$R, $In extends Round, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
-  MapCopyWith<$R, int, int, ObjectCopyWith<$R, int, int>> get playerByScores;
-  $R call({int? id, int? index, Map<int, int>? playerByScores});
+  MapCopyWith<$R, String, int, ObjectCopyWith<$R, int, int>> get playerByScores;
+  $R call({String? id, int? index, Map<String, int>? playerByScores});
   RoundCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -100,13 +100,13 @@ class _RoundCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Round, $Out>
   @override
   late final ClassMapperBase<Round> $mapper = RoundMapper.ensureInitialized();
   @override
-  MapCopyWith<$R, int, int, ObjectCopyWith<$R, int, int>> get playerByScores =>
-      MapCopyWith(
+  MapCopyWith<$R, String, int, ObjectCopyWith<$R, int, int>>
+      get playerByScores => MapCopyWith(
           $value.playerByScores,
           (v, t) => ObjectCopyWith(v, $identity, t),
           (v) => call(playerByScores: v));
   @override
-  $R call({int? id, int? index, Map<int, int>? playerByScores}) =>
+  $R call({String? id, int? index, Map<String, int>? playerByScores}) =>
       $apply(FieldCopyWithData({
         if (id != null) #id: id,
         if (index != null) #index: index,

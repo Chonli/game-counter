@@ -13,10 +13,9 @@ String _$gamesRepositoryHash() => r'66f96d0f669bb67fee6fc216c2f95e9daa427a93';
 final gamesRepositoryProvider = AutoDisposeProvider<GamesRepository>.internal(
   gamesRepository,
   name: r'gamesRepositoryProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$gamesRepositoryHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$gamesRepositoryHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

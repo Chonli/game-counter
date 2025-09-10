@@ -20,8 +20,8 @@ class PlayerMapper extends ClassMapperBase<Player> {
   @override
   final String id = 'Player';
 
-  static int _$id(Player v) => v.id;
-  static const Field<Player, int> _f$id = Field('id', _$id);
+  static String _$id(Player v) => v.id;
+  static const Field<Player, String> _f$id = Field('id', _$id);
   static String _$name(Player v) => v.name;
   static const Field<Player, String> _f$name = Field('name', _$name);
   static Color _$color(Player v) => v.color;
@@ -92,7 +92,7 @@ extension PlayerValueCopy<$R, $Out> on ObjectCopyWith<$R, Player, $Out> {
 
 abstract class PlayerCopyWith<$R, $In extends Player, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
-  $R call({int? id, String? name, Color? color, int? totalScore});
+  $R call({String? id, String? name, Color? color, int? totalScore});
   PlayerCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -103,7 +103,7 @@ class _PlayerCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Player, $Out>
   @override
   late final ClassMapperBase<Player> $mapper = PlayerMapper.ensureInitialized();
   @override
-  $R call({int? id, String? name, Color? color, int? totalScore}) =>
+  $R call({String? id, String? name, Color? color, int? totalScore}) =>
       $apply(FieldCopyWithData({
         if (id != null) #id: id,
         if (name != null) #name: name,

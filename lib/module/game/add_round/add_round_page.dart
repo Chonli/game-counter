@@ -10,6 +10,7 @@ import 'package:score_counter/l10n/l10n.dart';
 import 'package:score_counter/model/game.dart';
 import 'package:score_counter/model/round.dart';
 import 'package:score_counter/module/game/notifier.dart';
+import 'package:score_counter/services/generator_utilities.dart';
 
 part 'add_round_page.g.dart';
 
@@ -20,14 +21,14 @@ class _CurrentRound extends _$CurrentRound {
     return round;
   }
 
-  void addScore(int playerId, int score) {
+  void addScore(String playerId, int score) {
     final playerByScores = {...state.playerByScores};
     playerByScores[playerId] = score + (playerByScores[playerId] ?? 0);
 
     state = state.copyWith(playerByScores: playerByScores);
   }
 
-  void addRestScoreForThisRounds(int playerId, int maxScoreByRound) {
+  void addRestScoreForThisRounds(String playerId, int maxScoreByRound) {
     final rest = state.restScoreForThisRounds(maxScoreByRound);
     addScore(playerId, rest);
   }
@@ -36,32 +37,33 @@ class _CurrentRound extends _$CurrentRound {
 class AddRoundPage extends HookConsumerWidget {
   const AddRoundPage({super.key, required this.gameId, required this.roundId});
 
-  final int gameId;
-  final int? roundId;
+  final String gameId;
+  final String? roundId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final game = ref.watch(currentGameProvider(gameId));
+    final generator = ref.watch(generatorUtilitiesProvider);
 
     final l10n = context.l10n;
 
     return game == null
         ? ErrorPage(
-          title: l10n.add_round_title,
-          error: l10n.add_round_error_game_not_found,
-        )
+            title: l10n.add_round_title,
+            error: l10n.add_round_error_game_not_found,
+          )
         : _AddRoundBody(
-          game: game,
-          initRound:
-              game.rounds.firstWhereOrNull((r) => r.id == roundId) ??
-              Round(
-                id: 0,
-                index: game.rounds.length,
-                playerByScores: Map.fromEntries(
-                  game.players.map((p) => MapEntry(p.id, 0)),
+            game: game,
+            initRound:
+                game.rounds.firstWhereOrNull((r) => r.id == roundId) ??
+                Round(
+                  id: generator.newId(),
+                  index: game.rounds.length,
+                  playerByScores: Map.fromEntries(
+                    game.players.map((p) => MapEntry(p.id, 0)),
+                  ),
                 ),
-              ),
-        );
+          );
   }
 }
 

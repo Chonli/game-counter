@@ -6,7 +6,7 @@ part of 'notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$currentGameHash() => r'1bdeb952397c79a515e34609070699046732154b';
+String _$currentGameHash() => r'399f0813a7a5c0c03bbc0e678d4c6f77769e529c';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -30,9 +30,9 @@ class _SystemHash {
 }
 
 abstract class _$CurrentGame extends BuildlessAutoDisposeNotifier<Game?> {
-  late final int gameId;
+  late final String gameId;
 
-  Game? build(int gameId);
+  Game? build(String gameId);
 }
 
 /// See also [CurrentGame].
@@ -45,7 +45,7 @@ class CurrentGameFamily extends Family<Game?> {
   const CurrentGameFamily();
 
   /// See also [CurrentGame].
-  CurrentGameProvider call(int gameId) {
+  CurrentGameProvider call(String gameId) {
     return CurrentGameProvider(gameId);
   }
 
@@ -75,15 +75,14 @@ class CurrentGameFamily extends Family<Game?> {
 class CurrentGameProvider
     extends AutoDisposeNotifierProviderImpl<CurrentGame, Game?> {
   /// See also [CurrentGame].
-  CurrentGameProvider(int gameId)
+  CurrentGameProvider(String gameId)
     : this._internal(
         () => CurrentGame()..gameId = gameId,
         from: currentGameProvider,
         name: r'currentGameProvider',
-        debugGetCreateSourceHash:
-            const bool.fromEnvironment('dart.vm.product')
-                ? null
-                : _$currentGameHash,
+        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+            ? null
+            : _$currentGameHash,
         dependencies: CurrentGameFamily._dependencies,
         allTransitiveDependencies: CurrentGameFamily._allTransitiveDependencies,
         gameId: gameId,
@@ -99,7 +98,7 @@ class CurrentGameProvider
     required this.gameId,
   }) : super.internal();
 
-  final int gameId;
+  final String gameId;
 
   @override
   Game? runNotifierBuild(covariant CurrentGame notifier) {
@@ -145,7 +144,7 @@ class CurrentGameProvider
 // ignore: unused_element
 mixin CurrentGameRef on AutoDisposeNotifierProviderRef<Game?> {
   /// The parameter `gameId` of this provider.
-  int get gameId;
+  String get gameId;
 }
 
 class _CurrentGameProviderElement
@@ -154,7 +153,7 @@ class _CurrentGameProviderElement
   _CurrentGameProviderElement(super.provider);
 
   @override
-  int get gameId => (origin as CurrentGameProvider).gameId;
+  String get gameId => (origin as CurrentGameProvider).gameId;
 }
 
 // ignore_for_file: type=lint

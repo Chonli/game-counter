@@ -6,15 +6,16 @@ part of 'games.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$gamesHash() => r'ad231e7e79da9ffad80e973d247e18a56c371bca';
+String _$gamesHash() => r'38acf8ca0b58ee08d42d8f766e51eb611e0d4af0';
 
 /// See also [Games].
 @ProviderFor(Games)
 final gamesProvider = AutoDisposeNotifierProvider<Games, List<Game>>.internal(
   Games.new,
   name: r'gamesProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$gamesHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$gamesHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

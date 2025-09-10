@@ -15,10 +15,9 @@ final preferencesNotifierProvider =
     AutoDisposeNotifierProvider<PreferencesNotifier, Preferences>.internal(
       PreferencesNotifier.new,
       name: r'preferencesNotifierProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$preferencesNotifierHash,
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$preferencesNotifierHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );

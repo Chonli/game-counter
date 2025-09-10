@@ -23,8 +23,8 @@ class GameMapper extends ClassMapperBase<Game> {
   @override
   final String id = 'Game';
 
-  static int _$id(Game v) => v.id;
-  static const Field<Game, int> _f$id = Field('id', _$id);
+  static String _$id(Game v) => v.id;
+  static const Field<Game, String> _f$id = Field('id', _$id);
   static String _$name(Game v) => v.name;
   static const Field<Game, String> _f$name = Field('name', _$name);
   static DateTime _$createDate(Game v) => v.createDate;
@@ -110,7 +110,7 @@ abstract class GameCopyWith<$R, $In extends Game, $Out>
   ListCopyWith<$R, Player, PlayerCopyWith<$R, Player, Player>> get players;
   ListCopyWith<$R, Round, RoundCopyWith<$R, Round, Round>> get rounds;
   $R call(
-      {int? id,
+      {String? id,
       String? name,
       DateTime? createDate,
       GameOptions? gameOptions,
@@ -138,7 +138,7 @@ class _GameCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Game, $Out>
           (v) => call(rounds: v));
   @override
   $R call(
-          {int? id,
+          {String? id,
           String? name,
           DateTime? createDate,
           GameOptions? gameOptions,
