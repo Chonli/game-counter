@@ -32,7 +32,9 @@ class GamesDao {
     return box.put(game.id, game);
   }
 
-  void removeGame(String id) {
-    box.delete(id);
+  Future<void> removeGame(String id) {
+    return box.delete(id);
   }
+
+  Future<int> clearGames() => box.clear();
 }

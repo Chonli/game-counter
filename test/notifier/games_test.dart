@@ -23,7 +23,7 @@ void main() {
   group('GamesNotifier', () {
     test('createGame adds a new game to the state', () async {
       final game = Game(
-        id: 1,
+        id: "1",
         name: 'Test Game',
         createDate: DateTime(2025, 1, 1),
         gameOptions: GameOptions(),
@@ -44,7 +44,7 @@ void main() {
 
     test('removeGame removes a game from the state', () async {
       final game = Game(
-        id: 1,
+        id: "1",
         name: 'Test Game',
         createDate: DateTime(2025, 1, 1),
         gameOptions: GameOptions(),
@@ -52,7 +52,7 @@ void main() {
       when(
         () => mockRepo.addOrUpdateGame(game),
       ).thenAnswer((_) => Future.value(game));
-      when(() => mockRepo.removeGame(1)).thenReturn(null);
+      when(() => mockRepo.removeGame("1")).thenAnswer((_) => Future.value());
       when(() => mockRepo.getGames()).thenReturn([game]);
 
       final notifier = container.read(gamesProvider.notifier);
@@ -61,7 +61,9 @@ void main() {
       expect(games.length, 1);
 
       when(() => mockRepo.getGames()).thenReturn([]);
-      notifier.removeGame(1);
+      await notifier.removeGame("1");
+
+      verify(() => mockRepo.removeGame("1")).called(1);
 
       final games2 = container.read(gamesProvider);
       expect(games2.isEmpty, true);

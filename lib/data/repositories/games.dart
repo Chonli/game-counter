@@ -26,7 +26,7 @@ class GamesRepository {
     await dao.addOrUpdateGame(gameEntity);
   }
 
-  void removeGame(String id) => dao.removeGame(id);
+  Future<void> removeGame(String id) => dao.removeGame(id);
 
   Game? getGame(String id) => dao.getGame(id)?.toModel();
 }

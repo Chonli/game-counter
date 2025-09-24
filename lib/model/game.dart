@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:score_counter/data/entities/game.dart';
 import 'package:score_counter/model/game_options.dart';
@@ -58,4 +59,12 @@ extension GameExtension on Game {
   }
 
   bool get hasMaxScoreByRound => gameOptions.maxScoreByRound != null;
+
+  Player? getPlayer(String id) {
+    return players.firstWhereOrNull((p) => p.id == id);
+  }
+
+  Round? getRound(String id) {
+    return rounds.firstWhereOrNull((p) => p.id == id);
+  }
 }

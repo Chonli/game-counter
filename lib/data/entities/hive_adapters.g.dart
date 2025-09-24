@@ -57,46 +57,9 @@ class GameEntityAdapter extends TypeAdapter<GameEntity> {
           typeId == other.typeId;
 }
 
-class PreferencesEntityAdapter extends TypeAdapter<PreferencesEntity> {
-  @override
-  final typeId = 1;
-
-  @override
-  PreferencesEntity read(BinaryReader reader) {
-    final numOfFields = reader.readByte();
-    final fields = <int, dynamic>{
-      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
-    };
-    return PreferencesEntity(
-      themeMode: fields[1] == null ? 'system' : fields[1] as String,
-      language: fields[2] == null ? 'en' : fields[2] as String,
-    );
-  }
-
-  @override
-  void write(BinaryWriter writer, PreferencesEntity obj) {
-    writer
-      ..writeByte(2)
-      ..writeByte(1)
-      ..write(obj.themeMode)
-      ..writeByte(2)
-      ..write(obj.language);
-  }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is PreferencesEntityAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
-}
-
 class GameOptionsEntityAdapter extends TypeAdapter<GameOptionsEntity> {
   @override
-  final typeId = 2;
+  final typeId = 1;
 
   @override
   GameOptionsEntity read(BinaryReader reader) {
@@ -136,7 +99,7 @@ class GameOptionsEntityAdapter extends TypeAdapter<GameOptionsEntity> {
 
 class PlayerEntityAdapter extends TypeAdapter<PlayerEntity> {
   @override
-  final typeId = 3;
+  final typeId = 2;
 
   @override
   PlayerEntity read(BinaryReader reader) {
@@ -176,7 +139,7 @@ class PlayerEntityAdapter extends TypeAdapter<PlayerEntity> {
 
 class RoundEntityAdapter extends TypeAdapter<RoundEntity> {
   @override
-  final typeId = 4;
+  final typeId = 3;
 
   @override
   RoundEntity read(BinaryReader reader) {
@@ -212,6 +175,43 @@ class RoundEntityAdapter extends TypeAdapter<RoundEntity> {
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is RoundEntityAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+class PreferencesEntityAdapter extends TypeAdapter<PreferencesEntity> {
+  @override
+  final typeId = 4;
+
+  @override
+  PreferencesEntity read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return PreferencesEntity(
+      themeMode: fields[0] == null ? 'system' : fields[0] as String,
+      language: fields[1] == null ? 'en' : fields[1] as String,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, PreferencesEntity obj) {
+    writer
+      ..writeByte(2)
+      ..writeByte(0)
+      ..write(obj.themeMode)
+      ..writeByte(1)
+      ..write(obj.language);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is PreferencesEntityAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

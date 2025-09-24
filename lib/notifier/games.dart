@@ -21,9 +21,9 @@ class Games extends _$Games {
     state = repo.getGames();
   }
 
-  void removeGame(String id) {
+  Future<void> removeGame(String id) async {
     final repo = ref.read(gamesRepositoryProvider);
-    repo.removeGame(id);
+    await repo.removeGame(id);
     state = repo.getGames();
   }
 }

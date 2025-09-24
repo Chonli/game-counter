@@ -28,12 +28,12 @@ class PreferencesDao {
   @visibleForTesting
   PreferencesEntity? getPreferencesEntity() => box.get(_boxId);
 
-  void setPreferences(Preferences preferences) {
+  Future<void> setPreferences(Preferences preferences) {
     final preference = PreferencesEntity(
       themeMode: preferences.themeMode.name,
       language: preferences.language,
     );
 
-    box.put(0, preference);
+    return box.put(_boxId, preference);
   }
 }

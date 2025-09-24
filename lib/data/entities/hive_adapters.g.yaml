@@ -19,16 +19,8 @@ types:
         index: 4
       rounds:
         index: 5
-  PreferencesEntity:
-    typeId: 1
-    nextIndex: 3
-    fields:
-      themeMode:
-        index: 1
-      language:
-        index: 2
   GameOptionsEntity:
-    typeId: 2
+    typeId: 1
     nextIndex: 3
     fields:
       maxScoreByRound:
@@ -38,7 +30,7 @@ types:
       maxRounds:
         index: 2
   PlayerEntity:
-    typeId: 3
+    typeId: 2
     nextIndex: 3
     fields:
       id:
@@ -48,7 +40,7 @@ types:
       color:
         index: 2
   RoundEntity:
-    typeId: 4
+    typeId: 3
     nextIndex: 3
     fields:
       id:
@@ -57,3 +49,11 @@ types:
         index: 1
       playerByScores:
         index: 2
+  PreferencesEntity:
+    typeId: 4
+    nextIndex: 2
+    fields:
+      themeMode:
+        index: 0
+      language:
+        index: 1

@@ -67,36 +67,33 @@ class _ListGameTile extends ConsumerWidget {
         alignement: AlignmentDirectional.centerEnd,
         type: DismissType.update,
       ),
-      confirmDismiss:
-          (direction) =>
-              direction == DismissDirection.endToStart
-                  ? context.pushNamed(
-                    AppRoute.updateGame.name,
-                    pathParameters: {'gameId': game.id.toString()},
-                  )
-                  : showDialog(
-                    context: context,
-                    builder:
-                        (context) => AlertDialog(
-                          title: Text(l10n.delete_game),
-                          content: Text(l10n.delete_game_confirmation),
-                          actions: [
-                            TextButton(
-                              onPressed: () => context.pop(),
-                              child: Text(l10n.common_cancel),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                ref
-                                    .read(gamesProvider.notifier)
-                                    .removeGame(game.id);
-                                context.pop();
-                              },
-                              child: Text(l10n.common_delete),
-                            ),
-                          ],
-                        ),
+      confirmDismiss: (direction) => direction == DismissDirection.endToStart
+          ? context.pushNamed(
+              AppRoute.updateGame.name,
+              pathParameters: {'gameId': game.id.toString()},
+            )
+          : showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: Text(l10n.delete_game),
+                content: Text(l10n.delete_game_confirmation),
+                actions: [
+                  TextButton(
+                    onPressed: () => context.pop(),
+                    child: Text(l10n.common_cancel),
                   ),
+                  TextButton(
+                    onPressed: () async {
+                      await ref
+                          .read(gamesProvider.notifier)
+                          .removeGame(game.id);
+                      context.pop();
+                    },
+                    child: Text(l10n.common_delete),
+                  ),
+                ],
+              ),
+            ),
       child: ListTile(
         title: Text(game.name),
         subtitle: Text(game.createDate.toString()),

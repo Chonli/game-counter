@@ -49,3 +49,4 @@ coverage/lcov.info
 lib/libobjectbox.dylib
 
 .scannerwork
+*.hive

@@ -1,6 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hive_ce/hive.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:score_counter/data/entities/game.dart';
+import 'package:score_counter/data/entities/hive_registrar.g.dart';
 import 'package:score_counter/data/repositories/games.dart';
 import 'package:score_counter/data/sources/games_dao.dart';
 import 'package:score_counter/model/game.dart';
@@ -8,7 +13,6 @@ import 'package:score_counter/model/game_options.dart';
 import 'package:score_counter/model/player.dart';
 import 'package:score_counter/model/round.dart';
 import 'package:score_counter/notifier/games.dart';
-import 'package:score_counter/objectbox.g.dart';
 
 import '../common/container.dart';
 
@@ -17,13 +21,24 @@ void main() {
   late ProviderContainer container;
   late GamesRepository repo;
   late GamesDao dao;
-  late Store db;
+  late Box<GameEntity> box;
+
+  setUpAll(() {
+    // Initialize the test database
+    Hive
+      ..init('${Directory.current.path}/test')
+      ..registerAdapters();
+  });
+
+  tearDownAll(() async {
+    await Hive.deleteBoxFromDisk('test-full');
+  });
 
   setUp(() async {
-    db = Store(getObjectBoxModel(), directory: "memory:test-db");
+    box = await Hive.openBox<GameEntity>('test-full');
 
     // Initialize the GamesDao with the test database
-    dao = GamesDao(db);
+    dao = GamesDao(box);
 
     repo = GamesRepository(dao);
     container = createContainer(
@@ -31,15 +46,15 @@ void main() {
     );
   });
 
-  tearDown(() {
-    dao.clearGames();
-    db.close();
+  tearDown(() async {
+    await dao.clearGames();
+    await box.close();
   });
 
   group('GamesNotifier', () {
     test('createOrUpdateGame adds a new game to the state', () async {
       final game = Game(
-        id: 1,
+        id: "1",
         name: 'Test Game',
         createDate: DateTime(2025, 1, 1),
         gameOptions: GameOptions(
@@ -48,8 +63,8 @@ void main() {
           maxScoreByRound: 250,
         ),
         players: [
-          Player(id: 0, name: 'toto', color: Colors.red),
-          Player(id: 0, name: 'titi', color: Colors.blue),
+          Player(id: "2", name: 'toto', color: Colors.red),
+          Player(id: "88-9", name: 'titi', color: Colors.blue),
         ],
         rounds: [],
       );
@@ -65,7 +80,7 @@ void main() {
 
     test('createOrUpdateGame update an existing game in the state', () async {
       final game = Game(
-        id: 0,
+        id: "5",
         name: 'Test Game',
         createDate: DateTime(2025, 1, 1),
         gameOptions: GameOptions(
@@ -74,8 +89,8 @@ void main() {
           maxScoreByRound: 250,
         ),
         players: [
-          Player(id: 0, name: 'toto', color: Colors.red),
-          Player(id: 0, name: 'titi', color: Colors.blue),
+          Player(id: "2", name: 'toto', color: Colors.red),
+          Player(id: "3", name: 'titi', color: Colors.blue),
         ],
       );
 
@@ -103,9 +118,9 @@ void main() {
           ),
           players: [
             ...first.players,
-            Player(id: 0, name: 'tata', color: Colors.green),
+            Player(id: "0", name: 'tata', color: Colors.green),
           ],
-          rounds: [Round(id: 0, index: 0, playerByScores: {})],
+          rounds: [Round(id: "0", index: 0, playerByScores: {})],
         ),
       );
 
@@ -122,7 +137,7 @@ void main() {
 
     test('removeGame removes a game from the state', () async {
       final game = Game(
-        id: 1,
+        id: "1",
         name: 'Test Game',
         createDate: DateTime(2025, 1, 1),
         gameOptions: GameOptions(),
@@ -130,7 +145,7 @@ void main() {
 
       final notifier = container.read(gamesProvider.notifier);
       await notifier.createOrUpdateGame(game);
-      notifier.removeGame(1);
+      await notifier.removeGame("1");
 
       final state = container.read(gamesProvider);
       expect(state, []);
