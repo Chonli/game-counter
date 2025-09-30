@@ -65,13 +65,13 @@ class _View extends HookConsumerWidget {
     // init game fields
     final nameController = useTextEditingController(text: initialGame?.name);
     final maxScoreByRoundController = useTextEditingController(
-      text: initialGame?.gameOptions.maxScoreByRound.toString() ?? '',
+      text: initialGame?.gameOptions.maxScoreByRound?.toString() ?? '',
     );
     final maxScoreController = useTextEditingController(
-      text: initialGame?.gameOptions.maxScore.toString() ?? '',
+      text: initialGame?.gameOptions.maxScore?.toString() ?? '',
     );
     final maxRoundsController = useTextEditingController(
-      text: initialGame?.gameOptions.maxRounds.toString() ?? '',
+      text: initialGame?.gameOptions.maxRounds?.toString() ?? '',
     );
     final nameFocusNode = useFocusNode();
     final maxScoreByRoundFocusNode = useFocusNode();
