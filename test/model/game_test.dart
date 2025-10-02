@@ -11,7 +11,7 @@ void main() {
 
     setUp(() {
       game = Game(
-        id: 1,
+        id: "1",
         name: 'Test Game',
         createDate: DateTime.now(),
         gameOptions: GameOptions(
@@ -20,12 +20,12 @@ void main() {
           maxRounds: 5,
         ),
         players: [
-          Player(id: 1, name: 'Player 1', totalScore: 0, color: Colors.black),
-          Player(id: 2, name: 'Player 2', totalScore: 0, color: Colors.blue),
+          Player(id: "1", name: 'Player 1', totalScore: 0, color: Colors.black),
+          Player(id: "2", name: 'Player 2', totalScore: 0, color: Colors.blue),
         ],
         rounds: [
-          Round(playerByScores: {1: 10, 2: 5}, id: 1, index: 3),
-          Round(playerByScores: {1: 5, 2: 20}, id: 2, index: 4),
+          Round(playerByScores: {"1": 10, "2": 5}, id: "1", index: 3),
+          Round(playerByScores: {"1": 5, "2": 20}, id: "2", index: 4),
         ],
       );
     });
@@ -33,8 +33,13 @@ void main() {
     test('hasReachedMaxScore returns true when a player reaches max score', () {
       final updateGame = game.copyWith(
         players: [
-          Player(id: 1, name: 'Player 1', totalScore: 100, color: Colors.black),
-          Player(id: 2, name: 'Player 2', totalScore: 4, color: Colors.blue),
+          Player(
+            id: "1",
+            name: 'Player 1',
+            totalScore: 100,
+            color: Colors.black,
+          ),
+          Player(id: "2", name: 'Player 2', totalScore: 4, color: Colors.blue),
         ],
       );
 
@@ -50,7 +55,7 @@ void main() {
 
     test('hasReachedMaxRounds returns true when max rounds are reached', () {
       game.rounds.addAll(
-        List.generate(3, (_) => Round(playerByScores: {}, id: 1, index: 1)),
+        List.generate(3, (_) => Round(playerByScores: {}, id: "1", index: 1)),
       );
 
       expect(game.hasReachedMaxRounds, true);
@@ -78,7 +83,7 @@ void main() {
 
     test('toEntity should map Game to GameEntity correctly', () {
       final game = Game(
-        id: 1,
+        id: "1",
         name: 'Test Game',
         createDate: DateTime(2023, 10, 10),
         gameOptions: GameOptions(
@@ -87,12 +92,12 @@ void main() {
           maxRounds: 10,
         ),
         players: [
-          Player(id: 1, name: 'Player 1', color: Colors.black),
-          Player(id: 2, name: 'Player 2', color: Colors.blue),
+          Player(id: "1", name: 'Player 1', color: Colors.black),
+          Player(id: "2", name: 'Player 2', color: Colors.blue),
         ],
         rounds: [
-          Round(id: 1, playerByScores: {1: 10, 2: 20}, index: 0),
-          Round(id: 2, playerByScores: {1: 30, 2: 40}, index: 1),
+          Round(id: "1", playerByScores: {"1": 10, "2": 20}, index: 0),
+          Round(id: "2", playerByScores: {"1": 30, "2": 40}, index: 1),
         ],
       );
 
@@ -104,15 +109,15 @@ void main() {
       expect(gameEntity.players.length, equals(game.players.length));
       expect(gameEntity.rounds.length, equals(game.rounds.length));
       expect(
-        gameEntity.gameOptions.target?.maxScoreByRound,
+        gameEntity.gameOptions.maxScoreByRound,
         equals(game.gameOptions.maxScoreByRound),
       );
       expect(
-        gameEntity.gameOptions.target?.maxScore,
+        gameEntity.gameOptions.maxScore,
         equals(game.gameOptions.maxScore),
       );
       expect(
-        gameEntity.gameOptions.target?.maxRounds,
+        gameEntity.gameOptions.maxRounds,
         equals(game.gameOptions.maxRounds),
       );
     });

@@ -6,23 +6,58 @@ part of 'preferences.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$preferencesNotifierHash() =>
-    r'6917945cc96196c0ac88bd83899af71a47bc9895';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [PreferencesNotifier].
-@ProviderFor(PreferencesNotifier)
-final preferencesNotifierProvider =
-    AutoDisposeNotifierProvider<PreferencesNotifier, Preferences>.internal(
-      PreferencesNotifier.new,
-      name: r'preferencesNotifierProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$preferencesNotifierHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
+@ProviderFor(PrefManager)
+const prefManagerProvider = PrefManagerProvider._();
+
+final class PrefManagerProvider
+    extends $NotifierProvider<PrefManager, Preferences> {
+  const PrefManagerProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'prefManagerProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$prefManagerHash();
+
+  @$internal
+  @override
+  PrefManager create() => PrefManager();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(Preferences value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<Preferences>(value),
     );
+  }
+}
 
-typedef _$PreferencesNotifier = AutoDisposeNotifier<Preferences>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+String _$prefManagerHash() => r'225a90188669fbb140fcac4c5f6a670349c8c1e7';
+
+abstract class _$PrefManager extends $Notifier<Preferences> {
+  Preferences build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<Preferences, Preferences>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<Preferences, Preferences>,
+              Preferences,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}

@@ -1,4 +1,3 @@
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:score_counter/data/entities/game.dart';
 import 'package:score_counter/data/sources/games_dao.dart';
@@ -20,11 +19,13 @@ class GamesRepository {
 
   List<Game> getGames() => dao.getGames().map((e) => e.toModel()).toList();
 
-  int createGame(Game game) => dao.addGame(game.toEntity());
+  Future<void> addOrUpdateGame(Game game) async {
+    final gameEntity = game.toEntity();
 
-  void updateGame(Game game) => dao.updateGame(game.toEntity());
+    await dao.addOrUpdateGame(gameEntity);
+  }
 
-  void removeGame(int id) => dao.removeGame(id);
+  Future<void> removeGame(String id) => dao.removeGame(id);
 
-  Game? getGame(int id) => dao.getGame(id)?.toModel();
+  Game? getGame(String id) => dao.getGame(id)?.toModel();
 }

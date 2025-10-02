@@ -1,8 +1,6 @@
 import 'package:flutter/foundation.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:objectbox/objectbox.dart';
+import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:score_counter/core/database.dart';
 import 'package:score_counter/data/entities/preferences.dart';
 import 'package:score_counter/model/preferences.dart';
 
@@ -10,8 +8,7 @@ part 'preferences_dao.g.dart';
 
 @riverpod
 PreferencesDao preferencesDao(Ref ref) {
-  final db = ref.watch(databaseProvider);
-  final box = db.box<PreferencesEntity>();
+  final box = Hive.box<PreferencesEntity>('preferences');
 
   return PreferencesDao(box);
 }
@@ -30,13 +27,12 @@ class PreferencesDao {
   @visibleForTesting
   PreferencesEntity? getPreferencesEntity() => box.get(_boxId);
 
-  void setPreferences(Preferences preferences) {
+  Future<void> setPreferences(Preferences preferences) {
     final preference = PreferencesEntity(
-      id: _boxId,
       themeMode: preferences.themeMode.name,
       language: preferences.language,
     );
 
-    box.put(preference);
+    return box.put(_boxId, preference);
   }
 }

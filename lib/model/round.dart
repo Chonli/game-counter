@@ -7,9 +7,9 @@ part 'round.mapper.dart';
 class Round with RoundMappable {
   Round({required this.id, required this.index, required this.playerByScores});
 
-  final int id;
+  final String id;
   final int index;
-  final Map<int, int> playerByScores;
+  final Map<String, int> playerByScores;
 }
 
 extension RoundExtension on Round {

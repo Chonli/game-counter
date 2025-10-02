@@ -1,57 +1,39 @@
 import 'package:flutter/foundation.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:objectbox/objectbox.dart';
+import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:score_counter/core/database.dart';
 import 'package:score_counter/data/entities/game.dart';
-import 'package:score_counter/data/entities/round.dart';
 
 part 'games_dao.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 GamesDao gamesDao(Ref ref) {
-  final db = ref.watch(databaseProvider);
-  final box = db.box<GameEntity>();
-  final roundBox = db.box<RoundEntity>();
+  final box = Hive.box<GameEntity>('games');
 
-  return GamesDao(box, roundBox);
+  return GamesDao(box);
 }
 
 class GamesDao {
-  const GamesDao(this.box, this.roundBox);
+  const GamesDao(this.box);
 
   @visibleForTesting
   final Box<GameEntity> box;
-  @visibleForTesting
-  final Box<RoundEntity> roundBox;
 
-  GameEntity? getGame(int id) {
+  // Games methods
+  GameEntity? getGame(String id) {
     return box.get(id);
   }
 
   List<GameEntity> getGames() {
-    return box.getAll();
+    return box.values.toList();
   }
 
-  int addGame(GameEntity game) {
-    return box.put(game);
+  Future<void> addOrUpdateGame(GameEntity game) {
+    return box.put(game.id, game);
   }
 
-  int updateGame(GameEntity game) {
-    box.remove(game.id);
-    return box.put(game);
+  Future<void> removeGame(String id) {
+    return box.delete(id);
   }
 
-  int addRound(RoundEntity round) {
-    return roundBox.put(round);
-  }
-
-  void removeGame(int id) {
-    box.remove(id);
-  }
-
-  void clearGames() {
-    box.removeAll();
-    roundBox.removeAll();
-  }
+  Future<int> clearGames() => box.clear();
 }

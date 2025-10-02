@@ -8,22 +8,25 @@ void main() {
   group('GameEntityExtension', () {
     test('toModel should convert GameEntity to Game model correctly', () {
       // Arrange
-      final playerEntity = PlayerEntity(id: 1, name: 'Player 1', color: 255);
-      final roundEntity = RoundEntity(id: 1, playerByScores: {1: 10}, index: 1);
+      final playerEntity = PlayerEntity(id: "1", name: 'Player 1', color: 255);
+      final roundEntity = RoundEntity(
+        id: "1",
+        playerByScores: {"1": 10},
+        index: 1,
+      );
       final gameOptionsEntity = GameOptionsEntity(
-        id: 1,
         maxScoreByRound: 10,
         maxScore: 100,
         maxRounds: 10,
       );
       final gameEntity = GameEntity(
-        id: 1,
+        id: "1",
         name: 'Test Game',
         createDate: DateTime.now(),
+        gameOptions: gameOptionsEntity,
+        players: [playerEntity],
+        rounds: [roundEntity],
       );
-      gameEntity.players.add(playerEntity);
-      gameEntity.rounds.add(roundEntity);
-      gameEntity.gameOptions.target = gameOptionsEntity;
 
       // Act
       final gameModel = gameEntity.toModel();
@@ -34,16 +37,10 @@ void main() {
       expect(gameModel.createDate, gameEntity.createDate);
       expect(
         gameModel.gameOptions.maxScoreByRound,
-        gameEntity.gameOptions.target?.maxScoreByRound,
+        gameEntity.gameOptions.maxScoreByRound,
       );
-      expect(
-        gameModel.gameOptions.maxScore,
-        gameEntity.gameOptions.target?.maxScore,
-      );
-      expect(
-        gameModel.gameOptions.maxRounds,
-        gameEntity.gameOptions.target?.maxRounds,
-      );
+      expect(gameModel.gameOptions.maxScore, gameEntity.gameOptions.maxScore);
+      expect(gameModel.gameOptions.maxRounds, gameEntity.gameOptions.maxRounds);
       expect(gameModel.players.length, 1);
       expect(gameModel.players.first.id, playerEntity.id);
       expect(gameModel.players.first.name, playerEntity.name);
@@ -55,9 +52,11 @@ void main() {
     test('toModel should handle null values correctly', () {
       // Arrange
       final gameEntity = GameEntity(
-        id: 1,
+        id: "1",
         name: 'Test Game',
         createDate: DateTime.now(),
+        gameOptions: GameOptionsEntity(),
+        players: [],
       );
 
       // Act

@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:score_counter/data/entities/game.dart';
 import 'package:score_counter/model/game_options.dart';
@@ -8,7 +9,7 @@ part 'game.mapper.dart';
 
 @MappableClass()
 class Game with GameMappable {
-  final int id;
+  final String id;
   final String name;
   final DateTime createDate;
   final GameOptions gameOptions;
@@ -27,11 +28,14 @@ class Game with GameMappable {
 
 extension GameExtension on Game {
   GameEntity toEntity() {
-    final game = GameEntity(id: id, name: name, createDate: createDate);
-
-    game.players.addAll(players.map((e) => e.toEntity()));
-    game.rounds.addAll(rounds.map((e) => e.toEntity()));
-    game.gameOptions.target = gameOptions.toEntity();
+    final game = GameEntity(
+      id: id,
+      name: name,
+      createDate: createDate,
+      gameOptions: gameOptions.toEntity(),
+      players: players.map((e) => e.toEntity()).toList(),
+      rounds: rounds.map((e) => e.toEntity()).toList(),
+    );
 
     return game;
   }
@@ -55,4 +59,12 @@ extension GameExtension on Game {
   }
 
   bool get hasMaxScoreByRound => gameOptions.maxScoreByRound != null;
+
+  Player? getPlayer(String id) {
+    return players.firstWhereOrNull((p) => p.id == id);
+  }
+
+  Round? getRound(String id) {
+    return rounds.firstWhereOrNull((p) => p.id == id);
+  }
 }

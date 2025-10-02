@@ -9,7 +9,7 @@ part 'notifier.g.dart';
 @riverpod
 class CurrentGame extends _$CurrentGame {
   @override
-  FutureOr<Game?> build(int gameId) {
+  Game? build(String gameId) {
     final repo = ref.read(gamesRepositoryProvider);
 
     final game = repo.getGame(gameId);
@@ -19,19 +19,24 @@ class CurrentGame extends _$CurrentGame {
     return _calculateNewScore(game);
   }
 
-  void removeRound(Round round) {
-    final game = state.valueOrNull;
+  Future<void> removeRound(Round round) async {
+    final game = state;
     if (game == null) {
       return;
     }
 
     final repo = ref.read(gamesRepositoryProvider);
-    final updatedRounds = game.rounds..remove(round);
+    final updatedRounds = [...game.rounds];
+    updatedRounds.remove(round);
     final updatedGame = _calculateNewScore(
       game.copyWith(rounds: updatedRounds),
     );
-    repo.updateGame(updatedGame);
-    state = AsyncValue.data(updatedGame);
+
+    await repo.addOrUpdateGame(updatedGame);
+    if (!ref.mounted) {
+      return;
+    }
+    state = updatedGame;
   }
 
   Game _calculateNewScore(Game game) {
@@ -51,23 +56,27 @@ class CurrentGame extends _$CurrentGame {
     return game.copyWith(players: tmpPlayers);
   }
 
-  void addOrUpdateRound(Round round) {
-    final game = state.valueOrNull;
+  Future<void> addOrUpdateRound(Round round) async {
+    final game = state;
     if (game == null) {
       return;
     }
 
     final repo = ref.read(gamesRepositoryProvider);
-    final updatedRounds =
-        game.rounds
-          ..where((r) => r.id != round.id)
-          ..add(round)
-          ..sort((a, b) => a.index.compareTo(b.index));
+    final updatedRounds = [...game.rounds];
+    updatedRounds
+      ..removeWhere((r) => r.id == round.id)
+      ..add(round)
+      ..sort((a, b) => a.index.compareTo(b.index));
 
     final updatedGame = _calculateNewScore(
       game.copyWith(rounds: updatedRounds),
     );
-    repo.updateGame(updatedGame);
-    state = AsyncValue.data(updatedGame);
+
+    await repo.addOrUpdateGame(updatedGame);
+    if (!ref.mounted) {
+      return;
+    }
+    state = updatedGame;
   }
 }

@@ -1,19 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:objectbox/objectbox.dart';
+import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:score_counter/model/preferences.dart';
 
-@Entity()
-class PreferencesEntity {
-  @Id(assignable: true)
-  int id;
+class PreferencesEntity extends HiveObject {
   final String themeMode;
   final String language;
 
-  PreferencesEntity({
-    required this.id,
-    this.themeMode = 'system',
-    this.language = 'en',
-  });
+  PreferencesEntity({this.themeMode = 'system', this.language = 'en'});
 }
 
 extension PreferencesEntityExtension on PreferencesEntity {
