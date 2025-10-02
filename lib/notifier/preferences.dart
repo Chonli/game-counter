@@ -6,7 +6,7 @@ import 'package:score_counter/model/preferences.dart';
 part 'preferences.g.dart';
 
 @riverpod
-class PreferencesNotifier extends _$PreferencesNotifier {
+class PrefManager extends _$PrefManager {
   @override
   Preferences build() {
     final repo = ref.read(preferencesRepositoryProvider);

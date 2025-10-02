@@ -14,8 +14,6 @@ import 'package:score_counter/model/player.dart';
 import 'package:score_counter/model/round.dart';
 import 'package:score_counter/module/game/notifier.dart';
 
-import '../../common/container.dart';
-
 // Test Notifier with real database and real repository
 void main() {
   late ProviderContainer container;
@@ -41,7 +39,7 @@ void main() {
     dao = GamesDao(box);
 
     repo = GamesRepository(dao);
-    container = createContainer(
+    container = ProviderContainer.test(
       overrides: [gamesRepositoryProvider.overrideWithValue(repo)],
     );
   });

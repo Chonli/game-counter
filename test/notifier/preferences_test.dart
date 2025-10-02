@@ -6,7 +6,6 @@ import 'package:score_counter/data/repositories/preferences.dart';
 import 'package:score_counter/model/preferences.dart';
 import 'package:score_counter/notifier/preferences.dart';
 
-import '../common/container.dart';
 import '../common/mock.dart';
 
 void main() {
@@ -19,7 +18,7 @@ void main() {
 
   setUp(() {
     mockRepo = MockPreferencesRepository();
-    container = createContainer(
+    container = ProviderContainer.test(
       overrides: [preferencesRepositoryProvider.overrideWithValue(mockRepo)],
     );
 
@@ -30,7 +29,7 @@ void main() {
     test('read a new preference init value', () async {
       when(() => mockRepo.getPreferences()).thenAnswer((_) => Preferences());
 
-      final notifier = container.read(preferencesNotifierProvider);
+      final notifier = container.read(prefManagerProvider);
 
       expect(notifier.language, 'en');
       expect(notifier.themeMode, ThemeMode.system);
@@ -44,10 +43,10 @@ void main() {
     );
     when(() => mockRepo.getPreferences()).thenReturn(initialPrefs);
 
-    final notifier = container.read(preferencesNotifierProvider.notifier);
+    final notifier = container.read(prefManagerProvider.notifier);
     notifier.setThemeMode(ThemeMode.dark);
 
-    final updated = container.read(preferencesNotifierProvider);
+    final updated = container.read(prefManagerProvider);
 
     expect(updated.themeMode, ThemeMode.dark);
     expect(updated.language, 'en');
@@ -61,10 +60,10 @@ void main() {
     );
     when(() => mockRepo.getPreferences()).thenReturn(initialPrefs);
 
-    final notifier = container.read(preferencesNotifierProvider.notifier);
+    final notifier = container.read(prefManagerProvider.notifier);
     notifier.setLanguage('fr');
 
-    final updated = container.read(preferencesNotifierProvider);
+    final updated = container.read(prefManagerProvider);
 
     expect(updated.language, 'fr');
     expect(updated.themeMode, ThemeMode.light);

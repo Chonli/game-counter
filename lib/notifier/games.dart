@@ -17,13 +17,18 @@ class Games extends _$Games {
     final repo = ref.read(gamesRepositoryProvider);
 
     await repo.addOrUpdateGame(game);
-
+    if (!ref.mounted) {
+      return;
+    }
     state = repo.getGames();
   }
 
   Future<void> removeGame(String id) async {
     final repo = ref.read(gamesRepositoryProvider);
     await repo.removeGame(id);
+    if (!ref.mounted) {
+      return;
+    }
     state = repo.getGames();
   }
 }

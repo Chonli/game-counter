@@ -6,22 +6,47 @@ part of 'games.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$gamesRepositoryHash() => r'66f96d0f669bb67fee6fc216c2f95e9daa427a93';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [gamesRepository].
 @ProviderFor(gamesRepository)
-final gamesRepositoryProvider = AutoDisposeProvider<GamesRepository>.internal(
-  gamesRepository,
-  name: r'gamesRepositoryProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$gamesRepositoryHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+const gamesRepositoryProvider = GamesRepositoryProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef GamesRepositoryRef = AutoDisposeProviderRef<GamesRepository>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+final class GamesRepositoryProvider
+    extends
+        $FunctionalProvider<GamesRepository, GamesRepository, GamesRepository>
+    with $Provider<GamesRepository> {
+  const GamesRepositoryProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'gamesRepositoryProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$gamesRepositoryHash();
+
+  @$internal
+  @override
+  $ProviderElement<GamesRepository> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  GamesRepository create(Ref ref) {
+    return gamesRepository(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(GamesRepository value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<GamesRepository>(value),
+    );
+  }
+}
+
+String _$gamesRepositoryHash() => r'66f96d0f669bb67fee6fc216c2f95e9daa427a93';

@@ -33,6 +33,9 @@ class CurrentGame extends _$CurrentGame {
     );
 
     await repo.addOrUpdateGame(updatedGame);
+    if (!ref.mounted) {
+      return;
+    }
     state = updatedGame;
   }
 
@@ -71,6 +74,9 @@ class CurrentGame extends _$CurrentGame {
     );
 
     await repo.addOrUpdateGame(updatedGame);
+    if (!ref.mounted) {
+      return;
+    }
     state = updatedGame;
   }
 }

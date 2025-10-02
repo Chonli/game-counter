@@ -1,5 +1,6 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format off
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, unnecessary_cast, override_on_non_overriding_member
 // ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
@@ -25,8 +26,10 @@ class RoundMapper extends ClassMapperBase<Round> {
   static int _$index(Round v) => v.index;
   static const Field<Round, int> _f$index = Field('index', _$index);
   static Map<String, int> _$playerByScores(Round v) => v.playerByScores;
-  static const Field<Round, Map<String, int>> _f$playerByScores =
-      Field('playerByScores', _$playerByScores);
+  static const Field<Round, Map<String, int>> _f$playerByScores = Field(
+    'playerByScores',
+    _$playerByScores,
+  );
 
   @override
   final MappableFields<Round> fields = const {
@@ -37,9 +40,10 @@ class RoundMapper extends ClassMapperBase<Round> {
 
   static Round _instantiate(DecodingData data) {
     return Round(
-        id: data.dec(_f$id),
-        index: data.dec(_f$index),
-        playerByScores: data.dec(_f$playerByScores));
+      id: data.dec(_f$id),
+      index: data.dec(_f$index),
+      playerByScores: data.dec(_f$playerByScores),
+    );
   }
 
   @override
@@ -101,24 +105,28 @@ class _RoundCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Round, $Out>
   late final ClassMapperBase<Round> $mapper = RoundMapper.ensureInitialized();
   @override
   MapCopyWith<$R, String, int, ObjectCopyWith<$R, int, int>>
-      get playerByScores => MapCopyWith(
-          $value.playerByScores,
-          (v, t) => ObjectCopyWith(v, $identity, t),
-          (v) => call(playerByScores: v));
+  get playerByScores => MapCopyWith(
+    $value.playerByScores,
+    (v, t) => ObjectCopyWith(v, $identity, t),
+    (v) => call(playerByScores: v),
+  );
   @override
-  $R call({String? id, int? index, Map<String, int>? playerByScores}) =>
-      $apply(FieldCopyWithData({
-        if (id != null) #id: id,
-        if (index != null) #index: index,
-        if (playerByScores != null) #playerByScores: playerByScores
-      }));
+  $R call({String? id, int? index, Map<String, int>? playerByScores}) => $apply(
+    FieldCopyWithData({
+      if (id != null) #id: id,
+      if (index != null) #index: index,
+      if (playerByScores != null) #playerByScores: playerByScores,
+    }),
+  );
   @override
   Round $make(CopyWithData data) => Round(
-      id: data.get(#id, or: $value.id),
-      index: data.get(#index, or: $value.index),
-      playerByScores: data.get(#playerByScores, or: $value.playerByScores));
+    id: data.get(#id, or: $value.id),
+    index: data.get(#index, or: $value.index),
+    playerByScores: data.get(#playerByScores, or: $value.playerByScores),
+  );
 
   @override
   RoundCopyWith<$R2, Round, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
       _RoundCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
+

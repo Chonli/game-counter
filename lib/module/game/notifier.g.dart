@@ -6,155 +6,95 @@ part of 'notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$currentGameHash() => r'399f0813a7a5c0c03bbc0e678d4c6f77769e529c';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// Copied from Dart SDK
-class _SystemHash {
-  _SystemHash._();
-
-  static int combine(int hash, int value) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + value);
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
-    return hash ^ (hash >> 6);
-  }
-
-  static int finish(int hash) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x03ffffff & hash) << 3));
-    // ignore: parameter_assignments
-    hash = hash ^ (hash >> 11);
-    return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
-  }
-}
-
-abstract class _$CurrentGame extends BuildlessAutoDisposeNotifier<Game?> {
-  late final String gameId;
-
-  Game? build(String gameId);
-}
-
-/// See also [CurrentGame].
 @ProviderFor(CurrentGame)
-const currentGameProvider = CurrentGameFamily();
+const currentGameProvider = CurrentGameFamily._();
 
-/// See also [CurrentGame].
-class CurrentGameFamily extends Family<Game?> {
-  /// See also [CurrentGame].
-  const CurrentGameFamily();
+final class CurrentGameProvider extends $NotifierProvider<CurrentGame, Game?> {
+  const CurrentGameProvider._({
+    required CurrentGameFamily super.from,
+    required String super.argument,
+  }) : super(
+         retry: null,
+         name: r'currentGameProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
 
-  /// See also [CurrentGame].
-  CurrentGameProvider call(String gameId) {
-    return CurrentGameProvider(gameId);
+  @override
+  String debugGetCreateSourceHash() => _$currentGameHash();
+
+  @override
+  String toString() {
+    return r'currentGameProvider'
+        ''
+        '($argument)';
   }
 
+  @$internal
   @override
-  CurrentGameProvider getProviderOverride(
-    covariant CurrentGameProvider provider,
-  ) {
-    return call(provider.gameId);
-  }
+  CurrentGame create() => CurrentGame();
 
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'currentGameProvider';
-}
-
-/// See also [CurrentGame].
-class CurrentGameProvider
-    extends AutoDisposeNotifierProviderImpl<CurrentGame, Game?> {
-  /// See also [CurrentGame].
-  CurrentGameProvider(String gameId)
-    : this._internal(
-        () => CurrentGame()..gameId = gameId,
-        from: currentGameProvider,
-        name: r'currentGameProvider',
-        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-            ? null
-            : _$currentGameHash,
-        dependencies: CurrentGameFamily._dependencies,
-        allTransitiveDependencies: CurrentGameFamily._allTransitiveDependencies,
-        gameId: gameId,
-      );
-
-  CurrentGameProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.gameId,
-  }) : super.internal();
-
-  final String gameId;
-
-  @override
-  Game? runNotifierBuild(covariant CurrentGame notifier) {
-    return notifier.build(gameId);
-  }
-
-  @override
-  Override overrideWith(CurrentGame Function() create) {
-    return ProviderOverride(
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(Game? value) {
+    return $ProviderOverride(
       origin: this,
-      override: CurrentGameProvider._internal(
-        () => create()..gameId = gameId,
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        gameId: gameId,
-      ),
+      providerOverride: $SyncValueProvider<Game?>(value),
     );
   }
 
   @override
-  AutoDisposeNotifierProviderElement<CurrentGame, Game?> createElement() {
-    return _CurrentGameProviderElement(this);
-  }
-
-  @override
   bool operator ==(Object other) {
-    return other is CurrentGameProvider && other.gameId == gameId;
+    return other is CurrentGameProvider && other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, gameId.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
 }
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin CurrentGameRef on AutoDisposeNotifierProviderRef<Game?> {
-  /// The parameter `gameId` of this provider.
-  String get gameId;
-}
+String _$currentGameHash() => r'399f0813a7a5c0c03bbc0e678d4c6f77769e529c';
 
-class _CurrentGameProviderElement
-    extends AutoDisposeNotifierProviderElement<CurrentGame, Game?>
-    with CurrentGameRef {
-  _CurrentGameProviderElement(super.provider);
+final class CurrentGameFamily extends $Family
+    with $ClassFamilyOverride<CurrentGame, Game?, Game?, Game?, String> {
+  const CurrentGameFamily._()
+    : super(
+        retry: null,
+        name: r'currentGameProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  CurrentGameProvider call(String gameId) =>
+      CurrentGameProvider._(argument: gameId, from: this);
 
   @override
-  String get gameId => (origin as CurrentGameProvider).gameId;
+  String toString() => r'currentGameProvider';
 }
 
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+abstract class _$CurrentGame extends $Notifier<Game?> {
+  late final _$args = ref.$arg as String;
+  String get gameId => _$args;
+
+  Game? build(String gameId);
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build(_$args);
+    final ref = this.ref as $Ref<Game?, Game?>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<Game?, Game?>,
+              Game?,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}

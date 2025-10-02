@@ -1,5 +1,4 @@
 import 'package:go_router/go_router.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:score_counter/extension/go_router.dart';
 import 'package:score_counter/module/add_game/add_game_page.dart';
@@ -39,11 +38,8 @@ GoRouter appRouter(Ref ref) {
               GoRoute(
                 path: AppRoute.addRound.path,
                 name: AppRoute.addRound.name,
-                builder:
-                    (context, state) => AddRoundPage(
-                      gameId: state.gameId,
-                      roundId: state.roundId,
-                    ),
+                builder: (context, state) =>
+                    AddRoundPage(gameId: state.gameId, roundId: state.roundId),
               ),
               GoRoute(
                 path: AppRoute.chart.path,

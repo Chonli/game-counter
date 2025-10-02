@@ -1,5 +1,6 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format off
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, unnecessary_cast, override_on_non_overriding_member
 // ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
@@ -27,8 +28,12 @@ class PlayerMapper extends ClassMapperBase<Player> {
   static Color _$color(Player v) => v.color;
   static const Field<Player, Color> _f$color = Field('color', _$color);
   static int _$totalScore(Player v) => v.totalScore;
-  static const Field<Player, int> _f$totalScore =
-      Field('totalScore', _$totalScore, opt: true, def: 0);
+  static const Field<Player, int> _f$totalScore = Field(
+    'totalScore',
+    _$totalScore,
+    opt: true,
+    def: 0,
+  );
 
   @override
   final MappableFields<Player> fields = const {
@@ -40,10 +45,11 @@ class PlayerMapper extends ClassMapperBase<Player> {
 
   static Player _instantiate(DecodingData data) {
     return Player(
-        id: data.dec(_f$id),
-        name: data.dec(_f$name),
-        color: data.dec(_f$color),
-        totalScore: data.dec(_f$totalScore));
+      id: data.dec(_f$id),
+      name: data.dec(_f$name),
+      color: data.dec(_f$color),
+      totalScore: data.dec(_f$totalScore),
+    );
   }
 
   @override
@@ -103,21 +109,24 @@ class _PlayerCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Player, $Out>
   @override
   late final ClassMapperBase<Player> $mapper = PlayerMapper.ensureInitialized();
   @override
-  $R call({String? id, String? name, Color? color, int? totalScore}) =>
-      $apply(FieldCopyWithData({
-        if (id != null) #id: id,
-        if (name != null) #name: name,
-        if (color != null) #color: color,
-        if (totalScore != null) #totalScore: totalScore
-      }));
+  $R call({String? id, String? name, Color? color, int? totalScore}) => $apply(
+    FieldCopyWithData({
+      if (id != null) #id: id,
+      if (name != null) #name: name,
+      if (color != null) #color: color,
+      if (totalScore != null) #totalScore: totalScore,
+    }),
+  );
   @override
   Player $make(CopyWithData data) => Player(
-      id: data.get(#id, or: $value.id),
-      name: data.get(#name, or: $value.name),
-      color: data.get(#color, or: $value.color),
-      totalScore: data.get(#totalScore, or: $value.totalScore));
+    id: data.get(#id, or: $value.id),
+    name: data.get(#name, or: $value.name),
+    color: data.get(#color, or: $value.color),
+    totalScore: data.get(#totalScore, or: $value.totalScore),
+  );
 
   @override
   PlayerCopyWith<$R2, Player, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
       _PlayerCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
+

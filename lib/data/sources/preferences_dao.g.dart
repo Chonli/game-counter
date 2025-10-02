@@ -6,22 +6,46 @@ part of 'preferences_dao.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$preferencesDaoHash() => r'4faf6bd35386767879fb6cb0781555d7b71ed684';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [preferencesDao].
 @ProviderFor(preferencesDao)
-final preferencesDaoProvider = AutoDisposeProvider<PreferencesDao>.internal(
-  preferencesDao,
-  name: r'preferencesDaoProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$preferencesDaoHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+const preferencesDaoProvider = PreferencesDaoProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef PreferencesDaoRef = AutoDisposeProviderRef<PreferencesDao>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+final class PreferencesDaoProvider
+    extends $FunctionalProvider<PreferencesDao, PreferencesDao, PreferencesDao>
+    with $Provider<PreferencesDao> {
+  const PreferencesDaoProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'preferencesDaoProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$preferencesDaoHash();
+
+  @$internal
+  @override
+  $ProviderElement<PreferencesDao> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  PreferencesDao create(Ref ref) {
+    return preferencesDao(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(PreferencesDao value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<PreferencesDao>(value),
+    );
+  }
+}
+
+String _$preferencesDaoHash() => r'4faf6bd35386767879fb6cb0781555d7b71ed684';

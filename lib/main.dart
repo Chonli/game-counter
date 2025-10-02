@@ -40,7 +40,7 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(appRouterProvider);
-    final preferences = ref.watch(preferencesNotifierProvider);
+    final preferences = ref.watch(prefManagerProvider);
 
     return MaterialApp.router(
       routerConfig: router,

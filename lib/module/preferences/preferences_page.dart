@@ -14,7 +14,7 @@ class PreferencesPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = context.l10n;
-    final preferences = ref.watch(preferencesNotifierProvider);
+    final preferences = ref.watch(prefManagerProvider);
 
     return Scaffold(
       appBar: AppBar(title: Text(l10n.preferences_title)),
@@ -46,7 +46,7 @@ class PreferencesPage extends ConsumerWidget {
                   selected: <ThemeMode>{preferences.themeMode},
                   onSelectionChanged: (selected) {
                     ref
-                        .read(preferencesNotifierProvider.notifier)
+                        .read(prefManagerProvider.notifier)
                         .setThemeMode(selected.first);
                   },
                 ),
@@ -73,7 +73,7 @@ class PreferencesPage extends ConsumerWidget {
                   selected: <String>{preferences.language},
                   onSelectionChanged: (selected) {
                     ref
-                        .read(preferencesNotifierProvider.notifier)
+                        .read(prefManagerProvider.notifier)
                         .setLanguage(selected.first);
                   },
                 ),
@@ -107,12 +107,9 @@ class PreferencesPage extends ConsumerWidget {
                       ),
                       const Padding(padding: EdgeInsets.all(5)),
                       TextButton(
-                        onPressed:
-                            () => ref
-                                .read(urlLauncherProvider)
-                                .launch(
-                                  'https://github.com/Chonli/game-counter',
-                                ),
+                        onPressed: () => ref
+                            .read(urlLauncherProvider)
+                            .launch('https://github.com/Chonli/game-counter'),
                         child: Text(
                           l10n.about_project_link,
                           style: TextStyle(

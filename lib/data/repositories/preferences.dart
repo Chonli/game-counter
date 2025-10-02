@@ -1,4 +1,3 @@
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:score_counter/data/sources/preferences_dao.dart';
 import 'package:score_counter/model/preferences.dart';

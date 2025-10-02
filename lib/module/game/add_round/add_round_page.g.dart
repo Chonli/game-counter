@@ -6,156 +6,96 @@ part of 'add_round_page.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$currentRoundHash() => r'fcb48c0249549ce61c9138b55d02d85b6cc476f0';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// Copied from Dart SDK
-class _SystemHash {
-  _SystemHash._();
-
-  static int combine(int hash, int value) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + value);
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
-    return hash ^ (hash >> 6);
-  }
-
-  static int finish(int hash) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x03ffffff & hash) << 3));
-    // ignore: parameter_assignments
-    hash = hash ^ (hash >> 11);
-    return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
-  }
-}
-
-abstract class _$CurrentRound extends BuildlessAutoDisposeNotifier<Round> {
-  late final Round round;
-
-  Round build(Round round);
-}
-
-/// See also [_CurrentRound].
 @ProviderFor(_CurrentRound)
-const _currentRoundProvider = _CurrentRoundFamily();
+const _currentRoundProvider = _CurrentRoundFamily._();
 
-/// See also [_CurrentRound].
-class _CurrentRoundFamily extends Family<Round> {
-  /// See also [_CurrentRound].
-  const _CurrentRoundFamily();
+final class _CurrentRoundProvider
+    extends $NotifierProvider<_CurrentRound, Round> {
+  const _CurrentRoundProvider._({
+    required _CurrentRoundFamily super.from,
+    required Round super.argument,
+  }) : super(
+         retry: null,
+         name: r'_currentRoundProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
 
-  /// See also [_CurrentRound].
-  _CurrentRoundProvider call(Round round) {
-    return _CurrentRoundProvider(round);
+  @override
+  String debugGetCreateSourceHash() => _$_currentRoundHash();
+
+  @override
+  String toString() {
+    return r'_currentRoundProvider'
+        ''
+        '($argument)';
   }
 
+  @$internal
   @override
-  _CurrentRoundProvider getProviderOverride(
-    covariant _CurrentRoundProvider provider,
-  ) {
-    return call(provider.round);
-  }
+  _CurrentRound create() => _CurrentRound();
 
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'_currentRoundProvider';
-}
-
-/// See also [_CurrentRound].
-class _CurrentRoundProvider
-    extends AutoDisposeNotifierProviderImpl<_CurrentRound, Round> {
-  /// See also [_CurrentRound].
-  _CurrentRoundProvider(Round round)
-    : this._internal(
-        () => _CurrentRound()..round = round,
-        from: _currentRoundProvider,
-        name: r'_currentRoundProvider',
-        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-            ? null
-            : _$currentRoundHash,
-        dependencies: _CurrentRoundFamily._dependencies,
-        allTransitiveDependencies:
-            _CurrentRoundFamily._allTransitiveDependencies,
-        round: round,
-      );
-
-  _CurrentRoundProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.round,
-  }) : super.internal();
-
-  final Round round;
-
-  @override
-  Round runNotifierBuild(covariant _CurrentRound notifier) {
-    return notifier.build(round);
-  }
-
-  @override
-  Override overrideWith(_CurrentRound Function() create) {
-    return ProviderOverride(
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(Round value) {
+    return $ProviderOverride(
       origin: this,
-      override: _CurrentRoundProvider._internal(
-        () => create()..round = round,
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        round: round,
-      ),
+      providerOverride: $SyncValueProvider<Round>(value),
     );
   }
 
   @override
-  AutoDisposeNotifierProviderElement<_CurrentRound, Round> createElement() {
-    return _CurrentRoundProviderElement(this);
-  }
-
-  @override
   bool operator ==(Object other) {
-    return other is _CurrentRoundProvider && other.round == round;
+    return other is _CurrentRoundProvider && other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, round.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
 }
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin _CurrentRoundRef on AutoDisposeNotifierProviderRef<Round> {
-  /// The parameter `round` of this provider.
-  Round get round;
-}
+String _$_currentRoundHash() => r'fcb48c0249549ce61c9138b55d02d85b6cc476f0';
 
-class _CurrentRoundProviderElement
-    extends AutoDisposeNotifierProviderElement<_CurrentRound, Round>
-    with _CurrentRoundRef {
-  _CurrentRoundProviderElement(super.provider);
+final class _CurrentRoundFamily extends $Family
+    with $ClassFamilyOverride<_CurrentRound, Round, Round, Round, Round> {
+  const _CurrentRoundFamily._()
+    : super(
+        retry: null,
+        name: r'_currentRoundProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  _CurrentRoundProvider call(Round round) =>
+      _CurrentRoundProvider._(argument: round, from: this);
 
   @override
-  Round get round => (origin as _CurrentRoundProvider).round;
+  String toString() => r'_currentRoundProvider';
 }
 
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+abstract class _$CurrentRound extends $Notifier<Round> {
+  late final _$args = ref.$arg as Round;
+  Round get round => _$args;
+
+  Round build(Round round);
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build(_$args);
+    final ref = this.ref as $Ref<Round, Round>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<Round, Round>,
+              Round,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}

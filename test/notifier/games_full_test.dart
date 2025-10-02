@@ -14,14 +14,13 @@ import 'package:score_counter/model/player.dart';
 import 'package:score_counter/model/round.dart';
 import 'package:score_counter/notifier/games.dart';
 
-import '../common/container.dart';
-
 // Test Notifier with real database
 void main() {
   late ProviderContainer container;
   late GamesRepository repo;
   late GamesDao dao;
   late Box<GameEntity> box;
+  late ProviderSubscription<List<Game>> subscription;
 
   setUpAll(() {
     // Initialize the test database
@@ -41,12 +40,14 @@ void main() {
     dao = GamesDao(box);
 
     repo = GamesRepository(dao);
-    container = createContainer(
+    container = ProviderContainer.test(
       overrides: [gamesRepositoryProvider.overrideWithValue(repo)],
     );
+    subscription = container.listen<List<Game>>(gamesProvider, (_, __) {});
   });
 
   tearDown(() async {
+    subscription.close();
     await dao.clearGames();
     await box.close();
   });
@@ -72,7 +73,7 @@ void main() {
       final notifier = container.read(gamesProvider.notifier);
       await notifier.createOrUpdateGame(game);
 
-      final games = container.read(gamesProvider);
+      final games = subscription.read();
       expect(games.length, 1);
       expect(games.first.id, game.id);
       expect(games.first.name, game.name);
@@ -97,7 +98,7 @@ void main() {
       final notifier = container.read(gamesProvider.notifier);
       await notifier.createOrUpdateGame(game);
 
-      final state = container.read(gamesProvider);
+      final state = subscription.read();
       final first = state.first;
       expect(state.length, 1);
       expect(first.name, 'Test Game');
@@ -124,7 +125,7 @@ void main() {
         ),
       );
 
-      final stateUpdated = container.read(gamesProvider);
+      final stateUpdated = subscription.read();
       final firstUpdated = stateUpdated.first;
       expect(stateUpdated.length, 1);
       expect(firstUpdated.name, 'Test Game Updated');
@@ -147,7 +148,7 @@ void main() {
       await notifier.createOrUpdateGame(game);
       await notifier.removeGame("1");
 
-      final state = container.read(gamesProvider);
+      final state = subscription.read();
       expect(state, []);
     });
   });

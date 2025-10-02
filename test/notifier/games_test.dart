@@ -6,7 +6,6 @@ import 'package:score_counter/model/game.dart';
 import 'package:score_counter/model/game_options.dart';
 import 'package:score_counter/notifier/games.dart';
 
-import '../common/container.dart';
 import '../common/mock.dart';
 
 void main() {
@@ -15,7 +14,7 @@ void main() {
 
   setUp(() {
     mockRepo = MockGamesRepository();
-    container = createContainer(
+    container = ProviderContainer.test(
       overrides: [gamesRepositoryProvider.overrideWithValue(mockRepo)],
     );
   });

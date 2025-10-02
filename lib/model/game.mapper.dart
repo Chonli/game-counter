@@ -1,5 +1,6 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format off
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, unnecessary_cast, override_on_non_overriding_member
 // ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
@@ -28,17 +29,29 @@ class GameMapper extends ClassMapperBase<Game> {
   static String _$name(Game v) => v.name;
   static const Field<Game, String> _f$name = Field('name', _$name);
   static DateTime _$createDate(Game v) => v.createDate;
-  static const Field<Game, DateTime> _f$createDate =
-      Field('createDate', _$createDate);
+  static const Field<Game, DateTime> _f$createDate = Field(
+    'createDate',
+    _$createDate,
+  );
   static GameOptions _$gameOptions(Game v) => v.gameOptions;
-  static const Field<Game, GameOptions> _f$gameOptions =
-      Field('gameOptions', _$gameOptions);
+  static const Field<Game, GameOptions> _f$gameOptions = Field(
+    'gameOptions',
+    _$gameOptions,
+  );
   static List<Player> _$players(Game v) => v.players;
-  static const Field<Game, List<Player>> _f$players =
-      Field('players', _$players, opt: true, def: const []);
+  static const Field<Game, List<Player>> _f$players = Field(
+    'players',
+    _$players,
+    opt: true,
+    def: const [],
+  );
   static List<Round> _$rounds(Game v) => v.rounds;
-  static const Field<Game, List<Round>> _f$rounds =
-      Field('rounds', _$rounds, opt: true, def: const []);
+  static const Field<Game, List<Round>> _f$rounds = Field(
+    'rounds',
+    _$rounds,
+    opt: true,
+    def: const [],
+  );
 
   @override
   final MappableFields<Game> fields = const {
@@ -52,12 +65,13 @@ class GameMapper extends ClassMapperBase<Game> {
 
   static Game _instantiate(DecodingData data) {
     return Game(
-        id: data.dec(_f$id),
-        name: data.dec(_f$name),
-        createDate: data.dec(_f$createDate),
-        gameOptions: data.dec(_f$gameOptions),
-        players: data.dec(_f$players),
-        rounds: data.dec(_f$rounds));
+      id: data.dec(_f$id),
+      name: data.dec(_f$name),
+      createDate: data.dec(_f$createDate),
+      gameOptions: data.dec(_f$gameOptions),
+      players: data.dec(_f$players),
+      rounds: data.dec(_f$rounds),
+    );
   }
 
   @override
@@ -109,13 +123,14 @@ abstract class GameCopyWith<$R, $In extends Game, $Out>
   GameOptionsCopyWith<$R, GameOptions, GameOptions> get gameOptions;
   ListCopyWith<$R, Player, PlayerCopyWith<$R, Player, Player>> get players;
   ListCopyWith<$R, Round, RoundCopyWith<$R, Round, Round>> get rounds;
-  $R call(
-      {String? id,
-      String? name,
-      DateTime? createDate,
-      GameOptions? gameOptions,
-      List<Player>? players,
-      List<Round>? rounds});
+  $R call({
+    String? id,
+    String? name,
+    DateTime? createDate,
+    GameOptions? gameOptions,
+    List<Player>? players,
+    List<Round>? rounds,
+  });
   GameCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -130,38 +145,48 @@ class _GameCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Game, $Out>
       $value.gameOptions.copyWith.$chain((v) => call(gameOptions: v));
   @override
   ListCopyWith<$R, Player, PlayerCopyWith<$R, Player, Player>> get players =>
-      ListCopyWith($value.players, (v, t) => v.copyWith.$chain(t),
-          (v) => call(players: v));
+      ListCopyWith(
+        $value.players,
+        (v, t) => v.copyWith.$chain(t),
+        (v) => call(players: v),
+      );
   @override
   ListCopyWith<$R, Round, RoundCopyWith<$R, Round, Round>> get rounds =>
-      ListCopyWith($value.rounds, (v, t) => v.copyWith.$chain(t),
-          (v) => call(rounds: v));
+      ListCopyWith(
+        $value.rounds,
+        (v, t) => v.copyWith.$chain(t),
+        (v) => call(rounds: v),
+      );
   @override
-  $R call(
-          {String? id,
-          String? name,
-          DateTime? createDate,
-          GameOptions? gameOptions,
-          List<Player>? players,
-          List<Round>? rounds}) =>
-      $apply(FieldCopyWithData({
-        if (id != null) #id: id,
-        if (name != null) #name: name,
-        if (createDate != null) #createDate: createDate,
-        if (gameOptions != null) #gameOptions: gameOptions,
-        if (players != null) #players: players,
-        if (rounds != null) #rounds: rounds
-      }));
+  $R call({
+    String? id,
+    String? name,
+    DateTime? createDate,
+    GameOptions? gameOptions,
+    List<Player>? players,
+    List<Round>? rounds,
+  }) => $apply(
+    FieldCopyWithData({
+      if (id != null) #id: id,
+      if (name != null) #name: name,
+      if (createDate != null) #createDate: createDate,
+      if (gameOptions != null) #gameOptions: gameOptions,
+      if (players != null) #players: players,
+      if (rounds != null) #rounds: rounds,
+    }),
+  );
   @override
   Game $make(CopyWithData data) => Game(
-      id: data.get(#id, or: $value.id),
-      name: data.get(#name, or: $value.name),
-      createDate: data.get(#createDate, or: $value.createDate),
-      gameOptions: data.get(#gameOptions, or: $value.gameOptions),
-      players: data.get(#players, or: $value.players),
-      rounds: data.get(#rounds, or: $value.rounds));
+    id: data.get(#id, or: $value.id),
+    name: data.get(#name, or: $value.name),
+    createDate: data.get(#createDate, or: $value.createDate),
+    gameOptions: data.get(#gameOptions, or: $value.gameOptions),
+    players: data.get(#players, or: $value.players),
+    rounds: data.get(#rounds, or: $value.rounds),
+  );
 
   @override
   GameCopyWith<$R2, Game, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
       _GameCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
+

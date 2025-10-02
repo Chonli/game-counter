@@ -6,22 +6,46 @@ part of 'games_dao.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$gamesDaoHash() => r'517273a96b84ca50c28d9cd8cfd295fa8921cce3';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [gamesDao].
 @ProviderFor(gamesDao)
-final gamesDaoProvider = Provider<GamesDao>.internal(
-  gamesDao,
-  name: r'gamesDaoProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$gamesDaoHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+const gamesDaoProvider = GamesDaoProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef GamesDaoRef = ProviderRef<GamesDao>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+final class GamesDaoProvider
+    extends $FunctionalProvider<GamesDao, GamesDao, GamesDao>
+    with $Provider<GamesDao> {
+  const GamesDaoProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'gamesDaoProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$gamesDaoHash();
+
+  @$internal
+  @override
+  $ProviderElement<GamesDao> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  GamesDao create(Ref ref) {
+    return gamesDao(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(GamesDao value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<GamesDao>(value),
+    );
+  }
+}
+
+String _$gamesDaoHash() => r'517273a96b84ca50c28d9cd8cfd295fa8921cce3';
