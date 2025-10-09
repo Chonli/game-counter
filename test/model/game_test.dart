@@ -121,5 +121,86 @@ void main() {
         equals(game.gameOptions.maxRounds),
       );
     });
+
+    test('playerWithMaxScore returns the only player of the game', () {
+      final gameOptions = GameOptions(
+        maxScore: 100,
+        maxRounds: 10,
+        maxScoreByRound: 10,
+      );
+
+      final player1 = Player(
+        id: '1',
+        name: 'Player 1',
+        totalScore: 50,
+        color: Colors.blue,
+      );
+
+      final game = Game(
+        id: '1',
+        name: 'Test Game',
+        createDate: DateTime.now(),
+        gameOptions: gameOptions,
+        players: [player1],
+      );
+
+      final playerWithMaxScore = game.playerWithMaxScore;
+      expect(playerWithMaxScore, player1);
+    });
+
+    test(
+      'playerWithMaxScore returns null if there are no players in the game',
+      () {
+        final gameOptions = GameOptions(
+          maxScore: 100,
+          maxRounds: 10,
+          maxScoreByRound: 10,
+        );
+
+        final game = Game(
+          id: '1',
+          name: 'Test Game',
+          createDate: DateTime.now(),
+          gameOptions: gameOptions,
+          players: [],
+        );
+
+        final playerWithMaxScore = game.playerWithMaxScore;
+        expect(playerWithMaxScore, null);
+      },
+    );
+
+    test('playerWithMaxScore returns the player with the highest score', () {
+      final gameOptions = GameOptions(
+        maxScore: 100,
+        maxRounds: 10,
+        maxScoreByRound: 10,
+      );
+
+      final player1 = Player(
+        id: '1',
+        name: 'Player 1',
+        totalScore: 50,
+        color: Colors.blue,
+      );
+
+      final player2 = Player(
+        id: '2',
+        name: 'Player 2',
+        totalScore: 70,
+        color: Colors.black,
+      );
+
+      final game = Game(
+        id: '1',
+        name: 'Test Game',
+        createDate: DateTime.now(),
+        gameOptions: gameOptions,
+        players: [player1, player2],
+      );
+
+      final playerWithMaxScore = game.playerWithMaxScore;
+      expect(playerWithMaxScore, player2);
+    });
   });
 }

@@ -136,6 +136,18 @@ class AppLocalizationsFr extends AppLocalizations {
   String get player => 'Joueur';
 
   @override
+  String get popup_end_game_title => 'Fin de la partie';
+
+  @override
+  String get popup_end_max_rounds =>
+      'Vous avez atteint le nombre maximum de manches';
+
+  @override
+  String popup_end_max_score(String players, int maxScore) {
+    return 'Le joueur $players a atteint le score maximum de $maxScore';
+  }
+
+  @override
   String get preferences_about => 'A propos...';
 
   @override

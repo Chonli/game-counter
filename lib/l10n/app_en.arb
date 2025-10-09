@@ -42,6 +42,19 @@
   "load_game_error": "Load Game error",
   "no_games": "No games available.",
   "player": "Player",
+  "popup_end_game_title": "End Game",
+  "popup_end_max_rounds": "You have reached the maximum number of rounds",
+  "popup_end_max_score": "The players {players} have reached the maximum score of {maxScore}",
+  "@popup_end_max_score": {
+    "placeholders": {
+      "players": {
+        "type": "String"
+      },
+      "maxScore": {
+        "type": "int"
+      }
+    }
+  },
   "preferences_about": "About...",
   "preferences_language": "Language",
   "preferences_theme": "Theme",

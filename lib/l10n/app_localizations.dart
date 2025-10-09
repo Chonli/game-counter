@@ -350,6 +350,24 @@ abstract class AppLocalizations {
   /// **'Player'**
   String get player;
 
+  /// No description provided for @popup_end_game_title.
+  ///
+  /// In en, this message translates to:
+  /// **'End Game'**
+  String get popup_end_game_title;
+
+  /// No description provided for @popup_end_max_rounds.
+  ///
+  /// In en, this message translates to:
+  /// **'You have reached the maximum number of rounds'**
+  String get popup_end_max_rounds;
+
+  /// No description provided for @popup_end_max_score.
+  ///
+  /// In en, this message translates to:
+  /// **'The players {players} have reached the maximum score of {maxScore}'**
+  String popup_end_max_score(String players, int maxScore);
+
   /// No description provided for @preferences_about.
   ///
   /// In en, this message translates to:

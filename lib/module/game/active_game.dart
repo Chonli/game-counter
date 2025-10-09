@@ -5,6 +5,7 @@ import 'package:score_counter/core/theme/app_spacing.dart';
 import 'package:score_counter/core/widgets/app_scaffold.dart';
 import 'package:score_counter/core/widgets/background_dismiss.dart';
 import 'package:score_counter/core/widgets/error_view.dart';
+import 'package:score_counter/extension/context.dart';
 import 'package:score_counter/l10n/l10n.dart';
 import 'package:score_counter/model/game.dart';
 import 'package:score_counter/module/game/notifier.dart';
@@ -61,6 +62,27 @@ class _GameResultTable extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = context.l10n;
+
+    ref.listen(currentGameProvider(game.id), (prev, next) async {
+      if (prev != next && next != null) {
+        if (next.hasReachedMaxRounds) {
+          await context.showPopup(
+            title: l10n.popup_end_game_title,
+            message: l10n.popup_end_max_rounds,
+          );
+        } else if (next.hasReachedMaxScore) {
+          final lostPlayer = next.playerWithMaxScore;
+
+          await context.showPopup(
+            title: l10n.popup_end_game_title,
+            message: l10n.popup_end_max_score(
+              lostPlayer?.name ?? "",
+              lostPlayer?.totalScore ?? next.gameOptions.maxScore ?? 0,
+            ),
+          );
+        }
+      }
+    });
 
     return CustomScrollView(
       slivers: [

@@ -41,27 +41,32 @@ extension GameExtension on Game {
   }
 
   bool get hasReachedMaxScore {
-    final safeMaxScore = gameOptions.maxScore;
-    if (safeMaxScore == null) {
-      return false;
+    if (gameOptions.maxScore case final int maxScore) {
+      return players.any((p) => p.totalScore >= maxScore);
     }
 
-    return players.any((p) => p.totalScore >= safeMaxScore);
+    return false;
   }
 
   bool get hasReachedMaxRounds {
-    final safeMaxRounds = gameOptions.maxRounds;
-    if (safeMaxRounds == null) {
-      return false;
+    if (gameOptions.maxRounds case final int safeMaxRounds) {
+      return rounds.length >= safeMaxRounds;
     }
 
-    return rounds.length >= safeMaxRounds;
+    return false;
   }
 
   bool get hasMaxScoreByRound => gameOptions.maxScoreByRound != null;
 
   Player? getPlayer(String id) {
     return players.firstWhereOrNull((p) => p.id == id);
+  }
+
+  Player? get playerWithMaxScore {
+    return players.fold(
+      null,
+      (a, b) => a != null && a.totalScore > b.totalScore ? a : b,
+    );
   }
 
   Round? getRound(String id) {

@@ -222,7 +222,7 @@ class _AddRoundBody extends HookConsumerWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          await ref
+          ref
               .read(currentGameProvider(game.id).notifier)
               .addOrUpdateRound(round);
           context.pop();
