@@ -392,6 +392,18 @@ abstract class AppLocalizations {
   /// **'Preferences'**
   String get preferences_title;
 
+  /// No description provided for @reset_scores.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset scores'**
+  String get reset_scores;
+
+  /// No description provided for @reset_scores_confirmation.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you really want to reset all scores to zero?'**
+  String get reset_scores_confirmation;
+
   /// No description provided for @score.
   ///
   /// In en, this message translates to:

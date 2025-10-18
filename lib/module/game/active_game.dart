@@ -33,6 +33,32 @@ class ActiveGamePage extends HookConsumerWidget {
             );
           },
         ),
+        IconButton(
+          icon: const Icon(Icons.delete_sweep_outlined),
+          tooltip: l10n.reset_scores,
+          onPressed: () async {
+            final confirmed = await showDialog<bool>(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: Text(l10n.reset_scores),
+                content: Text(l10n.reset_scores_confirmation),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.of(context).pop(false),
+                    child: Text(l10n.common_cancel),
+                  ),
+                  TextButton(
+                    onPressed: () => Navigator.of(context).pop(true),
+                    child: Text(l10n.common_ok),
+                  ),
+                ],
+              ),
+            );
+            if (confirmed == true) {
+              ref.read(currentGameProvider(gameId).notifier).resetScores();
+            }
+          },
+        ),
       ],
       body: Padding(
         padding: const EdgeInsets.all(AppSpacing.md),

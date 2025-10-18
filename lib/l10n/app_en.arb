@@ -59,6 +59,8 @@
   "preferences_language": "Language",
   "preferences_theme": "Theme",
   "preferences_title": "Preferences",
+  "reset_scores": "Reset scores",
+  "reset_scores_confirmation": "Do you really want to reset all scores to zero?",
   "score": "Score",
   "theme_mode_dark": "Dark",
   "theme_mode_light": "Light",

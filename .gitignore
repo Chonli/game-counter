@@ -50,3 +50,4 @@ lib/libobjectbox.dylib
 
 .scannerwork
 *.hive
+devtools_options.yaml

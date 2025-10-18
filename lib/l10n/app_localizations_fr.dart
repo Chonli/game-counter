@@ -160,6 +160,13 @@ class AppLocalizationsFr extends AppLocalizations {
   String get preferences_title => 'Préférences';
 
   @override
+  String get reset_scores => 'Reset scores';
+
+  @override
+  String get reset_scores_confirmation =>
+      'Do you really want to reset all scores to zero?';
+
+  @override
   String get score => 'Score';
 
   @override

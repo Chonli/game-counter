@@ -56,6 +56,24 @@ class CurrentGame extends _$CurrentGame {
     return game.copyWith(players: tmpPlayers);
   }
 
+  Future<void> resetScores() async {
+    final repo = ref.read(gamesRepositoryProvider);
+    final updatedGame = state?.copyWith(
+      rounds: [],
+      players: [for (final p in state!.players) p.copyWith(totalScore: 0)],
+    );
+
+    if (updatedGame == null) {
+      return;
+    }
+
+    await repo.addOrUpdateGame(updatedGame);
+    if (!ref.mounted) {
+      return;
+    }
+    state = updatedGame;
+  }
+
   Future<void> addOrUpdateRound(Round round) async {
     final game = state;
     if (game == null) {
