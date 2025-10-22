@@ -7,10 +7,10 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:score_counter/core/theme/app_spacing.dart';
 import 'package:score_counter/core/widgets/app_gap.dart';
+import 'package:score_counter/extension/game_nullable.dart';
 import 'package:score_counter/l10n/l10n.dart';
 import 'package:score_counter/model/game.dart';
 import 'package:score_counter/model/game_options.dart';
-import 'package:score_counter/model/player.dart';
 import 'package:score_counter/notifier/games.dart';
 import 'package:score_counter/services/generator_utilities.dart';
 
@@ -102,7 +102,7 @@ class _View extends HookConsumerWidget {
         _availableColors.first,
     ]);
 
-    void addPlayerField({bool forceFocus = true}) {
+    void addPlayerField() {
       final newController = TextEditingController();
       final newFocusNode = FocusNode();
       playerControllers.value = [...playerControllers.value, newController];
@@ -111,9 +111,9 @@ class _View extends HookConsumerWidget {
         ...playerColors.value,
         _availableColors[(indexPlayer.value + 1) % _availableColors.length],
       ];
-      if (forceFocus) {
-        newFocusNode.requestFocus();
-      }
+
+      newFocusNode.requestFocus();
+
       indexPlayer.value++;
     }
 
@@ -166,12 +166,12 @@ class _View extends HookConsumerWidget {
                     ),
                   ),
                   IconButton(
-                    onPressed: () => addPlayerField(),
-                    icon: const Icon(Icons.add),
+                    onPressed: addPlayerField,
+                    icon: const Icon(Icons.person_add),
                   ),
                   IconButton(
-                    onPressed: () => deletePlayerField(),
-                    icon: const Icon(Icons.delete),
+                    onPressed: deletePlayerField,
+                    icon: const Icon(Icons.person_off),
                   ),
                 ],
               ),
@@ -295,19 +295,20 @@ class _View extends HookConsumerWidget {
               ElevatedButton(
                 focusNode: validateFocusNode,
                 onPressed: () {
-                  final validPlayers = playerControllers.value.where(
-                    (player) => player.text.isNotEmpty,
-                  );
+                  final validPlayers = playerControllers.value
+                      .where((player) => player.text.isNotEmpty)
+                      .map((player) => player.text)
+                      .toList();
+
                   if (_key.currentState!.validate() &&
                       validPlayers.isNotEmpty) {
-                    final name = nameController.text;
-                    int i = 0;
                     final generator = ref.read(generatorUtilitiesProvider);
 
-                    final newGame = Game(
-                      id: initialGame?.id ?? generator.newId(),
-                      name: name,
-                      createDate: initialGame?.createDate ?? DateTime.now(),
+                    final newGame = initialGame.initializeOrUpdate(
+                      name: nameController.text,
+                      generator: generator,
+                      validPlayers: validPlayers,
+                      playerColors: playerColors.value,
                       gameOptions: GameOptions(
                         maxScoreByRound: int.tryParse(
                           maxScoreByRoundController.text,
@@ -315,16 +316,8 @@ class _View extends HookConsumerWidget {
                         maxScore: int.tryParse(maxScoreController.text),
                         maxRounds: int.tryParse(maxRoundsController.text),
                       ),
-                      players: validPlayers
-                          .map(
-                            (player) => Player(
-                              id: generator.newId(),
-                              name: player.text,
-                              color: playerColors.value[i++],
-                            ),
-                          )
-                          .toList(),
                     );
+
                     ref
                         .read(gamesProvider.notifier)
                         .createOrUpdateGame(newGame);
