@@ -96,7 +96,7 @@ class PreferencesPage extends ConsumerWidget {
                       height: 42,
                     ),
                     applicationLegalese: 'MIT',
-                    applicationVersion: '${packageInfo.fullVersion}',
+                    applicationVersion: packageInfo.fullVersion,
                     children: <Widget>[
                       const Padding(padding: EdgeInsets.all(5)),
                       Text(

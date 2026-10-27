@@ -168,7 +168,7 @@ class _GameResultTable extends HookConsumerWidget {
                     ),
                   ),
                   child: Dismissible(
-                    key: Key('${round.id}'),
+                    key: Key(round.id),
                     background: BackgroundDismiss(
                       alignement: AlignmentDirectional.centerStart,
                     ),

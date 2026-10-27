@@ -10,10 +10,10 @@ part of 'games.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(Games)
-const gamesProvider = GamesProvider._();
+final gamesProvider = GamesProvider._();
 
 final class GamesProvider extends $NotifierProvider<Games, List<Game>> {
-  const GamesProvider._()
+  GamesProvider._()
     : super(
         from: null,
         argument: null,
@@ -40,14 +40,13 @@ final class GamesProvider extends $NotifierProvider<Games, List<Game>> {
   }
 }
 
-String _$gamesHash() => r'c71f4714121a7471c1ead49281fa2657924cf77b';
+String _$gamesHash() => r'a5dfe049347ca1e3016dacbdee7dd0b06453250e';
 
 abstract class _$Games extends $Notifier<List<Game>> {
   List<Game> build();
   @$mustCallSuper
   @override
-  void runBuild() {
-    final created = build();
+  WhenComplete runBuild() {
     final ref = this.ref as $Ref<List<Game>, List<Game>>;
     final element =
         ref.element
@@ -57,6 +56,6 @@ abstract class _$Games extends $Notifier<List<Game>> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    return element.handleCreate(ref, build);
   }
 }

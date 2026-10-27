@@ -10,13 +10,13 @@ part of 'games.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(gamesRepository)
-const gamesRepositoryProvider = GamesRepositoryProvider._();
+final gamesRepositoryProvider = GamesRepositoryProvider._();
 
 final class GamesRepositoryProvider
     extends
         $FunctionalProvider<GamesRepository, GamesRepository, GamesRepository>
     with $Provider<GamesRepository> {
-  const GamesRepositoryProvider._()
+  GamesRepositoryProvider._()
     : super(
         from: null,
         argument: null,

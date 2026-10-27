@@ -10,12 +10,12 @@ part of 'url_launcher.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(urlLauncher)
-const urlLauncherProvider = UrlLauncherProvider._();
+final urlLauncherProvider = UrlLauncherProvider._();
 
 final class UrlLauncherProvider
     extends $FunctionalProvider<AppUrlLauncher, AppUrlLauncher, AppUrlLauncher>
     with $Provider<AppUrlLauncher> {
-  const UrlLauncherProvider._()
+  UrlLauncherProvider._()
     : super(
         from: null,
         argument: null,

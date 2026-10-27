@@ -29,7 +29,7 @@ void main() {
       );
       when(
         () => mockRepo.addOrUpdateGame(game),
-      ).thenAnswer((_) => Future.value(game));
+      ).thenAnswer((_) async {});
       when(() => mockRepo.getGames()).thenReturn([game]);
 
       final notifier = container.read(gamesProvider.notifier);
@@ -50,7 +50,7 @@ void main() {
       );
       when(
         () => mockRepo.addOrUpdateGame(game),
-      ).thenAnswer((_) => Future.value(game));
+      ).thenAnswer((_) async {});
       when(() => mockRepo.removeGame("1")).thenAnswer((_) => Future.value());
       when(() => mockRepo.getGames()).thenReturn([game]);
 

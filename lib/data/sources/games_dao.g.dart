@@ -10,12 +10,12 @@ part of 'games_dao.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(gamesDao)
-const gamesDaoProvider = GamesDaoProvider._();
+final gamesDaoProvider = GamesDaoProvider._();
 
 final class GamesDaoProvider
     extends $FunctionalProvider<GamesDao, GamesDao, GamesDao>
     with $Provider<GamesDao> {
-  const GamesDaoProvider._()
+  GamesDaoProvider._()
     : super(
         from: null,
         argument: null,

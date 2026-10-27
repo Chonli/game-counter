@@ -10,11 +10,11 @@ part of 'add_round_page.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(_CurrentRound)
-const _currentRoundProvider = _CurrentRoundFamily._();
+final _currentRoundProvider = _CurrentRoundFamily._();
 
 final class _CurrentRoundProvider
     extends $NotifierProvider<_CurrentRound, Round> {
-  const _CurrentRoundProvider._({
+  _CurrentRoundProvider._({
     required _CurrentRoundFamily super.from,
     required Round super.argument,
   }) : super(
@@ -62,7 +62,7 @@ String _$_currentRoundHash() => r'fcb48c0249549ce61c9138b55d02d85b6cc476f0';
 
 final class _CurrentRoundFamily extends $Family
     with $ClassFamilyOverride<_CurrentRound, Round, Round, Round, Round> {
-  const _CurrentRoundFamily._()
+  _CurrentRoundFamily._()
     : super(
         retry: null,
         name: r'_currentRoundProvider',
@@ -85,8 +85,7 @@ abstract class _$CurrentRound extends $Notifier<Round> {
   Round build(Round round);
   @$mustCallSuper
   @override
-  void runBuild() {
-    final created = build(_$args);
+  WhenComplete runBuild() {
     final ref = this.ref as $Ref<Round, Round>;
     final element =
         ref.element
@@ -96,6 +95,6 @@ abstract class _$CurrentRound extends $Notifier<Round> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    return element.handleCreate(ref, () => build(_$args));
   }
 }

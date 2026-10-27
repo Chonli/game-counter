@@ -187,7 +187,7 @@ void main() {
       // remove the game
       gamesDao.removeGame(mockGame.id);
 
-      expect(await gamesDao.getGame(mockGame.id), isNull);
+      expect(gamesDao.getGame(mockGame.id), isNull);
     });
 
     test('should clear all games when clearGames is called', () async {

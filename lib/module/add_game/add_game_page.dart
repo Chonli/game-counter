@@ -38,7 +38,7 @@ const List<Color> _availableColors = [
 ];
 
 class AddGamePage extends HookConsumerWidget {
-  AddGamePage({super.key, this.gameId});
+  const AddGamePage({super.key, this.gameId});
 
   final String? gameId;
 

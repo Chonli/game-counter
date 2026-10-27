@@ -13,7 +13,6 @@ extension GameNullableExt on Game? {
     required List<Color> playerColors,
     required GameOptions gameOptions,
   }) {
-    ;
     int i = 0;
 
     final previousPlayers = (this?.players ?? <Player>[]).asMap();

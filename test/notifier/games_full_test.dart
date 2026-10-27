@@ -43,7 +43,7 @@ void main() {
     container = ProviderContainer.test(
       overrides: [gamesRepositoryProvider.overrideWithValue(repo)],
     );
-    subscription = container.listen<List<Game>>(gamesProvider, (_, __) {});
+    subscription = container.listen<List<Game>>(gamesProvider, (_, _) {});
   });
 
   tearDown(() async {

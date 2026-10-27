@@ -10,11 +10,11 @@ part of 'preferences.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(PrefManager)
-const prefManagerProvider = PrefManagerProvider._();
+final prefManagerProvider = PrefManagerProvider._();
 
 final class PrefManagerProvider
     extends $NotifierProvider<PrefManager, Preferences> {
-  const PrefManagerProvider._()
+  PrefManagerProvider._()
     : super(
         from: null,
         argument: null,
@@ -47,8 +47,7 @@ abstract class _$PrefManager extends $Notifier<Preferences> {
   Preferences build();
   @$mustCallSuper
   @override
-  void runBuild() {
-    final created = build();
+  WhenComplete runBuild() {
     final ref = this.ref as $Ref<Preferences, Preferences>;
     final element =
         ref.element
@@ -58,6 +57,6 @@ abstract class _$PrefManager extends $Notifier<Preferences> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    return element.handleCreate(ref, build);
   }
 }

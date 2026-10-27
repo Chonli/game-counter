@@ -10,12 +10,12 @@ part of 'preferences_dao.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(preferencesDao)
-const preferencesDaoProvider = PreferencesDaoProvider._();
+final preferencesDaoProvider = PreferencesDaoProvider._();
 
 final class PreferencesDaoProvider
     extends $FunctionalProvider<PreferencesDao, PreferencesDao, PreferencesDao>
     with $Provider<PreferencesDao> {
-  const PreferencesDaoProvider._()
+  PreferencesDaoProvider._()
     : super(
         from: null,
         argument: null,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:score_counter/core/widgets/app_scaffold.dart';
 
 class LoadView extends StatelessWidget {
-  const LoadView();
+  const LoadView({super.key});
 
   @override
   Widget build(BuildContext context) =>
@@ -10,7 +10,7 @@ class LoadView extends StatelessWidget {
 }
 
 class LoadPage extends StatelessWidget {
-  const LoadPage({required this.title});
+  const LoadPage({super.key, required this.title});
 
   final String title;
 

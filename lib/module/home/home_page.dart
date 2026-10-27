@@ -87,7 +87,7 @@ class _ListGameTile extends ConsumerWidget {
                       await ref
                           .read(gamesProvider.notifier)
                           .removeGame(game.id);
-                      context.pop();
+                      if (context.mounted) context.pop();
                     },
                     child: Text(l10n.common_delete),
                   ),

@@ -10,7 +10,7 @@ part of 'generator_utilities.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(generatorUtilities)
-const generatorUtilitiesProvider = GeneratorUtilitiesProvider._();
+final generatorUtilitiesProvider = GeneratorUtilitiesProvider._();
 
 final class GeneratorUtilitiesProvider
     extends
@@ -20,7 +20,7 @@ final class GeneratorUtilitiesProvider
           GeneratorUtility
         >
     with $Provider<GeneratorUtility> {
-  const GeneratorUtilitiesProvider._()
+  GeneratorUtilitiesProvider._()
     : super(
         from: null,
         argument: null,

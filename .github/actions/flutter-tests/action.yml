@@ -2,12 +2,12 @@ name: Flutter Tests
 description: Run Flutter Init and Tests
 
 runs:
-  using: "composite"
+  using: 'composite'
   steps:
     - name: Set up Flutter
       uses: subosito/flutter-action@v2
       with:
-        flutter-version: '3.35.5'
+        flutter-version: '3.47.8'
 
     - name: Install dependencies
       shell: bash
@@ -16,8 +16,7 @@ runs:
     - name: Run Linter
       shell: bash
       run: |
-          dart analyze
-          dart run custom_lint
+        dart analyze
 
     - name: Run Unit Tests
       shell: bash
